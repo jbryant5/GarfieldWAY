@@ -7,7 +7,7 @@ from django.db import models
 class Pin(models.Model):
    pin_name = models.CharField(max_length=100)
    pin_description = models.CharField(max_length=300)
-   pin_room = models.CharField(max
+   pin_room = models.CharField(max_length=20)
    pub_date = models.DateTimeField('date published')
    
 class Vote(models.Model):
