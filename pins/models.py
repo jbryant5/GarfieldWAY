@@ -9,8 +9,12 @@ class Pin(models.Model):
    pin_description = models.CharField(max_length=300)
    pin_room = models.CharField(max_length=20)
    pub_date = models.DateTimeField('date published')
+   def __str__(self):
+      return self.pin_name
    
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
    vote_text = models.CharField(max_length=10)
    votes = models.IntegerField(default=0)
+   def __str__(self):
+      return self.vote_text
