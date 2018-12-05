@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>GarfieldWAY Pins</title>
+</head>
+<body>
+{% if latest_pin_list %}
+    <h1>
+    {% for pin in latest_pin_list %}
+        <b>{{ pin.pin_name }}</b>
+    {% endfor %}
+    </h1>
+    {% for pin in latest_pin_list %}
+        <p> {{ pin.pin_description }}</p>
+    {% endfor %}
+{% else %}
+    <p>No pins are available.</p>
+{% endif %}
+</body>
+</html>
