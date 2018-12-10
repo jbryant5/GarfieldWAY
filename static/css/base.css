@@ -58,12 +58,15 @@ div.breadcrumbs a {
 	text-decoration: none;
 }
 
-/* /* CONTENT */ */
+/* CONTENT */
 
-/* #content h1 { */
-	/* font-size: 20px; */
-	/* color: #595959; */
-/* } */
+div.flex h1 {
+	display: block;
+	font-weight: 300;
+    font-size: 25px;
+    color: #666;
+	margin: 0 0 20px;
+}
 
 /* PAGE STRUCTURE */
 
