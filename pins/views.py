@@ -18,12 +18,22 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 def create(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('pins/create.html')
-    context = {
-        'latest_pin_list': latest_pin_list,
-    }
-    return HttpResponse(template.render(context, request))
+    if request.method == 'GET':
+       latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
+       template = loader.get_template('pins/create.html')
+       context = {
+           'latest_pin_list': latest_pin_list,
+       }
+       return HttpResponse(template.render(context, request))
+       
+    elif request.method == 'POST':
+       pin = Pin ()
+       pin.pin_name = request.POST.get('pin_name')
+       pin.pin_room = request.POST.get('pin_room')
+       pin.pin_description = request.POST.get('pin_description')
+       # pin.pub_date = request.POST.get('pub_date_0 +  pub_date_1')
+       pin.save()
+       return HttpResponse(template.render(context, request))
 
 def test(request):
     test_pin = Pin ()
