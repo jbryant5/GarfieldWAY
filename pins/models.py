@@ -8,7 +8,8 @@ class Pin(models.Model):
    pin_name = models.CharField(max_length=100)
    pin_description = models.CharField(max_length=300)
    pin_room = models.CharField(max_length=20)
-   pub_date = models.DateTimeField('date published')
+   pub_date = models.DateTimeField(auto_now_add=True)
+   date = models.DateTimeField()
    def __str__(self):
       return self.pin_name
    

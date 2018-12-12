@@ -47,14 +47,18 @@
 			<div id="content-main">
 				
 				<ul class="object-tools">
-				
 					<li>
-					
 						<a href="/pins/create/" class="addlink">Add pin</a>
-					
 					</li>
-					
                 </ul>
+				
+				<ul>
+					{% for pin in latest_pin_list %}
+					
+						<li>{{ pin.pin_room }}</li>
+					
+					{% endfor %}
+				</ul>
 				
 			</div>
 			
