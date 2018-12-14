@@ -32,19 +32,23 @@ def create(request):
        pin.pin_name = request.POST.get('pin_name')
        pin.pin_room = request.POST.get('pin_room')
        pin.pin_description = request.POST.get('pin_description')
-       pin.date = request.POST.get('date') + " " + request.POST.get('time')
+       pin.date = request.POST.get('date')
        pin.save()
        return HttpResponse(index(request))
 
-def test(request):
-    test_pin = Pin ()
-    test_pin.pin_name = 'test pin!'
+def clear(request):
+    Pin.objects.all().delete()
+    return HttpResponse ('Cleared pins')
+    
+def test(request)
+    test_pin = Pin()
+    test_pin.pin_name = 'test pin'
     test_pin.pin_room = 105
     test_pin.pin_description = 'this is a test pin'
     test_pin.pub_date = '2018-12-10 09:23:00'
     test_pin.save()
-    return HttpResponse ('Test pin')
-
+    return HttpResponse('Test pin')
+    
 def getAllRoomPins (request):
     numberOfPins = len(Pin.objects.filter(pin_room = request.GET.get('room')))
     return HttpResponse("Number of Pins: " + str(numberOfPins))

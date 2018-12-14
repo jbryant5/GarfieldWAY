@@ -232,13 +232,13 @@ a.deletelink:focus, a.deletelink:hover {
     /* padding-right: 26px; */
 }
 
-.object-tools a.viewsitelink, .object-tools a.golink {
-    background-image: url(../img/tooltag-arrowright.svg);
-}
+/* .object-tools a.viewsitelink, .object-tools a.golink { */
+    /* background-image: url(../img/tooltag-arrowright.svg); */
+/* } */
 
-.object-tools a.addlink {
-    background-image: url(../img/tooltag-add.svg);
-}
+/* .object-tools a.addlink { */
+    /* background-image: url(../img/tooltag-add.svg); */
+/* } */
 
 * LINKS */
 
