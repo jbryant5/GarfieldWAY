@@ -24,6 +24,9 @@ def create(request):
         'latest_pin_list': latest_pin_list,
     }
     return HttpResponse(template.render(context, request))
+def clear(request):
+   Pin.objects.all().delete()
+   return HttpResponse('Cleared pins')
 
 def test(request):
     test_pin = Pin ()
