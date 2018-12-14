@@ -39,10 +39,10 @@ def create(request):
 def clear(request):
     Pin.objects.all().delete()
     return HttpResponse ('Cleared pins')
-    
-def test(request)
-    test_pin = Pin()
-    test_pin.pin_name = 'test pin'
+
+def test(request):
+    test_pin = Pin ()
+    test_pin.pin_name = 'test pin!'
     test_pin.pin_room = 105
     test_pin.pin_description = 'this is a test pin'
     test_pin.pub_date = '2018-12-10 09:23:00'
