@@ -18,6 +18,7 @@ class Pin(models.Model):
    def __str__(self):
       return self.pin_name
    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+   
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
    vote_text = models.CharField(max_length=10)
