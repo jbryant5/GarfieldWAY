@@ -68,6 +68,39 @@ div.flex h1 {
 	margin: 0 0 20px;
 }
 
+/* PIN LIST */
+
+div.pinlist {
+	background: #9900cc;
+	margin-top: 15px;
+	padding-bottom: 8px;
+}
+
+div.pinlist h1 {
+	font-weight: bold;
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	background: #8600b3;
+	margin: 0;
+	padding: 9px 9px;
+}
+
+div.pinlist b {
+	font-size: 16px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+div.pinlist ul {
+	line-height: 130%;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	color: #ffffff;
+	margin: 15px 15px;
+}
+
+
 /* PAGE STRUCTURE */
 
 #container {
@@ -370,7 +403,7 @@ h5 {
 
 ul li {
     list-style-type: square;
-    padding: 1px 0;
+    padding: 1px 3px;
 }
 
 li ul {

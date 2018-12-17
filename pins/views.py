@@ -33,6 +33,7 @@ def create(request):
        pin.pin_room = request.POST.get('pin_room')
        pin.pin_description = request.POST.get('pin_description')
        pin.date = request.POST.get('date')
+       pin.pin_type = request.POST.get('pin_type')
        pin.save()
        return HttpResponse(index(request))
 
@@ -45,7 +46,7 @@ def test(request):
     test_pin.pin_name = 'test pin!'
     test_pin.pin_room = 105
     test_pin.pin_description = 'this is a test pin'
-    test_pin.pub_date = '2018-12-10 09:23:00'
+    test_pin.date = '2018-12-10 09:23:00'
     test_pin.save()
     return HttpResponse('Test pin')
     
