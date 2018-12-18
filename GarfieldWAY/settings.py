@@ -14,7 +14,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET'] or '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
-DEBUG = 'DYNO' not in os.environ
+DEBUG = True
 
 ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com' ]
 
