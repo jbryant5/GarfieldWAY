@@ -76,22 +76,14 @@ WSGI_APPLICATION = 'GarfieldWAY.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ghsway',
+        'USER': 'ghsway',
+        'PASSWORD': 'ghsbulld0gs',
+        'HOST': '107.170.211.181',
+        'PORT': 3306
     }
 }
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'ghsway',
-#        'USER': 'ghsway',
-#        'PASSWORD': 'ghsbulldogs',
-#        'HOST': '107.170.211.181',
-#        'PORT': '3306',
-#    }
-#}
-
 
 
 # Password validation
