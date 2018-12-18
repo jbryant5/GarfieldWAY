@@ -6,6 +6,7 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import redirect
 
 from .models import Pin, Vote
 
@@ -35,7 +36,10 @@ def create(request):
        pin.date = request.POST.get('date')
        pin.pin_type = request.POST.get('pin_type')
        pin.save()
-       return HttpResponse(index(request))
+       if request.POST.get('_save') is not None:
+         return redirect('index')
+       else:
+         return redirect('create')
 
 def clear(request):
     Pin.objects.all().delete()
