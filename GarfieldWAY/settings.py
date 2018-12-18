@@ -25,7 +25,7 @@ SECRET_KEY = '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com' ]
 
 
 # Application definition
