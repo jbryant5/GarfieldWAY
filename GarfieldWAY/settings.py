@@ -12,23 +12,11 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
-
-# SECURITY WARNING: don't run with debug turned on in production!
+SECRET_KEY = os.environ['SECRET'] or '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
-# Application definition
+ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com' ]
 
 INSTALLED_APPS = [
     'pins.apps.PinsConfig',
@@ -48,6 +36,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'GarfieldWAY.urls'
@@ -71,15 +60,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'GarfieldWAY.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+if 'DYNO' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'ghsway',
+            'USER': 'ghsway',
+            'PASSWORD': os.environ['DB_PASSWORD'],
+            'HOST': os.environ['DB_HOST'],
+            'PORT': 3306
+        }
+    }
 
 #DATABASES = {
 #    'default': {
@@ -134,5 +131,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
+    os.path.join(os.path.dirname(BASE_DIR), "static"),
     "C:/Users/Trev1400/Desktop/Projects in CS/GarfieldWAY/pins/templates/pins/css/static",
 ]
