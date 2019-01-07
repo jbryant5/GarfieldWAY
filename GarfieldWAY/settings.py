@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = os.environ['SECRET'] or '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
+SECRET_KEY = os.environ['SECRET'] if 'SECRET' in os.environ else '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com' ]
+ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com', 'localhost' ]
 
 INSTALLED_APPS = [
     'pins.apps.PinsConfig',
@@ -36,8 +36,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+if 'DYNO' in os.environ:
+   MIDDLEWARE.push('whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'GarfieldWAY.urls'
 
