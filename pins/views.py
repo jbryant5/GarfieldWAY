@@ -9,6 +9,7 @@ from django.template import loader
 from django.shortcuts import redirect
 
 from .models import Pin, Vote
+from .forms import PinForm
 
 def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
@@ -21,10 +22,10 @@ def index(request):
 
 def create(request):
     if request.method == 'GET':
-       latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
+       latest_pin_list = Pin.objects.order_by('-date')[:5]
        template = loader.get_template('pins/create.html')
        context = {
-           'latest_pin_list': latest_pin_list,
+           'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
        }
        return HttpResponse(template.render(context, request))
        
