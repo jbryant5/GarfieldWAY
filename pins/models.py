@@ -1,7 +1,16 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+def validate_room(pin_room):
+   if not (pin_room>100 and pin_room<140):
+      raise ValidationError(
+         _('%(pin_room)s is not an valid room number'),
+            params={'pin_room': pin_room},
+        )
+
 
 TYPE_CHOICES = (
     ('c', 'Club'),
@@ -13,12 +22,11 @@ TYPE_CHOICES = (
 # Create your models here.
 class Pin(models.Model):
    pin_name = models.CharField(max_length=100)
-   pin_description = models.CharField(max_length=300)
-   pin_room = models.CharField(max_length=20)
-   pub_date = models.DateTimeField(auto_now_add=True)
-   pin_type = models.CharField(max_length=10)
+   pin_description = models.CharField(max_length=300, null = True)
+   pin_room = models.CharField(max_length=20, validators = [validate_room])
+   pub_date = models.DateTimeField(auto_now_add = True)
+   pin_type = models.CharField(choices = TYPE_CHOICES, max_length=1) #pull down for the types of activities
    date = models.DateTimeField()
-   type = models.CharField(max_length=1, choices=TYPE_CHOICES)
    def __str__(self):
       return self.pin_name
    

@@ -56,8 +56,15 @@
 			
 				<form action="" method="post" id="pin_form" novalidate="">
 					{% csrf_token %}
-				
-					<fieldset class = "module aligned">
+					{{pin_form}}
+					<div class="submit-row">
+
+						<input type="submit" value="Save and add another" name="_addanother">
+						<input type="submit" value="Save and continue editing" name="_continue">
+						<input type="submit" value="Save" class="default" name="_save">
+					</div>
+				</form>
+					<!-- <fieldset class = "module aligned">
 						
 						<div class = "form-row field-pin_name">
 							
@@ -118,7 +125,7 @@
 								 
 								 </select>
 
-							 </div>
+							 </div> 
 
 						 </div>
 						 
@@ -146,7 +153,7 @@
 
 					</div>
 			
-			    </form>
+			    </form> -->
 			</div>
 		</div>
     </div>
