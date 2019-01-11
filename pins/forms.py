@@ -17,5 +17,9 @@ class PinForm(forms.ModelForm):
         help_texts = {
             'date': 'YYYY-MM-DD HH:MM:SS',
             'pin_room': '100-140 or 200-240 or 300-340',
-            'pin_description': 'please keep descriptions concise',
+            # 'pin_description': 'please keep descriptions concise',
         }
+#         def __init__(self, *args, **kwargs):
+#            super(ShowForm, self).__init__(*args, **kwargs)
+#            self.fields['date'].widget = widgets.AdminSplitDateTime()
+        

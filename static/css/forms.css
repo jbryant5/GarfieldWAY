@@ -26,6 +26,15 @@ form .form-row p {
     display: none;
 }
 
+
+/* CREATE SCREEN FORMATTING */
+
+span.helptext {
+	font-size: 10px;
+	
+}
+
+
 /* FORM LABELS */
 
 label {

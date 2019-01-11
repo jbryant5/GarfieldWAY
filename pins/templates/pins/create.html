@@ -11,6 +11,11 @@
 	<link rel="stylesheet" href="{% static 'css/responsive.css' %}" type="text/css">
 	<link rel="stylesheet" href="{% static 'css/widgets.css' %}" type="text/css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	
+	<!-- <script type="text/javascript" src="/my_admin/jsi18n/"></script> -->
+	<!-- <script type="text/javascript" src="/media/admin/js/core.js"></script> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/> -->
+
 </head>
 <body>
     <div id="main">
@@ -56,19 +61,19 @@
 			
 				<form action="" method="post" id="pin_form" novalidate="">
 					{% csrf_token %}
-					{{pin_form}}
+					{{pin_form.as_p}}
 					
-					<div class = "form-row field-pin_name">
+					<!-- <div class = "form-row field-pin_name"> -->
 							
-							<div>
+							<!-- <div> -->
 						
-								<label class="required" for="id_pin_name">Pin name:</label>
+								<!-- <label class="required" for="id_pin_name">Pin name:</label> -->
 						
-								<input type="text" name="pin_name" class="vTextField" maxlength="100" required="" id="id_pin_name">
+								<!-- <input type="text" name="pin_name" class="vTextField" maxlength="100" required="" id="id_pin_name"> -->
 					
-							</div>
+							<!-- </div> -->
 							
-					</div>
+					<!-- </div> -->
 					
 					<div class="submit-row">
 						<input type="submit" value="Save and add another" name="_addanother">
