@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import Textarea
 from .models import Pin
 from django.db import models
 from django.contrib.admin import widgets
@@ -9,7 +10,8 @@ class PinForm(forms.ModelForm):
         model = Pin
         exclude = ('pub_date',)
         labels = {
-            'pin_room': 'Room: ',
+            'pin_name': 'Name ',
+            'pin_room': 'Room ',
             'pin_description': 'Description',
             'pin_type': 'Type',
             'date': 'Date',
@@ -18,6 +20,9 @@ class PinForm(forms.ModelForm):
             'date': 'YYYY-MM-DD HH:MM:SS',
             'pin_room': '100-140 or 200-240 or 300-340',
             # 'pin_description': 'please keep descriptions concise',
+        }
+        widgets = {
+            'pin_description': Textarea(),
         }
 #         def __init__(self, *args, **kwargs):
 #            super(ShowForm, self).__init__(*args, **kwargs)
