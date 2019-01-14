@@ -38,7 +38,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 if 'DYNO' in os.environ:
-   MIDDLEWARE.push('whitenoise.middleware.WhiteNoiseMiddleware')
+   MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 ROOT_URLCONF = 'GarfieldWAY.urls'
 
