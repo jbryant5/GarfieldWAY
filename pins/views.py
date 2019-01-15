@@ -42,6 +42,29 @@ def create(request):
        else:
          return redirect('create')
 
+def edit(request):
+    if request.method == 'GET':
+       latest_pin_list = Pin.objects.order_by('-date')[:5]
+       template = loader.get_template('pins/edit.html')
+       context = {
+           'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
+       }
+       return HttpResponse(template.render(context, request))
+       
+    elif request.method == 'POST':
+       pin = Pin ()  
+       pin.pin_name = request.POST.get('pin_name')
+       pin.pin_room = request.POST.get('pin_room')
+       pin.pin_description = request.POST.get('pin_description')
+       pin.date = request.POST.get('date')
+       pin.pin_type = request.POST.get('pin_type')
+       pin.save()
+       if request.POST.get('_save') is not None:
+         return redirect('index')
+       else:
+         return redirect('edit')
+
+
 def clear(request):
     Pin.objects.all().delete()
     return HttpResponse ('Cleared pins')

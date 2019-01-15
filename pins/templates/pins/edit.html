@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Add pin</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/widgets.css' %}" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+	
+	<!-- <script type="text/javascript" src="/my_admin/jsi18n/"></script> -->
+	<!-- <script type="text/javascript" src="/media/admin/js/core.js"></script> -->
+	<!-- <link rel="stylesheet" type="text/css" href="/media/admin/css/global.css"/> -->
+
+</head>
+<body>
+    <div id="main">
+
+        <div id="header">
+            <h1 id="site">
+                GarfieldWAY
+            </h1>
+                <div id="user-tools">
+
+                Welcome,
+                <strong>user</strong>.
+
+                <a>View site</a> /
+
+                <a>Change password</a> /
+
+                <a>Log out</a>
+
+                </div>
+        </div>
+		
+		<div class="breadcrumbs">
+            <a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Edit pin</b>
+        </div>
+		
+		<div id="content" class="colM">
+
+            <h1>Edit pin</h1>
+		
+			<div id="content-main">
+			
+				<ul class="object-tools">
+				
+					<li>
+					
+						<a href="/pins/" class="addlink">Cancel</a>
+					
+					</li>
+					
+                </ul>
+			
+			
+				<form action="" method="post" id="pin_form" novalidate="">
+					{% csrf_token %}
+					{{pin_form.as_p}}
+					
+					<div class="submit-row">
+						<input type="submit" value="Save and add another" name="_addanother">
+						<input type="submit" value="Save and continue editing" name="_continue">
+						<input type="submit" value="Save" class="default" name="_save">
+					</div>
+				</form>
+					<!-- <fieldset class = "module aligned">
+						
+						<div class = "form-row field-pin_name">
+							
+							<div>
+						
+								<label class="required" for="id_pin_name">Pin name:</label>
+						
+								<input type="text" name="pin_name" class="vTextField" maxlength="100" required="" id="id_pin_name">
+					
+							</div>
+							
+						</div>
+						
+						<div class="form-row field-pin_description">
+
+							 <div>
+
+								<label class="required" for="id_pin_description">Pin description:</label>
+
+								<textarea type="text" name="pin_description" class="vTallTextField" maxlength="300" required="" id="id_pin_description"></textarea>
+
+							 </div>
+
+						 </div>
+
+						 <div class="form-row field-pin_room">
+
+							 <div>
+
+								 <label class="required" for="id_pin_room">Pin room:</label>
+
+								 <input type="text" name="pin_room" class="vTextField" maxlength="20" required="" id="id_pin_room">
+
+							 </div>
+
+						 </div>
+						 
+						  <div class="form-row field-pin_type">
+
+							 <div>
+
+								 <label class="required" for="id_pin_type">Pin type:</label>
+
+								 <select type="text" name="pin_type" class="vTextField" required="" id="id_pin_type">
+									
+									 <option value="Club">
+											 Club 
+									 </option>
+									 <option value="Public">
+										     Public
+								     </option>
+									 <option value="Private">
+											 Private
+									 </option>
+									 <option value="Other">
+											 Other
+									 </option>
+								 
+								 </select>
+
+							 </div> 
+
+						 </div>
+						 
+						 <div class="form-row field-date">
+
+							 <div>
+
+								 <label class="required" for="id_date_0">Date:</label>
+
+									 <p class="datetime">
+										 <input type="datetime-local" name="date" class="vDateField" size="10" required="" id="id_date_0">
+									 </p>
+
+							 </div>
+
+						 </div>
+						
+					</fieldset>
+					
+					<div class="submit-row">
+
+								<input type="submit" value="Save and add another" name="_addanother">
+								<input type="submit" value="Save" class="default" name="_save">
+
+					</div>
+			
+			    </form> -->
+			</div>
+		</div>
+    </div>
+
+</body>
+</html>
