@@ -74,6 +74,7 @@ div.pinlist {
 	background: #9900cc;
 	margin-top: 15px;
 	padding-bottom: 8px;
+	vertical-align: middle;
 }
 
 div.pinlist h1 {
@@ -99,7 +100,6 @@ div.pinlist ul {
 	color: #ffffff;
 	margin: 15px 15px;
 }
-
 
 /* PAGE STRUCTURE */
 
@@ -189,7 +189,7 @@ ACTION ICONS
 
 .changelink, .inlinechangelink {
     padding-left: 16px;
-    background: url(../img/icon-changelink.svg) 0 1px no-repeat;
+    /* background: url(../img/icon-changelink.svg) 0 1px no-repeat; */
 }
 
 .deletelink {
@@ -250,6 +250,14 @@ a.deletelink:focus, a.deletelink:hover {
     color: #fff;
 	text-decoration: none;
 }
+
+/* .object-tools #changelink { */
+	/* padding: 3px 14px; */
+	/* font-size: 11px; */
+	/* vertical-align: middle; */
+	/* /* position: relative; */ */
+	/* /* bottom: 25px; */ */
+/* } */
 
 .object-tools a:focus, .object-tools a:hover {
     background-color: #8600b3;
