@@ -74,10 +74,10 @@ div.pinlist {
 	background: #9900cc;
 	margin-top: 15px;
 	padding-bottom: 8px;
-	vertical-align: middle;
 }
 
 div.pinlist h1 {
+	display: block;
 	font-weight: bold;
 	font-size: 20px;
 	color: #ffffff;
@@ -251,13 +251,11 @@ a.deletelink:focus, a.deletelink:hover {
 	text-decoration: none;
 }
 
-/* .object-tools #changelink { */
-	/* padding: 3px 14px; */
-	/* font-size: 11px; */
-	/* vertical-align: middle; */
-	/* /* position: relative; */ */
-	/* /* bottom: 25px; */ */
-/* } */
+.object-tools #changelink {
+	padding: 3px 14px;
+	font-size: 11px;
+	display: inline-block;
+}
 
 .object-tools a:focus, .object-tools a:hover {
     background-color: #8600b3;
