@@ -74,10 +74,10 @@ div.pinlist {
 	background: #9900cc;
 	margin-top: 15px;
 	padding-bottom: 8px;
-	vertical-align: middle;
 }
 
 div.pinlist h1 {
+	display: block;
 	font-weight: bold;
 	font-size: 20px;
 	color: #ffffff;
@@ -268,6 +268,7 @@ a.deletelink:focus, a.deletelink:hover {
 
 .object-tools #changelink {
 	padding: 3px 14px;
+<<<<<<< HEAD
 	display: inline-block;
     float: right;
 	margin: 0 0 0 0;
@@ -275,6 +276,10 @@ a.deletelink:focus, a.deletelink:hover {
 	/* vertical-align: middle; */
 	/* position: relative; */
 	/* bottom: 14px; */
+=======
+	font-size: 11px;
+	display: inline-block;
+>>>>>>> 08c0c5c330bfb60cc6c2b707db00aaea22e10581
 }
 
 .object-tools a:focus, .object-tools a:hover {
