@@ -56,37 +56,36 @@
 					
 					<div class="pinlist">
 						
-						<ul class="object-tools">
-							<li>
-								<a href="/pins/edit/" id="changelink">Edit pin</a>
-							</li>
-						</ul>	
-						
-						<div>
+						<div id="pin_header">
+							
 						
 						<h1>
 						
 						{{ pin.pin_name }}			
-	
+						
+						<ul class="object-tools">
+								<a href="/pins/edit/" id="changelink">Edit pin</a>
+						</ul>
+						
 						</h1>	
 						
 						</div>
 						
-						<ul>
+						<li>
 							<b>Description:</b> {{ pin.pin_description }}
-						</ul>
+						</li>
 						
-						<ul>
+						<li>
 							<b>Room:</b> {{ pin.pin_room }}
-						</ul>
+						</li>
 						
-						<ul>
+						<li>
 							<b>Type:</b> {{ pin.pin_type }}
-						</ul>
+						</li>
 						
-						<ul>
+						<li>
 							<b>Date:</b> {{ pin.date }}
-						</ul>
+						</li>
 						
 					</div>
 					

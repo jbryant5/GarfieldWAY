@@ -98,8 +98,23 @@ div.pinlist ul {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	color: #ffffff;
-	margin: 15px 15px;
+	vertical-align: center;
+	/* margin: 15px 15px; */
 }
+
+div.pinlist li {
+	line-height: 130%;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	color: #ffffff;
+	margin: 15px 15px;
+	list-style: none;
+}
+
+/* div.pinlist #pin_header{ */
+	/* display: flex; */
+	/* align-items: center;  */
+/* } */
 
 /* PAGE STRUCTURE */
 
@@ -251,16 +266,23 @@ a.deletelink:focus, a.deletelink:hover {
 	text-decoration: none;
 }
 
-/* .object-tools #changelink { */
-	/* padding: 3px 14px; */
-	/* font-size: 11px; */
+.object-tools #changelink {
+	padding: 3px 14px;
+	display: inline-block;
+    float: right;
+	margin: 0 0 0 0;
+	font-size: 11px;
 	/* vertical-align: middle; */
-	/* /* position: relative; */ */
-	/* /* bottom: 25px; */ */
-/* } */
+	/* position: relative; */
+	/* bottom: 14px; */
+}
 
 .object-tools a:focus, .object-tools a:hover {
     background-color: #8600b3;
+}
+
+.object-tools #changelink:hover {
+	background-color: #666666;
 }
 
 .object-tools a:focus{
