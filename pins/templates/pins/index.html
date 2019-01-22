@@ -72,6 +72,8 @@
 						
 						<ul>
 							<b>Date:</b> {{ pin.date }}
+						<ul>
+							<b>Up Votes:,</b> {{pin.votes}}
 						</ul>
 						
 						<a href="{% url YOUR_VIEW column_3_item.pk %}/?next={{column_3_item.link_for_item|urlencode:''}}">
