@@ -19,6 +19,7 @@ class Pin(models.Model):
    pin_type = models.CharField(max_length=10)
    date = models.DateTimeField()
    type = models.CharField(max_length=1, choices=TYPE_CHOICES)
+   votes=models.IntegerField(default=0)
    def __str__(self):
       return self.pin_name
    

@@ -10,24 +10,25 @@ from django.template import loader
 from .models import Pin, Vote
 
 def index(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
-    context = {
+   latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
+   context = {
         'latest_pin_list': latest_pin_list
     }
     
-    template = loader.get_template('pins/index.html')
-    return HttpResponse(template.render(context, request))
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
 
 def vote(request, pk):
    vote = vote()
    vote.votes = vote.votes+1
    vote.save()
+   template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def create(request):
     if request.method == 'GET':
        latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
-       teGarmplate = loader.get_template('pins/create.html')
+       template = loader.get_template('pins/create.html')
        context = {
            'latest_pin_list': latest_pin_list,
        }
