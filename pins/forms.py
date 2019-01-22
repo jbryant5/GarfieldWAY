@@ -18,7 +18,7 @@ class PinForm(forms.ModelForm):
         }
         help_texts = {
             'date': 'YYYY-MM-DD HH:MM:SS',
-            'pin_room': '100-140 or 200-240 or 300-340',
+            'pin_room': '100-124 or 200-240 or 300-340',
             # 'pin_description': 'please keep descriptions concise',
         }
         widgets = {
