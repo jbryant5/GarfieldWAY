@@ -74,12 +74,13 @@
 							<b>Date:</b> {{ pin.date }}
 						</ul>
 						
-						<a href="{% url YOUR_VIEW column_3_item.pk %}/?next={{column_3_item.link_for_item|urlencode:''}}">
-    I'm Coming
-</a>
+						<button type="upvote" onclick="myFunction()">Hit the yeet</button>
+						<button type="downvote" onclick="myFunction()">Hit the yaw</button>
 						
-						
-						
+						<script> 
+						function myFunction() { //function goes here, make the button disappear and the other appear
+						}
+						</script>
 					</div>
 					
 				{% endfor %}
