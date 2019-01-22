@@ -111,11 +111,6 @@ div.pinlist li {
 	list-style: none;
 }
 
-/* div.pinlist #pin_header{ */
-	/* display: flex; */
-	/* align-items: center;  */
-/* } */
-
 /* PAGE STRUCTURE */
 
 #container {
@@ -213,11 +208,12 @@ ACTION ICONS
 }
 
 a.deletelink:link, a.deletelink:visited {
-    color: #CC3434;
+    color: #fff;
+	text-decoration: none;
 }
 
 a.deletelink:focus, a.deletelink:hover {
-    color: #8600b3;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -268,18 +264,19 @@ a.deletelink:focus, a.deletelink:hover {
 
 .object-tools #changelink {
 	padding: 3px 14px;
-<<<<<<< HEAD
 	display: inline-block;
     float: right;
-	margin: 0 0 0 0;
+	margin: 15px -180px 0px 0px;
 	font-size: 11px;
-	/* vertical-align: middle; */
-	/* position: relative; */
-	/* bottom: 14px; */
-=======
-	font-size: 11px;
+}
+
+.object-tools #deletelink {
+	padding: 3px 14px;
 	display: inline-block;
->>>>>>> 08c0c5c330bfb60cc6c2b707db00aaea22e10581
+    float: right;
+	margin: 15px 100px 0px 0px;
+	background: #ba2121;
+	font-size: 11px;
 }
 
 .object-tools a:focus, .object-tools a:hover {
@@ -288,6 +285,10 @@ a.deletelink:focus, a.deletelink:hover {
 
 .object-tools #changelink:hover {
 	background-color: #666666;
+}
+
+.object-tools #deletelink:hover {
+	background-color: #a41515;
 }
 
 .object-tools a:focus{
