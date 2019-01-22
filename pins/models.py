@@ -13,10 +13,10 @@ def validate_room (pin_room):
         )
 
 TYPE_CHOICES = (
-    ('c', 'Club'),
-    ('p', 'Public'),
-    ('r', 'Private'),
-    ('o', 'Other'),
+    ('Club', 'Club'),
+    ('Public', 'Public'),
+    ('Private', 'Private'),
+    ('Other', 'Other'),
 )
 # Create your models here.
 class Pin(models.Model):
@@ -41,10 +41,10 @@ class Pin(models.Model):
 
 
    pub_date = models.DateTimeField(auto_now_add = True)
-   pin_type = models.CharField(choices = TYPE_CHOICES, max_length=1) #pull down for the types of activities
+   pin_type = models.CharField(choices = TYPE_CHOICES, max_length=10, default='Other', null=True) #pull down for the types of activities
    date = models.DateTimeField()
    def __str__(self):
-      return self.pin_name
+      return self.pin_name      
    
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)

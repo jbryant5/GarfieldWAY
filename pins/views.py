@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.http import HttpResponse
@@ -16,7 +16,6 @@ def index(request):
     context = {
         'latest_pin_list': latest_pin_list
     }
-    
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
 
@@ -38,9 +37,29 @@ def create(request):
        pin.pin_type = request.POST.get('pin_type')
        pin.save()
        if request.POST.get('_save') is not None:
-         return redirect('index')
+         return redirect('/pins')
        else:
-         return redirect('create')
+         return redirect('/pins/create')
+
+def edit(request, pin_id):
+    pin = get_object_or_404(Pin, pk=pin_id)
+    if request.method == 'POST':
+      form = PinForm(request.POST, instance=pin)
+      if form.is_valid():
+         pin = form.save(commit=False)
+         pin.save()
+      if request.POST.get('_save') is not None:
+         return redirect('/pins')
+#       else:
+#          return redirect('/pins/edit/pk')
+    else:
+      form = PinForm(instance=pin)
+    template = loader.get_template('pins/edit.html')
+    context = {
+      'pin_form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
 
 def clear(request):
     Pin.objects.all().delete()

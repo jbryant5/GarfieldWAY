@@ -58,38 +58,54 @@
 						
 						<div>
 						
-						<h1>
+							<h1>
 						
-						{{ pin.pin_name }}
-	
-						</h1>	
+								{{ pin.pin_name }}			
 						
+							</h1>
+							
+							<div>
+							<ul class="object-tools">
+								<a href="/pins/" id="deletelink">Delete pin</a>
+							</ul>	
+							</div>
+							
+							<div>
+							<ul class="object-tools">
+								<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+							</ul>
+							</div>
+							
 						</div>
 						
-						<ul>
+						<div>	
+						
+						<li>
 							<b>Description:</b> {{ pin.pin_description }}
-						</ul>
+						</li>
 						
-						<ul>
+						<li>
 							<b>Room:</b> {{ pin.pin_room }}
-						</ul>
+						</li>
 						
-						<ul>
+						<li>
 							<b>Type:</b> {{ pin.pin_type }}
-						</ul>
+						</li>
 						
-						<ul>
+						<li>
 							<b>Date:</b> {{ pin.date }}
-						</ul>
+						</li>
 						
-					</div>
+						</div>
 					
 				{% endfor %}
 				
-			</div>
+					</div>
 			
-		</div>	
+			</div>	
 		
+		</div>
+	
 	</div>
 	
 	<footer id="footer"> </footer>
