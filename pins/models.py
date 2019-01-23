@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 def validate_room (pin_room):
    print ("THE PIN ROOM IS: " + pin_room)
-   if not (pin_room>100 and pin_room<140):
+   if not (int(pin_room)>100 and int(pin_room)<140):
       raise ValidationError(
          _('%(pin_room)s is not an valid room number'),
             params={'pin_room': pin_room},
