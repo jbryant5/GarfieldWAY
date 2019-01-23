@@ -25,5 +25,5 @@ class Pin(models.Model):
    
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
-   votes = models.IntegerField(default=0)
+   
       

@@ -6,6 +6,8 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
+from django.shortcuts import redirect
+
 
 from .models import Pin, Vote
 
@@ -17,13 +19,15 @@ def index(request):
     
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
+   
 
-def vote(request, pk):
-   vote = vote()
-   vote.votes = vote.votes+1
-   vote.save()
-   template = loader.get_template('pins/index.html')
-   return HttpResponse(template.render(context, request))
+def vote(request):
+   pin = Pin.objects.get(id=request.GET.get('pin_id'))
+   pin.votes += int(request.GET.get('vote'))
+   pin.save()
+   
+   return redirect('index')
+
 
 def create(request):
     if request.method == 'GET':

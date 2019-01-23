@@ -73,14 +73,23 @@
 						<ul>
 							<b>Date:</b> {{ pin.date }}
 						<ul>
-							<b>Up Votes:,</b> {{pin.votes}}
+							<b>Up Votes:</b> {{pin.votes}}
 						</ul>
 						
-						<button type="upvote" onclick="myFunction()">Hit the yeet</button>
-						<button type="downvote" onclick="myFunction()">Hit the yaw</button>
+						<form method="get" action="/pins/vote/" />
+							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+							<button type="upvote" id="upvote" name="vote" value="1">Hit the yeet</button>
+							<button type="downvote" id="downvote" name="vote" value="-1">Hit the yaw</button>
+						</form>
 						
 						<script> 
-						function myFunction() { //function goes here, make the button disappear and the other appear
+						function buttonClick(button, button2) { 
+								button.style.visibility = "hidden";
+								button2.style.visibility = "visible";
+								if (button.type='upvote')
+									pin.votes+=1;
+								else
+									pin.votes-=1;
 						}
 						</script>
 					</div>
