@@ -18,6 +18,13 @@ def index(request):
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
+    
+def vote(request):
+   pin = Pin.objects.get(id=request.GET.get('pin_id'))
+   pin.votes += int(request.GET.get('vote'))
+   pin.save()
+   
+   return redirect('/pins')    
 
 def create(request):
     if request.method == 'GET':

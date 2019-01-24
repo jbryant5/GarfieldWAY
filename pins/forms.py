@@ -18,6 +18,7 @@ class PinForm(forms.ModelForm):
             'pin_description': 'Description',
             'pin_type': 'Type',
             'date': 'Date',
+            'votes':'Up Votes'
         }
         help_texts = {
             'date': 'YYYY-MM-DD HH:MM:SS',

@@ -111,6 +111,35 @@ div.pinlist li {
 	list-style: none;
 }
 
+#upvote {
+	border: none;
+	border-radius: 10px;
+	padding: 6px 8px;
+	margin-left: 15px;
+	margin-bottom: 10px;
+	background: #33cc33;
+	font-family: inherit;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-size: 11px;
+	color: #ffffff
+}
+
+#downvote {
+	border: none;
+	border-radius: 10px;
+	padding: 6px 8px;
+	margin-bottom: 10px;
+	background: #ba2121;
+	font-family: inherit;
+	font-weight: 400;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	font-size: 11px;
+	color: #ffffff
+}
+
 /* DELETE PAGE */
 
 #delete-text {

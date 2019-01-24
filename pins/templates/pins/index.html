@@ -94,6 +94,27 @@
 							<b>Date:</b> {{ pin.date }}
 						</li>
 				
+						<li>
+							<b>Up Votes:</b> {{pin.votes}}
+						</li>
+				
+						<form method="get" action="/pins/vote/" />
+							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
+							<button type="downvote" id="downvote" name="vote" value="-1">Sorry, can't make it!</button>
+						</form>
+						
+						<script> 
+						function buttonClick(button, button2) { 
+								button.style.visibility = "hidden";
+								button2.style.visibility = "visible";
+								if (button.type='upvote')
+									pin.votes+=1;
+								else
+									pin.votes-=1;
+						}
+						</script>
+				
 					</div>
 					
 				{% endfor %}	

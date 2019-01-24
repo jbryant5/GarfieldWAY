@@ -42,14 +42,10 @@ class Pin(models.Model):
 
    pub_date = models.DateTimeField(auto_now_add = True)
    pin_type = models.CharField(choices = TYPE_CHOICES, max_length=10, default='Other', null=True) #pull down for the types of activities
+   votes=models.IntegerField(default=0)
    date = models.DateTimeField()
    def __str__(self):
       return self.pin_name      
    
 class Vote(models.Model):
-   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
-   vote_text = models.CharField(max_length=10)
-   votes = models.IntegerField(default=0)
-   def __str__(self):
-      return self.vote_text
-      
+   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)      

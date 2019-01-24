@@ -11,5 +11,6 @@ urlpatterns = [
    url('test/', views.test, name= 'test'),
    url(r'^edit/(?P<pin_id>[0-9]+)/$', views.edit, name= 'edit'),
    url(r'^delete/(?P<pin_id>[0-9]+)/$', views.delete, name='delete'),
-   url('getallrooms/', views.getAllRoomPins, name = 'number of pins ')
+   url('getallrooms/', views.getAllRoomPins, name = 'number of pins '),
+   url('vote/', views.vote, name='vote'),
 ]   
