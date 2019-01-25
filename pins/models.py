@@ -48,4 +48,4 @@ class Pin(models.Model):
       return self.pin_name      
    
 class Vote(models.Model):
-   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)      
+   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
