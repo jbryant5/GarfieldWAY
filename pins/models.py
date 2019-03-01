@@ -3,6 +3,10 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 def validate_room (pin_room):
    print ("THE PIN ROOM IS: " + pin_room)
@@ -49,3 +53,11 @@ class Pin(models.Model):
    
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
+   
+class Account(models.User):
+   username = CharField(max_length=150)
+   first_name = CharField(max_length=30)
+   last_name = CharField(max_length=150)
+   email = CharField(max_length=150)
+   password = CharField(max_length=300)
+   

@@ -6,10 +6,14 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 
 from .models import Pin, Vote
 from .forms import PinForm
+from mysite.core.forms import SignUpForm
+from django.contrib.auth import login, authenticate
+
+
 
 def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
@@ -105,5 +109,18 @@ def getAllRoomPins (request):
     numberOfPins = len(Pin.objects.filter(pin_room = request.GET.get('room')))
     return HttpResponse("Number of Pins: " + str(numberOfPins))
 
-
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.save()
+            raw_password = form.cleaned_data.get('password')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
