@@ -7,7 +7,6 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render, redirect
-
 from .models import Pin, Vote
 from .forms import PinForm
 from mysite.core.forms import SignUpForm
@@ -16,18 +15,18 @@ from django.contrib.auth import login, authenticate
 
 
 def index(request):
+
     latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
     context = {
         'latest_pin_list': latest_pin_list
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
-    
+ 
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
    pin.votes += int(request.GET.get('vote'))
    pin.save()
-   
    return redirect('/pins')    
 
 def create(request):
@@ -36,8 +35,8 @@ def create(request):
        template = loader.get_template('pins/create.html')
        context = {
            'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
-       }
-       return HttpResponse(template.render(context, request))
+      return redirect('index')
+      return HttpResponse(template.render(context, request))
        
     elif request.method == 'POST':
        pin = Pin ()  
@@ -47,6 +46,7 @@ def create(request):
        pin.date = request.POST.get('date')
        pin.pin_type = request.POST.get('pin_type')
        pin.save()
+
        if request.POST.get('_save') is not None:
          return redirect('/pins')
        else:

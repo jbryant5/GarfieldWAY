@@ -14,3 +14,4 @@ urlpatterns = [
    url('getallrooms/', views.getAllRoomPins, name = 'number of pins '),
    url('vote/', views.vote, name='vote'),
 ]   
+

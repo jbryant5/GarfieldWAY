@@ -77,7 +77,10 @@ div.pinlist {
 }
 
 div.pinlist h1 {
+<<<<<<< HEAD
 	/* display: block; */
+=======
+>>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 	font-weight: bold;
 	font-size: 20px;
 	color: #ffffff;
@@ -98,6 +101,7 @@ div.pinlist ul {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	color: #ffffff;
+<<<<<<< HEAD
 	vertical-align: center;
 	/* margin: 15px 15px; */
 }
@@ -177,6 +181,11 @@ div.delete-button button{
     color: #666;
 	display: inline-block;
 }
+=======
+	margin: 15px 15px;
+}
+
+>>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 
 /* PAGE STRUCTURE */
 

@@ -17,6 +17,7 @@ def validate_room (pin_room):
         )
 
 TYPE_CHOICES = (
+
     ('Club', 'Club'),
     ('Public', 'Public'),
     ('Private', 'Private'),
@@ -54,6 +55,7 @@ class Pin(models.Model):
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
    
+
 class Account(models.User):
    username = CharField(max_length=150)
    first_name = CharField(max_length=30)
