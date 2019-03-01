@@ -1,5 +1,4 @@
 from django.conf.urls import url
-from django.urls import path
 
 from . import views
 
@@ -10,6 +9,8 @@ urlpatterns = [
    url('create/', views.create, name='create'),
    url('clear/', views.clear, name= 'clear'),
    url('test/', views.test, name= 'test'),
-   path('edit/<int:pin_id>', views.edit, name= 'edit'),
-   url('getallrooms/', views.getAllRoomPins, name = 'number of pins ')
+   url(r'^edit/(?P<pin_id>[0-9]+)/$', views.edit, name= 'edit'),
+   url(r'^delete/(?P<pin_id>[0-9]+)/$', views.delete, name='delete'),
+   url('getallrooms/', views.getAllRoomPins, name = 'number of pins '),
+   url('vote/', views.vote, name='vote'),
 ]   
