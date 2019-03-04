@@ -18,11 +18,7 @@ make_public.short_description="Mark events as public events"
 
 
 class PinAdmin(admin.ModelAdmin):
-<<<<<<< HEAD
     list_display = ['pin_name', 'pin_type']
-=======
-    list_display = ['pin_name', 'type']
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
     ordering = ['pub_date']
     actions = [make_club, make_public]
 

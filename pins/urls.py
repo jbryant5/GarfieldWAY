@@ -13,5 +13,6 @@ urlpatterns = [
    url(r'^delete/(?P<pin_id>[0-9]+)/$', views.delete, name='delete'),
    url('getallrooms/', views.getAllRoomPins, name = 'number of pins '),
    url('vote/', views.vote, name='vote'),
+   url('account/', views.account, name ='account'),
 ]   
 
