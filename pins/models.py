@@ -48,4 +48,12 @@ class Pin(models.Model):
       return self.pin_name      
    
 class Vote(models.Model):
-   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
+   pin = models.ForeignKey(Pin, on_delete=models.CASCADE) 
+
+class Account(models.Model):
+   username = models.CharField(max_length=150)
+   first_name = models.CharField(max_length=30)
+   last_name = models.CharField(max_length=150)
+   email = models.CharField(max_length=150)
+   password = models.CharField(max_length=300)
+   
