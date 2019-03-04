@@ -19,6 +19,21 @@ def index(request):
     
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
+    
+def vote(request):
+   pin = Pin.objects.get(id=request.GET.get('pin_id'))
+   pin.votes += int(request.GET.get('vote'))
+   pin.save()
+   
+   return redirect('/pins')    
+   
+def typefilter(request):
+   type_pin_list = Pin.objects.order_by('-pub_date','pin_type')[:5]
+   context = {
+        'type_pin_list': type_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
 
 def create(request):
     if request.method == 'GET':
