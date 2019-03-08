@@ -46,14 +46,38 @@
 		
 			<div id="content-main">
 				
-				<form method="get" action="/pins/typefilter/" />
+				<!-- <form method="get" action="/pins/typefilter/" /> -->
 					<div class="dropdown">
-						<div class="dropdown-content">
-							<button class="dropbtn" >Filter pin list</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Sorry, can't make it!</button>
-						</div>
+						<button onclick="openDropdown()" class="dropbtn">Filter pin list</button>
+							<div id="myDropdown" class="dropdown-content">
+								<a href="/pins/upcomingfilter">Upcoming</a>
+								<a href="/pins/typefilter/">Type</a>
+								<a href="/pins/roomfilter/">Room Number</a>
+							</div>
 					</div>	
-				</form>
+				<!-- </form> -->
+				
+				<script>
+				/* When the user clicks on the button, 
+				toggle between hiding and showing the dropdown content */
+					function openDropdown() {
+						document.getElementById("myDropdown").classList.toggle("show");
+					}
+
+				// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+						if (!event.target.matches('.dropbtn')) {
+							var dropdowns = document.getElementsByClassName("dropdown-content");
+							var i;
+							for (i = 0; i < dropdowns.length; i++) {
+								var openDropdown = dropdowns[i];
+								if (openDropdown.classList.contains('show')) {
+									openDropdown.classList.remove('show');
+								}
+							}
+						}
+					}
+				</script>
 				
 				<ul class="object-tools">
 					<li>
@@ -61,7 +85,7 @@
 					</li>
                 </ul>
 				
-				{% for pin in latest_pin_list %}
+				{% for pin in pin_list %}
 					
 					<div class="pinlist">
 						

@@ -3,8 +3,10 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, get_object_or_404
 
-# Create your views here.
-from django.http import HttpResponse
+from django.utils import timezone
+from datetime import datetime
+
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import redirect
 
@@ -12,9 +14,9 @@ from .models import Pin, Vote
 from .forms import PinForm
 
 def index(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
+    latest_pin_list = Pin.objects.order_by('-pub_date')
     context = {
-        'latest_pin_list': latest_pin_list
+        'pin_list': latest_pin_list
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
@@ -25,21 +27,40 @@ def vote(request):
    pin.save()
    
    return redirect('/pins')    
-   
-def typefilter(request):
-   type_pin_list = Pin.objects.order_by('-pub_date','pin_type')[:5]
+
+def upcomingfilter(request):
+   now = timezone.now()
+   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   upcoming_pin_list = list(upcoming) + list(passed)
    context = {
-        'type_pin_list': type_pin_list
+        'pin_list': upcoming_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+
+def roomfilter(request):
+   room_pin_list = Pin.objects.order_by('pin_room')
+   context = {
+        'pin_list': room_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+
+def typefilter(request):
+   type_pin_list = Pin.objects.order_by('pin_type', '-date')
+   context = {
+        'pin_list': type_pin_list
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def create(request):
     if request.method == 'GET':
-       latest_pin_list = Pin.objects.order_by('-date')[:5]
+       latest_pin_list = Pin.objects.order_by('-date')
        template = loader.get_template('pins/create.html')
        context = {
-           'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
+           'pin_list': latest_pin_list, 'pin_form': PinForm,
        }
        return HttpResponse(template.render(context, request))
        
