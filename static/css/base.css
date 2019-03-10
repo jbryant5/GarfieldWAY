@@ -96,8 +96,9 @@ div.breadcrumbs a {
 
 /* Links inside the dropdown */
 .dropdown-content a {
+  font-size: 13px;
   color: black;
-  padding: 12px 16px;
+  padding: 10px 14px;
   text-decoration: none;
   display: block;
 }
