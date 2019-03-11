@@ -28,6 +28,14 @@ def vote(request):
    
    return redirect('/pins')    
 
+def publishedfilter(request):
+    latest_pin_list = Pin.objects.order_by('-pub_date')
+    context = {
+        'pin_list': latest_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
+
 def upcomingfilter(request):
    now = timezone.now()
    upcoming = Pin.objects.filter(date__gte=now).order_by('date')

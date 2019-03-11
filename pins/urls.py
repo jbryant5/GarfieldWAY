@@ -16,4 +16,5 @@ urlpatterns = [
    url('typefilter/', views.typefilter, name='typefilter'),
    url('upcomingfilter/', views.upcomingfilter, name='upcomingfilter'),
    url('roomfilter/', views.roomfilter, name='roomfilter'),
+   url('publishedfilter/', views.publishedfilter, name='publishedfilter'),
 ]   
