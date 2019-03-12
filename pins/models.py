@@ -34,7 +34,7 @@ class Pin(models.Model):
    def clean (self):
       pin_number = int(self.pin_room)
       print(self.pin_room)
-      if not((pin_number>100 and pin_number<124) or (pin_number>200 and pin_number<240) or (pin_number>300 and pin_number<340)): 
+      if not((pin_number>=100 and pin_number<124) or (pin_number>=200 and pin_number<240) or (pin_number>=300 and pin_number<340)): 
          raise ValidationError ('Please enter a valid room number')
       elif():
          return self.pin_room

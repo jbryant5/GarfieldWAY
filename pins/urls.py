@@ -15,6 +15,8 @@ urlpatterns = [
    url('vote/', views.vote, name='vote'),
    url('typefilter/', views.typefilter, name='typefilter'),
    url('upcomingfilter/', views.upcomingfilter, name='upcomingfilter'),
-   url('roomfilter/', views.roomfilter, name='roomfilter'),
-   url('publishedfilter/', views.publishedfilter, name='publishedfilter'),
+   url('lowestroomfilter/', views.lowestroomfilter, name='lowestroomfilter'),
+   url('highestroomfilter/', views.highestroomfilter, name='highestroomfilter'),
+   url('recentlypublishedfilter/', views.recentlypublishedfilter, name='recentlypublishedfilter'),
+   url('oldestpublishedfilter/', views.oldestpublishedfilter, name='oldestpublishedfilter'),
 ]   

@@ -74,7 +74,7 @@ div.breadcrumbs a {
 }
 
 /* Dropdown button on hover & focus */
-.dropbtn:hover, .dropbtn:focus {
+.dropbtn:hover, .dropbtn:focus{
   background-color: #8600b3;
 }
 
@@ -95,12 +95,13 @@ div.breadcrumbs a {
 }
 
 /* Links inside the dropdown */
-.dropdown-content a {
+.dropdown-content a{
   font-size: 13px;
   color: black;
   padding: 10px 14px;
   text-decoration: none;
   display: block;
+  cursor: pointer;
 }
 
 /* Change color of dropdown links on hover */

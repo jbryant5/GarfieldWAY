@@ -28,8 +28,16 @@ def vote(request):
    
    return redirect('/pins')    
 
-def publishedfilter(request):
+def recentlypublishedfilter(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
+    context = {
+        'pin_list': latest_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
+    
+def oldestpublishedfilter(request):
+    latest_pin_list = Pin.objects.order_by('pub_date')  
     context = {
         'pin_list': latest_pin_list
     }
@@ -47,8 +55,16 @@ def upcomingfilter(request):
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
-def roomfilter(request):
+def lowestroomfilter(request):
    room_pin_list = Pin.objects.order_by('pin_room')
+   context = {
+        'pin_list': room_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+   
+def highestroomfilter(request):
+   room_pin_list = Pin.objects.order_by('-pin_room')
    context = {
         'pin_list': room_pin_list
    }
