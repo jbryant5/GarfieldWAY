@@ -6,6 +6,8 @@ from django.forms import Textarea
 from .models import Pin
 from django.db import models
 from django.contrib.admin import widgets
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 
 class PinForm(forms.ModelForm):
@@ -28,6 +30,12 @@ class PinForm(forms.ModelForm):
         widgets = {
             'pin_description': Textarea(),
         }
-#         def __init__(self, *args, **kwargs):
-#            super(ShowForm, self).__init__(*args, **kwargs)
-#            self.fields['date'].widget = widgets.AdminSplitDateTime()
+
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    class Meta:
+       model = User
+       fields = ('username', 'first_name', 'last_name', 'email', 'password')

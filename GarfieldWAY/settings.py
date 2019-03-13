@@ -19,6 +19,7 @@ DEBUG = True
 ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com', 'localhost' ]
 
 INSTALLED_APPS = [
+    'accounts.apps.AccountsConfig',
     'pins.apps.PinsConfig',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
-
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
@@ -11,12 +10,15 @@ from django.shortcuts import redirect
 from .models import Pin, Vote
 from .forms import PinForm
 
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+
 def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
     context = {
         'latest_pin_list': latest_pin_list
     }
-    
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
     
@@ -31,7 +33,6 @@ def create(request):
     if request.method == 'GET':
        latest_pin_list = Pin.objects.order_by('-date')[:5]
        template = loader.get_template('pins/create.html')
-       form = MyForm(request.POST)
        context = {
            'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
        }
@@ -43,17 +44,52 @@ def create(request):
        pin.pin_room = request.POST.get('pin_room')
        pin.pin_description = request.POST.get('pin_description')
        pin.date = request.POST.get('date')
-       if form.is_valid():
-           obj = form.save(commit=False)
-           obj.user = request.user
-           obj.save()
-           return HttpResponseRedirect('obj_list')
        pin.pin_type = request.POST.get('pin_type')
        pin.save()
        if request.POST.get('_save') is not None:
-         return redirect('index')
+         return redirect('/pins')
        else:
-         return redirect('create')
+         return redirect('/pins/create')
+
+def edit(request, pin_id):
+    pin = get_object_or_404(Pin, pk=pin_id)
+    if request.method == 'POST':
+      form = PinForm(request.POST, instance=pin)
+      if form.is_valid():
+         pin = form.save(commit=False)
+         pin.save()
+      if request.POST.get('_save') is not None: 
+         pin.pin_name = request.POST.get('pin_name')
+         pin.pin_room = request.POST.get('pin_room')
+         pin.pin_description = request.POST.get('pin_description')
+         pin.date = request.POST.get('date')
+         pin.pin_type = request.POST.get('pin_type')
+         pin.save()
+         return redirect('/pins')
+#       else:
+#          return redirect('/pins/edit/pk')
+    else:
+      form = PinForm(instance=pin)
+    template = loader.get_template('pins/edit.html')
+    context = {
+      'pin_form': form,
+    }
+    return HttpResponse(template.render(context, request))
+
+def delete(request, pin_id):
+   pin = get_object_or_404(Pin, pk=pin_id)
+   if request.method == 'POST':
+      form = PinForm(request.POST, instance=pin)
+      pin.delete()
+      return redirect('/pins')
+   else:
+      form = PinForm(instance=pin)
+   template = loader.get_template('pins/delete.html')
+   context = {
+      'pin_form': form,
+   }
+   return HttpResponse(template.render(context, request))
+
 
 def clear(request):
     Pin.objects.all().delete()
@@ -71,6 +107,7 @@ def test(request):
 def getAllRoomPins (request):
     numberOfPins = len(Pin.objects.filter(pin_room = request.GET.get('room')))
     return HttpResponse("Number of Pins: " + str(numberOfPins))
+
 
 
 
