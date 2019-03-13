@@ -13,7 +13,6 @@ from mysite.core.forms import SignUpForm
 from django.contrib.auth import login, authenticate
 
 
-
 def index(request):
 
     latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
@@ -35,8 +34,8 @@ def create(request):
        template = loader.get_template('pins/create.html')
        context = {
            'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
-      return redirect('index')
-      return HttpResponse(template.render(context, request))
+        }
+       return HttpResponse(template.render(context, request))
        
     elif request.method == 'POST':
        pin = Pin ()  
@@ -109,18 +108,29 @@ def getAllRoomPins (request):
     numberOfPins = len(Pin.objects.filter(pin_room = request.GET.get('room')))
     return HttpResponse("Number of Pins: " + str(numberOfPins))
 
+def createUser(request):
+    userName = request.REQUEST.get('username', None)
+    userPass = request.REQUEST.get('password', None)
+    userMail = request.REQUEST.get('email', None)
+   
+   #check if user already exists?
+    user = User.objects.create_user(username='john',
+                                 email='jlennon@beatles.com',
+                                 password='glass onion')
+    user.save()
+
+    return render_to_response('home.html', context_instance=RequestContext(request))
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            user.save()
-            raw_password = form.cleaned_data.get('password')
-            user = authenticate(username=user.username, password=raw_password)
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('home')
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
-

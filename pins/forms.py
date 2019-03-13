@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 
+
 class PinForm(forms.ModelForm):
     class Meta:
         model = Pin
@@ -41,3 +42,6 @@ class SignUpForm(UserCreationForm):
    class Meta:
       model = User
       fields = ('username', 'first_name', 'last_name', 'email', 'password')
+      
+      #https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication
+      #https://simpleisbetterthancomplex.com/tutorial/2017/02/18/how-to-create-user-sign-up-view.html

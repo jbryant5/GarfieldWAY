@@ -20,4 +20,7 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^pins/', include('pins.urls')),
     url(r'^admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')), #Add Django site authentication urls (for login, logout, password management)
 ]
+
+
