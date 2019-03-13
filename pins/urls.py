@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from . import views
+from mysite.core import views as core_views
 
 app_name='pins'
 
@@ -12,4 +13,6 @@ urlpatterns = [
    url(r'^delete/(?P<pin_id>[0-9]+)/$', views.delete, name='delete'),
    url('getallrooms/', views.getAllRoomPins, name = 'number of pins '),
    url('vote/', views.vote, name='vote'),
+   url(r'^signup/$', core_views.signup, name='signup'),
 ]   
+

@@ -5,28 +5,30 @@ from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
-from django.shortcuts import redirect
-
+from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
+from mysite.core.forms import SignUpForm
+from django.contrib.auth import login, authenticate
+
 
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 def index(request):
+
     latest_pin_list = Pin.objects.order_by('-pub_date')[:5]
     context = {
         'latest_pin_list': latest_pin_list
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
-    
+ 
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
    pin.votes += int(request.GET.get('vote'))
    pin.save()
-   
    return redirect('/pins')    
 
 def create(request):
@@ -35,7 +37,7 @@ def create(request):
        template = loader.get_template('pins/create.html')
        context = {
            'latest_pin_list': latest_pin_list, 'pin_form': PinForm,
-       }
+        }
        return HttpResponse(template.render(context, request))
        
     elif request.method == 'POST':
@@ -46,6 +48,7 @@ def create(request):
        pin.date = request.POST.get('date')
        pin.pin_type = request.POST.get('pin_type')
        pin.save()
+
        if request.POST.get('_save') is not None:
          return redirect('/pins')
        else:
@@ -105,9 +108,18 @@ def test(request):
     return HttpResponse('Test pin')
     
 def getAllRoomPins (request):
-    numberOfPins = len(Pin.objects.filter(pin_room = request.GET.get('room')))
     return HttpResponse("Number of Pins: " + str(numberOfPins))
 
+def createUser(request):
+    userName = request.REQUEST.get('username', None)
+    userPass = request.REQUEST.get('password', None)
+    userMail = request.REQUEST.get('email', None)
+   
+   #check if user already exists?
+    user = User.objects.create_user(username='john',
+                                 email='jlennon@beatles.com',
+                                 password='glass onion')
+    user.save()
 
-
+    return render_to_response('home.html', context_instance=RequestContext(request))
 

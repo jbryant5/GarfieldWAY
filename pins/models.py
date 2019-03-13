@@ -2,6 +2,10 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 def validate_room (pin_room):
    print ("THE PIN ROOM IS: " + pin_room)
@@ -12,6 +16,7 @@ def validate_room (pin_room):
         )
 
 TYPE_CHOICES = (
+
     ('Club', 'Club'),
     ('Public', 'Public'),
     ('Private', 'Private'),
@@ -57,3 +62,14 @@ class Vote(models.Model):
    #updated_at = models.DateTimeField(auto_now=True)
 
 
+   
+
+#class Account(models.Model):
+#   username = models.CharField(max_length=150)
+ #  first_name = models.CharField(max_length=30)
+  # last_name = models.CharField(max_length=150)
+   #email = models.CharField(max_length=150)
+   #password = models.CharField(max_length=300)
+  # def __str__(self):
+   #   return self.username
+   

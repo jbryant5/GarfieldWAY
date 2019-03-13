@@ -22,5 +22,11 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^pins/', include('pins.urls')),
     url(r'^admin/', admin.site.urls),
+<<<<<<< HEAD
     url(r'^accounts/', include('accounts.urls')),
+=======
+    path('accounts/', include('django.contrib.auth.urls')), #Add Django site authentication urls (for login, logout, password management)
+>>>>>>> ec6d0b316442b9cb9875daab84ca6287daee61d0
 ]
+
+
