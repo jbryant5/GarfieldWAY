@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth import login, authenticate
 from django.shortcuts import render, get_object_or_404
-
+from django.shortcuts import render
 # Create your views here.
 from django.http import HttpResponse
 from django.template import loader
@@ -12,6 +11,10 @@ from .forms import PinForm
 from mysite.core.forms import SignUpForm
 from django.contrib.auth import login, authenticate
 
+
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
 def index(request):
 
@@ -120,6 +123,7 @@ def createUser(request):
     user.save()
 
     return render_to_response('home.html', context_instance=RequestContext(request))
+
 
 def signup(request):
     if request.method == 'POST':

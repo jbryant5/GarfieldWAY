@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -54,6 +53,7 @@ class Pin(models.Model):
    
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
+
    
 
 class Account(models.Model):
@@ -65,3 +65,13 @@ class Account(models.Model):
    def __str__(self):
       return self.username
    
+
+
+#class User(models.Model):
+#   user_name = models.CharField(max_length=100)
+ #  user_type = models.Charfield(max_length =100)
+  # user_email = models.Charfield(max_length =100)
+   #created_at = models.DateTimeField(auto_now_add=True)
+   #updated_at = models.DateTimeField(auto_now=True)
+
+

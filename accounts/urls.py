@@ -15,14 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-
-
-
+from . import views
 
 urlpatterns = [
-    url(r'^pins/', include('pins.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('accounts.urls')),
+    url(r'^signup/$', views.signup, name='signup'),
 ]
-
-

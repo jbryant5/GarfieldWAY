@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from . import views
 from mysite.core import views as core_views
 
