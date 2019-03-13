@@ -17,6 +17,7 @@ class PinForm(forms.ModelForm):
         labels = {
             'pin_name': 'Name ',
             'pin_room': 'Room ',
+            'other_pin_room': 'Other Room ',
             'pin_description': 'Description',
             'pin_type': 'Type',
             'date': 'Date',
@@ -24,20 +25,9 @@ class PinForm(forms.ModelForm):
         }
         help_texts = {
             'date': 'YYYY-MM-DD HH:MM:SS',
-
-            'pin_room': '100-124 or 200-240 or 300-340',
-            
-            # 'pin_description': 'please keep descriptions concise',
+            'pin_room': '100-124 or 200-240 or 300-340 (Optional)',
+            'other_pin_room': 'e.g. Gym, Commons, Field (Optional)',
         }
         widgets = {
             'pin_description': Textarea(),
         }
-
-class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-
-    class Meta:
-       model = User
-       fields = ('username', 'first_name', 'last_name', 'email', 'password')

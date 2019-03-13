@@ -26,7 +26,8 @@ TYPE_CHOICES = (
 class Pin(models.Model):
    pin_name = models.CharField(max_length=100)
    pin_description = models.CharField(max_length=300, null = True)
-   pin_room = models.CharField(max_length=20, validators = [validate_room])
+   pin_room = models.CharField(max_length=20, validators = [validate_room], null=True, blank=True)
+   other_pin_room = models.CharField(max_length=100, null=True, blank=True)
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
    
@@ -36,9 +37,10 @@ class Pin(models.Model):
       return super(Pin, self).save(**kwargs)
 
    def clean (self):
-      pin_number = int(self.pin_room)
-      print(self.pin_room)
-      if not((pin_number>100 and pin_number<124) or (pin_number>200 and pin_number<240) or (pin_number>300 and pin_number<340)): 
+      pin_number = 101
+      if self.pin_room is not '':
+         pin_number = int(self.pin_room)
+      if not((pin_number>=100 and pin_number<124) or (pin_number>=200 and pin_number<240) or (pin_number>=300 and pin_number<340)): 
          raise ValidationError ('Please enter a valid room number')
       elif():
          return self.pin_room
