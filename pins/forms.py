@@ -15,6 +15,7 @@ class PinForm(forms.ModelForm):
         labels = {
             'pin_name': 'Name ',
             'pin_room': 'Room ',
+            'other_pin_room': 'Other Room ',
             'pin_description': 'Description',
             'pin_type': 'Type',
             'date': 'Date',
@@ -22,12 +23,9 @@ class PinForm(forms.ModelForm):
         }
         help_texts = {
             'date': 'YYYY-MM-DD HH:MM:SS',
-            'pin_room': '100-124 or 200-240 or 300-340',
-            # 'pin_description': 'please keep descriptions concise',
+            'pin_room': '100-124 or 200-240 or 300-340 (Optional)',
+            'other_pin_room': 'e.g. Gym, Commons, Field (Optional)',
         }
         widgets = {
             'pin_description': Textarea(),
         }
-#         def __init__(self, *args, **kwargs):
-#            super(ShowForm, self).__init__(*args, **kwargs)
-#            self.fields['date'].widget = widgets.AdminSplitDateTime()

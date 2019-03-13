@@ -92,6 +92,7 @@ def create(request):
        pin = Pin ()  
        pin.pin_name = request.POST.get('pin_name')
        pin.pin_room = request.POST.get('pin_room')
+       pin.other_pin_room = request.POST.get('other_pin_room')
        pin.pin_description = request.POST.get('pin_description')
        pin.date = request.POST.get('date')
        pin.pin_type = request.POST.get('pin_type')
@@ -111,13 +112,12 @@ def edit(request, pin_id):
       if request.POST.get('_save') is not None: 
          pin.pin_name = request.POST.get('pin_name')
          pin.pin_room = request.POST.get('pin_room')
+         pin.other_pin_room = request.POST.get('other_pin_room')
          pin.pin_description = request.POST.get('pin_description')
          pin.date = request.POST.get('date')
          pin.pin_type = request.POST.get('pin_type')
          pin.save()
          return redirect('/pins')
-#       else:
-#          return redirect('/pins/edit/pk')
     else:
       form = PinForm(instance=pin)
     template = loader.get_template('pins/edit.html')
