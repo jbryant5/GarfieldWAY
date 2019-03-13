@@ -8,7 +8,6 @@ from django.template import loader
 from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
-from mysite.core.forms import SignUpForm
 from django.contrib.auth import login, authenticate
 
 
