@@ -92,7 +92,6 @@
 					
 					<div class="pinlist">
 						
-<<<<<<< HEAD
 						<div>
 						
 							<h1>
@@ -143,32 +142,6 @@
 							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
 							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
 							<button type="downvote" id="downvote" name="vote" value="-1">Sorry, can't make it!</button>
-=======
-						<h1>{{ pin.pin_name }}</h1>
-
-						<ul>
-							<b>Description:</b> {{ pin.pin_description }}
-						</ul>
-						
-						<ul>
-							<b>Room:</b> {{ pin.pin_room }}
-						</ul>
-						
-						<ul>
-							<b>Type:</b> {{ pin.pin_type }}
-						</ul>
-						
-						<ul>
-							<b>Date:</b> {{ pin.date }}
-						<ul>
-							<b>Up Votes:</b> {{pin.votes}}
-						</ul>
-						
-						<form method="get" action="/pins/vote/" />
-							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
-							<button type="upvote" id="upvote" name="vote" value="1">Hit the yeet</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Hit the yaw</button>
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 						</form>
 						
 						<script> 
@@ -181,18 +154,10 @@
 									pin.votes-=1;
 						}
 						</script>
-<<<<<<< HEAD
 				
 					</div>
 					
 				{% endfor %}	
-=======
-					</div>
-					
-				{% endfor %}
-				
-			</div>
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 			
 			</div>	
 		
