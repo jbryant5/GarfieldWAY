@@ -1,11 +1,8 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-
 
 def validate_room (pin_room):
    print ("THE PIN ROOM IS: " + pin_room)
@@ -16,7 +13,6 @@ def validate_room (pin_room):
         )
 
 TYPE_CHOICES = (
-
     ('Club', 'Club'),
     ('Public', 'Public'),
     ('Private', 'Private'),
@@ -25,7 +21,7 @@ TYPE_CHOICES = (
 # Create your models here.
 class Pin(models.Model):
    pin_name = models.CharField(max_length=100)
-   pin_description = models.CharField(max_length=300, null = True)
+   pin_description = models.CharField(max_length=300, null = True, blank=True)
    pin_room = models.CharField(max_length=20, validators = [validate_room], null=True, blank=True)
    other_pin_room = models.CharField(max_length=100, null=True, blank=True)
    created_at = models.DateTimeField(auto_now_add=True)
@@ -55,23 +51,3 @@ class Pin(models.Model):
    
 class Vote(models.Model):
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
-
-#class User(models.Model):
-#   user_name = models.CharField(max_length=100)
- #  user_type = models.Charfield(max_length =100)
-  # user_email = models.Charfield(max_length =100)
-   #created_at = models.DateTimeField(auto_now_add=True)
-   #updated_at = models.DateTimeField(auto_now=True)
-
-
-   
-
-#class Account(models.Model):
-#   username = models.CharField(max_length=150)
- #  first_name = models.CharField(max_length=30)
-  # last_name = models.CharField(max_length=150)
-   #email = models.CharField(max_length=150)
-   #password = models.CharField(max_length=300)
-  # def __str__(self):
-   #   return self.username
-   
