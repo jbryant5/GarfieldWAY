@@ -8,11 +8,8 @@ from django.db import models
 from django.contrib.admin import widgets
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-<<<<<<< HEAD
-
-=======
 import json
->>>>>>> 59b16be4d38ecc194896d6f3a34047308852b2bd
+
 
 
 class PinForm(forms.ModelForm):
@@ -37,18 +34,6 @@ class PinForm(forms.ModelForm):
             'pin_description': Textarea(),
         }
 
-<<<<<<< HEAD
-
-class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
-
-    class Meta:
-       model = User
-       fields = ('username', 'first_name', 'last_name', 'email', 'password')
->>>>>>> 2196e8cc6b80ec1d3d916ba420893e6ced0999c8
-=======
     def clean(self):
         # print(self.cleaned_data)
         # cleaned_data = super(PinForm, self).clean()
@@ -72,4 +57,3 @@ class SignUpForm(UserCreationForm):
         #         _('%(pin_room)s is not an valid room number'),
         #         params={'pin_room': pin_room},
         #     )
->>>>>>> 59b16be4d38ecc194896d6f3a34047308852b2bd

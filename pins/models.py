@@ -50,30 +50,4 @@ class Pin(models.Model):
       return self.pin_name      
    
 class Vote(models.Model):
-<<<<<<< HEAD
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
-
-   
-
-class Account(models.Model):
-   username = models.CharField(max_length=150)
-   first_name = models.CharField(max_length=30)
-   last_name = models.CharField(max_length=150)
-   email = models.CharField(max_length=150)
-   password = models.CharField(max_length=300)
-   def __str__(self):
-      return self.username
-   
-
-
-#class User(models.Model):
-#   user_name = models.CharField(max_length=100)
- #  user_type = models.Charfield(max_length =100)
-  # user_email = models.Charfield(max_length =100)
-   #created_at = models.DateTimeField(auto_now_add=True)
-   #updated_at = models.DateTimeField(auto_now=True)
-
-
-=======
-   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
->>>>>>> 59b16be4d38ecc194896d6f3a34047308852b2bd
