@@ -141,10 +141,14 @@
 						<li>
 							<b>Up Votes:</b> {{pin.votes}}
 						</li>
-				
-						<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
 						
-						<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+						<div id="linkdiv">
+				
+							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+						
+							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+						
+						</div>
 								
 						<form method="get" action="/pins/vote/" />
 							<input type="hidden" name="pin_id" value="{{ pin.id }}" />

@@ -6,10 +6,6 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
-@media only screen and (max-width: 375px) {
-
-}
-
 /* HEADER */
 
 #header {
@@ -208,7 +204,7 @@ div.pinlist li {
 }
 
 div.delete-button #deletelink{
-	padding: 9px 15px;
+	/* padding: 9px 15px; */
 	display: inline-block;
     float: left;
 	margin: 12px 18px 0px 0px;
@@ -225,6 +221,10 @@ div.delete-button button{
 	letter-spacing: 0.5px;
 	font-size: 11px;
 	color: #ffffff
+}
+
+.delete-button #deletelink:hover {
+	background-color: #a41515;
 }
 
 #deleteroom {
@@ -390,7 +390,7 @@ a.deletelink:focus, a.deletelink:hover {
 	float: right;
 	display: inline-block;
 	padding: 8px 10px;
-	margin-right: 10px;
+	margin-right: 15px;
 	border: none;
 	border-radius: 10px;
 	background: #999;
@@ -416,6 +416,17 @@ a.deletelink:focus, a.deletelink:hover {
     letter-spacing: 0.5px;
     color: #fff;
 	text-decoration: none;
+}
+
+#linkdiv {
+	width: 44.6%;
+	float: right;
+}
+
+@media only screen and (max-width: 432px) {
+	#changelink {
+		margin-top: 10px;
+	}
 }
 
 .object-tools a:focus, .object-tools a:hover {
