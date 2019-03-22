@@ -46,17 +46,51 @@
 		
 			<div id="content-main">
 				
+				<!-- <form method="get" action="/pins/typefilter/" /> -->
+					<div class="dropdown">
+						<button onclick="openDropdown()" class="dropbtn">Filter pin list</button>
+							<div id="myDropdown" class="dropdown-content">	
+								<a href="/pins/upcomingfilter/">Upcoming</a>
+								<a href="/pins/typefilter/">Type</a>
+								<a href="/pins/lowestroomfilter/">Lowest Room Number</a>
+								<a href="/pins/highestroomfilter/">Highest Room Number</a>
+								<a href="/pins/recentlypublishedfilter">Recently Published</a>
+								<a href="/pins/oldestpublishedfilter">Oldest Published</a>	
+							</div>
+					</div>	
+				<!-- </form> -->
+				
+				<script>
+				/* When the user clicks on the button, 
+				toggle between hiding and showing the dropdown content */
+					function openDropdown() {
+						document.getElementById("myDropdown").classList.toggle("show");
+					}
+				// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+						if (!event.target.matches('.dropbtn')) {
+							var dropdowns = document.getElementsByClassName("dropdown-content");
+							var i;
+							for (i = 0; i < dropdowns.length; i++) {
+								var openDropdown = dropdowns[i];
+								if (openDropdown.classList.contains('show')) {
+									openDropdown.classList.remove('show');
+								}
+							}
+						}
+					}
+				</script>
+				
 				<ul class="object-tools">
 					<li>
 						<a href="/pins/create/" class="addlink">Add pin</a>
 					</li>
                 </ul>
 				
-				{% for pin in latest_pin_list %}
+				{% for pin in pin_list %}
 					
 					<div class="pinlist">
 						
-<<<<<<< HEAD
 						<div>
 						
 							<h1>
@@ -88,6 +122,10 @@
 						</li>
 						
 						<li>
+							<b>Other Room:</b> {{ pin.other_pin_room }}
+						</li>
+						
+						<li>
 							<b>Type:</b> {{ pin.pin_type }}
 						</li>
 						
@@ -103,32 +141,6 @@
 							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
 							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
 							<button type="downvote" id="downvote" name="vote" value="-1">Sorry, can't make it!</button>
-=======
-						<h1>{{ pin.pin_name }}</h1>
-
-						<ul>
-							<b>Description:</b> {{ pin.pin_description }}
-						</ul>
-						
-						<ul>
-							<b>Room:</b> {{ pin.pin_room }}
-						</ul>
-						
-						<ul>
-							<b>Type:</b> {{ pin.pin_type }}
-						</ul>
-						
-						<ul>
-							<b>Date:</b> {{ pin.date }}
-						<ul>
-							<b>Up Votes:</b> {{pin.votes}}
-						</ul>
-						
-						<form method="get" action="/pins/vote/" />
-							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
-							<button type="upvote" id="upvote" name="vote" value="1">Hit the yeet</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Hit the yaw</button>
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 						</form>
 						
 						<script> 
@@ -141,18 +153,10 @@
 									pin.votes-=1;
 						}
 						</script>
-<<<<<<< HEAD
 				
 					</div>
 					
 				{% endfor %}	
-=======
-					</div>
-					
-				{% endfor %}
-				
-			</div>
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 			
 			</div>	
 		
