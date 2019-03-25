@@ -94,22 +94,26 @@
 						<div>
 						
 							<h1>
-						
+								
 								{{ pin.pin_name }}			
 						
 							</h1>
 							
-							<div>
-							<ul class="object-tools">
-								<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
-							</ul>	
-							</div>
+							<!-- <div> -->
+							<!-- <ul class="object-tools"> -->
+								<!-- <li> -->
 							
-							<div>
-							<ul class="object-tools">
-								<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
-							</ul>
-							</div>
+								<!-- </li> -->
+							<!-- </ul>	 -->
+							<!-- </div> -->
+							
+							<!-- <div> -->
+							<!-- <ul class="object-tools"> -->
+								<!-- <li> -->
+								
+								<!-- </li> -->
+							<!-- </ul> -->
+							<!-- </div> -->
 							
 						</div>	
 						
@@ -136,11 +140,19 @@
 						<li>
 							<b>Up Votes:</b> {{pin.votes}}
 						</li>
+						
+						<div id="linkdiv">
 				
+							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+						
+							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+						
+						</div>
+								
 						<form method="get" action="/pins/vote/" />
 							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
 							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Sorry, can't make it!</button>
+							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
 						</form>
 						
 						<script> 
