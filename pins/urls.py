@@ -1,6 +1,6 @@
 from django.conf.urls import url
-
 from . import views
+
 
 app_name='pins'
 
@@ -20,3 +20,4 @@ urlpatterns = [
    url('recentlypublishedfilter/', views.recentlypublishedfilter, name='recentlypublishedfilter'),
    url('oldestpublishedfilter/', views.oldestpublishedfilter, name='oldestpublishedfilter'),
 ]   
+

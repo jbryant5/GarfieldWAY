@@ -1,17 +1,17 @@
-# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
+from django.contrib.auth import login, authenticate
 from django.shortcuts import render, get_object_or_404
-
 from django.utils import timezone
 from datetime import datetime
-
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
-from django.shortcuts import redirect
-
+from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
+from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
 def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
@@ -20,12 +20,11 @@ def index(request):
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
-    
+ 
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
    pin.votes += int(request.GET.get('vote'))
    pin.save()
-   
    return redirect('/pins')    
 
 def recentlypublishedfilter(request):
@@ -96,7 +95,14 @@ def create(request):
        pin.pin_description = request.POST.get('pin_description')
        pin.date = request.POST.get('date')
        pin.pin_type = request.POST.get('pin_type')
-       pin.save()
+       form = PinForm(request.POST, instance=pin)
+       if form.is_valid():
+         pin = form.save(commit=False)
+         pin.save()
+       else:
+         # form = PinForm()
+         return render(request, 'pins/create.html', {'pin_form': form})
+
        if request.POST.get('_save') is not None:
          return redirect('/pins')
        else:
@@ -155,8 +161,18 @@ def test(request):
     return HttpResponse('Test pin')
     
 def getAllRoomPins (request):
-    numberOfPins = len(Pin.objects.filter(pin_room = request.GET.get('room')))
     return HttpResponse("Number of Pins: " + str(numberOfPins))
 
+def createUser(request):
+    userName = request.REQUEST.get('username', None)
+    userPass = request.REQUEST.get('password', None)
+    userMail = request.REQUEST.get('email', None)
+   
+   #check if user already exists?
+    user = User.objects.create_user(username='john',
+                                 email='jlennon@beatles.com',
+                                 password='glass onion')
+    user.save()
 
+    return render_to_response('home.html', context_instance=RequestContext(request))
 
