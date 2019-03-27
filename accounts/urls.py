@@ -19,4 +19,7 @@ from . import views
 
 urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
+    url(r'^registration/login/$', views.login, name='login'),
+    url(r'^registration/loggedout/$', views.loggedout, name='loggedout'),
+
 ]

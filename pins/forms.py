@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 import json
 
 
+
 class PinForm(forms.ModelForm):
     class Meta:
         model = Pin
