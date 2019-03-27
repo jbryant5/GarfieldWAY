@@ -42,6 +42,16 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+#userlink {
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#userlink:hover {
+    color: #39004d;
+}
+
 /* BREADCRUMBS */
 
 div.breadcrumbs {
@@ -57,6 +67,17 @@ div.breadcrumbs a {
     color: white;
 	text-decoration: none;
 }
+
+/* HELP TEXTS AND ERROR MESSAGES */
+
+.helptexts {
+		
+}
+
+.errormessages{
+	
+}
+
 
 /* DROPDOWNS */
 

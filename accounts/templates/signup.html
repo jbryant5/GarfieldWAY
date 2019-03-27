@@ -14,50 +14,87 @@
 </head>
 <body>
         <div id="main">
+            <div id="header">
+                <h1 id="site">
+                    GarfieldWAY
+                </h1>
+                    <div id="user-tools">
+        
+                    {% if user.is_authenticated %}
+				
+					Welcome,
+					<strong>{{ user.get_username }}</strong>.
+					
+					{% else %}
+					
+					Welcome,
+					<strong>user</strong>.
+					
+					{% endif %}
+        
+					<a href="/accounts/signup" id="userlink">Sign up</a> /
 
-                <div id="header">
-                    <h1 id="site">
-                        GarfieldWAY
-                    </h1>
-                        <div id="user-tools">
+					<a id="userlink">Log in</a> /
+
+					<a id="userlink">Log out</a>
         
-                        Welcome,
-                        <strong>user</strong>.
-        
-                        <a>View site</a> /
-        
-                        <a>Change password</a> /
-        
-                        <a>Log out</a>
-        
-                        </div>
-                </div>
+                    </div>
+            </div>
                 
-                <div class="breadcrumbs">
+            <div class="breadcrumbs">
                 
-                    <a href="/pins/">Home ›</a> <b>Pins</b> 
+				<a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Sign up</b>
                     
-                </div>
+            </div>
+			
+			<div id="content" class="flex">
+		
+				<h1 id="title">Sign Up</h1>
+			
+				<div id="content-main">
 
-{% block content %}
-  <h2>Sign up</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text | safe}}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error | safe }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-  </form>
-{% endblock %}
+					{% block content %}
+					
+						<form method="post">
+						{% csrf_token %}
+						
+						{% for field in form %}
+						
+						  <p>
+						  
+							<!-- Field labels and input boxes-->
+							{{ field.label_tag }}<br>
+							{{ field }}
+							
+							<!-- Help texts-->
+							<div class="helptexts">
+							{% if field.help_text %}
+							  <small>{{ field.help_text | safe}}</small>
+							{% endif %}
+							</div>
+							
+							<!-- Error messages -->
+							<div class="errormessages"
+							{% for error in field.errors %}
+							  <p style="color: red">{{ error | safe }}</p>
+							{% endfor %}
+							</div>
+							
+						  </p>
+						  
+						{% endfor %}
+					
+						<button type="submit">Sign up</button>
+	
+						</form>
+						
+					{% endblock %}
+				
+				</div>	
+			
+			</div>
+		
+		</div>
 </body>
 
 <script>
