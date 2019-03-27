@@ -1,5 +1,4 @@
 from __future__ import unicode_literals
-from django.contrib.auth import login, authenticate
 from django.shortcuts import render, get_object_or_404
 from django.shortcuts import render
 # Create your views here.
@@ -7,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib import auth
 from django.template import loader
 from django.shortcuts import redirect
-from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth import login as auth_login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 
@@ -20,8 +19,8 @@ def signup(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
             raw_password = form.cleaned_data.get('password')
-            #user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
+            # user = authenticate(username=user.username, password=raw_password)
+            # login(request, user)
             return redirect('/pins')
     else:
         form = UserCreationForm()
@@ -35,8 +34,8 @@ def login(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             raw_password = form.cleaned_data.get('password')
             #user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
-            return redirect('home')   
+            auth_login(request, user)
+            return redirect('/pins')   
   else:
      form = AuthenticationForm            
   return render(request, 'login.html', {'form': form})
