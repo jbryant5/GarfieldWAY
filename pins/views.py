@@ -30,7 +30,58 @@ def vote(request):
    pin.votes += int(request.GET.get('vote'))
    pin.save()
    return redirect('/pins')    
+   
+def recentlypublishedfilter(request):
+    latest_pin_list = Pin.objects.order_by('-pub_date')
+    context = {
+        'pin_list': latest_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
 
+def oldestpublishedfilter(request):
+    latest_pin_list = Pin.objects.order_by('pub_date')  
+    context = {
+        'pin_list': latest_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
+
+def upcomingfilter(request):
+   now = timezone.now()
+   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   upcoming_pin_list = list(upcoming) + list(passed)
+   context = {
+        'pin_list': upcoming_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+
+def lowestroomfilter(request):
+   room_pin_list = Pin.objects.order_by('pin_room')
+   context = {
+        'pin_list': room_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+
+def highestroomfilter(request):
+   room_pin_list = Pin.objects.order_by('-pin_room')
+   context = {
+        'pin_list': room_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+
+def typefilter(request):
+   type_pin_list = Pin.objects.order_by('pin_type', '-date')
+   context = {
+        'pin_list': type_pin_list
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
+   
 def create(request):
     if request.method == 'GET':
        latest_pin_list = Pin.objects.order_by('-date')[:5]
@@ -123,3 +174,4 @@ def createUser(request):
     user.save()
 
     return render_to_response('home.html', context_instance=RequestContext(request))
+    
