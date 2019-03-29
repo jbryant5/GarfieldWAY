@@ -19,9 +19,9 @@ def signup(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
             raw_password = form.cleaned_data.get('password')
-            user = authenticate(username=user.username, password=raw_password)
-            login(request, user)
-            return redirect('home')
+            # user = authenticate(username=user.username, password=raw_password)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('/pins')
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
