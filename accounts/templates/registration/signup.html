@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Login</title>
+    <title>Sign Up</title>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css">
 	<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css">
@@ -36,45 +36,72 @@
 
 					<a href="/accounts/login" id="userlink">Log in</a> /
 
-					<a href="/accounts/loggedout" id="userlink">Log out</a>
+					<a href="/accounts/logout" id="userlink">Log out</a>
         
                     </div>
             </div>
                 
             <div class="breadcrumbs">
                 
-				<a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Login</b>
+				<a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Sign up</b>
                     
             </div>
 			
-		<div id="content" class="flex">
+			<div id="content" class="flex">
 		
-            <h1 id="title">Login</h1>
-		
-			<div id="content-main">
+				<h1 id="title">Sign Up</h1>
+			
+				<div id="content-main">
+
+					{% block content %}
+					
+						<form method="post">
+						{% csrf_token %}
+						
+						{% for field in form %}
+						
+						  <p>
+						  
+							<!-- Field labels and input boxes-->
+							{{ field.label_tag }}<br>
+							{{ field }}
+							
+							<!-- Help texts-->
+							<div class="helptexts">
+							{% if field.help_text %}
+							  <small>{{ field.help_text | safe}}</small>
+							{% endif %}
+							</div>
+							
+							<!-- Error messages -->
+							<div class="errormessages"
+							{% for error in field.errors %}
+							  <p style="color: red">{{ error | safe }}</p>
+							{% endfor %}
+							</div>
+							
+						  </p>
+						  
+						{% endfor %}
+					
+						<button type="submit">Sign up</button>
 	
-					<form method="post"> 
+						</form>
 						
-						{% csrf_token %} 
-						{{ form.as_p }}
-						
-					<button type="submit">Login</button>
-						
-					</form> 
-						
-					<label>
-					
-						<input type="checkbox" checked="checked" name="remember"> Remember me
-					
-					</label>
-					
+					{% endblock %}
 				
-			</div>	
+				</div>	
+			
+			</div>
 		
 		</div>
-		
-				
-	</body>
-				
+</body>
+
+<script>
+	if ( window.history.replaceState ) {
+	window.history.replaceState( null, null, window.location.href );
+}
+</script>
+
+
 </html>
-	

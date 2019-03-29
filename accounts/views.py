@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.contrib import auth
 from django.template import loader
 from django.shortcuts import redirect
-from django.contrib.auth import login as auth_login, authenticate, logout
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 
@@ -25,23 +25,5 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
-    
-def login(request):
-  if request.method == 'POST':
-     form = AuthenticationForm(request.POST)
-     if form.is_valid():
-            user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            raw_password = form.cleaned_data.get('password')
-            #user = authenticate(username=user.username, password=raw_password)
-            auth_login(request, user)
-            return redirect('/pins')   
-  else:
-     form = AuthenticationForm            
-  return render(request, 'login.html', {'form': form})
-    
-def loggedout(request):
-   auth.logout(request)
-   return render(request,'Logged_Out.html')
       
      
