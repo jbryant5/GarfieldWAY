@@ -32,6 +32,8 @@
 					
 					{% endif %}
         
+					<a href="/pins" id="userlink">Home</a> /
+					
 					<a href="/accounts/signup" id="userlink">Sign up</a> /
 
 					<a href="/accounts/login" id="userlink">Log in</a> /
@@ -43,7 +45,7 @@
                 
             <div class="breadcrumbs">
                 
-				<a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Login</b>
+				<a href="/pins/">Home ›</a> Accounts › <a href="/accounts/login">Login</a>
                     
             </div>
 			
@@ -58,7 +60,7 @@
 						{% csrf_token %} 
 						{{ form.as_p }}
 						
-					<button type="submit">Login</button>
+					<button type="submit" id="accountbutton">Login</button>
 						
 					</form> 
 						
