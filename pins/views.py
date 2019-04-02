@@ -101,12 +101,12 @@ def create(request):
        pin.pin_type = request.POST.get('pin_type')
        pin.save()
        form = PinForm(request.POST, instance=pin)
-       if form.is_valid():
-         pin = form.save(commit=False)
-         pin.save()
-       else:
-         # form = PinForm()
-         return render(request, 'pins/create.html', {'pin_form': form})
+#        if form.is_valid():
+#          pin = form.save(commit=False)
+#          pin.save()
+#        else:
+#          # form = PinForm()
+#          return render(request, 'pins/create.html', {'pin_form': form})
 
 
        if request.POST.get('_save') is not None:
