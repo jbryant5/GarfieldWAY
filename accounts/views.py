@@ -44,5 +44,16 @@ def login(request):
 def loggedout(request):
    auth.logout(request)
    return render(request,'Logged_Out.html')
-      
      
+def remove_user(request):
+    if request.method == 'POST':
+        form = RemoveUser(request.POST)
+        username = request.POST.get('username')
+        if form.is_valid():
+            rem = User.objects.get(username=username)
+            rem.delete()
+            return redirect('main')
+    else:
+        form = RemoveUser()
+    context = {'form': form}
+    return render(request, 'remove_user.html', context)
