@@ -124,3 +124,5 @@ STATICFILES_DIRS = [
     os.path.join(os.path.dirname(BASE_DIR), "static"),
     "C:/Users/Trev1400/Desktop/Projects in CS/GarfieldWAY/pins/templates/pins/css/static",
 ]
+
+LOGIN_REDIRECT_URL = '/pins'

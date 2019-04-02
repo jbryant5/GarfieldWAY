@@ -22,21 +22,32 @@
             </h1>
                 <div id="user-tools">
 
+                {% if user.is_authenticated %}
+				
                 Welcome,
+                <strong>{{ user.get_username }}</strong>.
+				
+				{% else %}
+				
+				Welcome,
                 <strong>user</strong>.
+				
+				{% endif %}
 
-                <a>View site</a> /
+				<a href="/pins" id="userlink">Home</a> /
+				
+				<a href="/accounts/signup" id="userlink">Sign up</a> /
 
-                <a>Change password</a> /
+				<a href="/accounts/login" id="userlink">Log in</a> /
 
-                <a>Log out</a>
+				<a href="/accounts/logout" id="userlink">Log out</a>
 
                 </div>
         </div>
 		
 		<div class="breadcrumbs">
 		
-            <a href="/pins/">Home ›</a> <b>Pins</b> 
+            <a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Delete pin</b>
 			
         </div>
 		

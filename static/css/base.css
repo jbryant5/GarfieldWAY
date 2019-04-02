@@ -42,6 +42,16 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+#userlink {
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#userlink:hover {
+    color: #39004d;
+}
+
 /* BREADCRUMBS */
 
 div.breadcrumbs {
@@ -56,6 +66,40 @@ div.breadcrumbs {
 div.breadcrumbs a {
     color: white;
 	text-decoration: none;
+}
+
+/* HELP TEXTS, ERROR MESSAGES, ACCOUNT BUTTONS */
+
+.helptexts, .helptexts li{
+	font-size: 12px;
+	list-style: none;
+}
+
+.errormessages{
+	margin-top: 12px;
+	font-size: 12px;
+}
+
+#accountbutton {
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 16px;
+	margin: 10px 15px 12px 0px;
+	border: none;
+	border-radius: 10px;
+	background: #999;
+	font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+	text-decoration: none;
+}
+
+ul.errorlist li {
+	font-size: 13px;
+	list-style: none;
+	color: red;
 }
 
 /* DROPDOWNS */
@@ -129,10 +173,7 @@ div.pinlist {
 }
 
 div.pinlist h1 {
-<<<<<<< HEAD
 	/* display: block; */
-=======
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 	font-weight: bold;
 	font-size: 20px;
 	color: #ffffff;
@@ -153,8 +194,6 @@ div.pinlist ul {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	color: #ffffff;
-<<<<<<< HEAD
-	vertical-align: center;
 	/* margin: 15px 15px; */
 }
 
@@ -250,11 +289,6 @@ div.delete-button button{
     color: #666;
 	display: inline-block;
 }
-=======
-	margin: 15px 15px;
-}
-
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 
 /* PAGE STRUCTURE */
 
@@ -450,7 +484,7 @@ a.deletelink:focus, a.deletelink:hover {
 	}
 }
 
-.object-tools a:focus, .object-tools a:hover {
+.object-tools a:focus, .object-tools a:hover, #accountbutton:hover {
     background-color: #8600b3;
 }
 

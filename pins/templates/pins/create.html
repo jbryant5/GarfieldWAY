@@ -26,21 +26,34 @@
             </h1>
                 <div id="user-tools">
 
+                {% if user.is_authenticated %}
+				
                 Welcome,
+                <strong>{{ user.get_username }}</strong>.
+				
+				{% else %}
+				
+				Welcome,
                 <strong>user</strong>.
+				
+				{% endif %}
 
-                <a>View site</a> /
+				<a href="/pins" id="userlink">Home</a> /
+				
+				<a href="/accounts/signup" id="userlink">Sign up</a> /
 
-                <a>Change password</a> /
+				<a href="/accounts/login" id="userlink">Log in</a> /
 
-                <a>Log out</a>
+				<a href="/accounts/logout" id="userlink">Log out</a>
 
                 </div>
         </div>
 		
 		<div class="breadcrumbs">
-            <a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Add pin</b>
-        </div>
+		
+            <a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <a href="/pins/create">Add pin</a>
+        
+		</div>
 		
 		<div id="content" class="colM">
 
@@ -80,74 +93,12 @@
 						<input type="submit" value="Save" class="default" name="_save">
 					</div>
 				</form>
-					<!-- <fieldset class = "module aligned">
-						
-						<div class = "form-row field-pin_name">
-							
-							<div>
-						
-								<label class="required" for="id_pin_name">Pin name:</label>
-						
-								<input type="text" name="pin_name" class="vTextField" maxlength="100" required="" id="id_pin_name">
-					
-							</div>
-							
-						</div>
-						
-						<div class="form-row field-pin_description">
-							 <div>
-								<label class="required" for="id_pin_description">Pin description:</label>
-								<textarea type="text" name="pin_description" class="vTallTextField" maxlength="300" required="" id="id_pin_description"></textarea>
-							 </div>
-						 </div>
-						 <div class="form-row field-pin_room">
-							 <div>
-								 <label class="required" for="id_pin_room">Pin room:</label>
-								 <input type="text" name="pin_room" class="vTextField" maxlength="20" required="" id="id_pin_room">
-							 </div>
-						 </div>
-						 
-						  <div class="form-row field-pin_type">
-							 <div>
-								 <label class="required" for="id_pin_type">Pin type:</label>
-								 <select type="text" name="pin_type" class="vTextField" required="" id="id_pin_type">
-									
-									 <option value="Club">
-											 Club 
-									 </option>
-									 <option value="Public">
-										     Public
-								     </option>
-									 <option value="Private">
-											 Private
-									 </option>
-									 <option value="Other">
-											 Other
-									 </option>
-								 
-								 </select>
-							 </div> 
-						 </div>
-						 
-						 <div class="form-row field-date">
-							 <div>
-								 <label class="required" for="id_date_0">Date:</label>
-									 <p class="datetime">
-										 <input type="datetime-local" name="date" class="vDateField" size="10" required="" id="id_date_0">
-									 </p>
-							 </div>
-						 </div>
-						
-					</fieldset>
-					
-					<div class="submit-row">
-								<input type="submit" value="Save and add another" name="_addanother">
-								<input type="submit" value="Save" class="default" name="_save">
-					</div>
-			
-			    </form> -->
+				
 			</div>
+			
 		</div>
+		
     </div>
+	
 </body>
 </html>
