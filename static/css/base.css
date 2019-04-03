@@ -18,13 +18,14 @@ body {
     overflow: hidden;
 }
 
-#site {
+#site a {
     float: left;
 	padding: 0;
     margin: 0 20px 0 0;
 	font-weight: 300;
     font-size: 24px;
     color: white;
+	text-decoration: none;
 }
 
 #user-tools {
@@ -712,7 +713,3 @@ hr {
     font-size: 1px;
     line-height: 1px;
 }
-
-
-
-
