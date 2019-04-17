@@ -7,7 +7,8 @@ from django.contrib import auth
 from django.template import loader
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from .forms import SignUpForm
 from django.shortcuts import render, redirect
 
 
@@ -19,11 +20,11 @@ def signup(request):
             user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
             raw_password = form.cleaned_data.get('password')
-            # user = authenticate(username=user.username, password=raw_password)
-            # login(request, user)
+#             user = authenticate(username=user.username, password=raw_password)
+#             login(request, user)
             return redirect('/accounts/login')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
       
      
