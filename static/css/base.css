@@ -81,6 +81,12 @@ div.breadcrumbs a {
 	font-size: 12px;
 }
 
+#forgotlink{
+	font-size: 12px;
+	list-style: none;
+	cursor: pointer;
+}
+
 #accountbutton {
 	cursor: pointer;
 	display: inline-block;
