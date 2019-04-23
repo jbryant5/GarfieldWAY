@@ -11,6 +11,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
+from pins.models import Pin
+
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -25,3 +27,16 @@ def signup(request):
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
+def delete (request):
+    if request.method == 'POST':
+        #Pin.objects.filter(username=request.user.username).delete()
+        request.user.delete()
+        return HttpResponse("Your Account Has Been Deleted.")
+    else:
+        user = request.user
+        template = loader.get_template('deleteAccount.html')
+        context = {
+           'user':user,
+        }
+        return HttpResponse(template.render(context, request))
