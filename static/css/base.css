@@ -18,13 +18,14 @@ body {
     overflow: hidden;
 }
 
-#site {
+#site a {
     float: left;
 	padding: 0;
     margin: 0 20px 0 0;
 	font-weight: 300;
     font-size: 24px;
     color: white;
+	text-decoration: none;
 }
 
 #user-tools {
@@ -42,6 +43,16 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 
+#userlink {
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#userlink:hover {
+    color: #39004d;
+}
+
 /* BREADCRUMBS */
 
 div.breadcrumbs {
@@ -56,6 +67,46 @@ div.breadcrumbs {
 div.breadcrumbs a {
     color: white;
 	text-decoration: none;
+}
+
+/* HELP TEXTS, ERROR MESSAGES, ACCOUNT BUTTONS */
+
+.helptexts, .helptexts li{
+	font-size: 12px;
+	list-style: none;
+}
+
+.errormessages{
+	margin-top: 12px;
+	font-size: 12px;
+}
+
+#forgotlink{
+	font-size: 12px;
+	list-style: none;
+	cursor: pointer;
+}
+
+#accountbutton {
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 16px;
+	margin: 10px 15px 12px 0px;
+	border: none;
+	border-radius: 10px;
+	background: #999;
+	font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+	text-decoration: none;
+}
+
+ul.errorlist li {
+	font-size: 13px;
+	list-style: none;
+	color: red;
 }
 
 /* DROPDOWNS */
@@ -129,10 +180,7 @@ div.pinlist {
 }
 
 div.pinlist h1 {
-<<<<<<< HEAD
 	/* display: block; */
-=======
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 	font-weight: bold;
 	font-size: 20px;
 	color: #ffffff;
@@ -153,8 +201,6 @@ div.pinlist ul {
 	font-family: 'Open Sans', sans-serif;
 	font-size: 16px;
 	color: #ffffff;
-<<<<<<< HEAD
-	vertical-align: center;
 	/* margin: 15px 15px; */
 }
 
@@ -168,6 +214,7 @@ div.pinlist li {
 }
 
 #upvote {
+	cursor: pointer;
 	border: none;
 	border-radius: 10px;
 	padding: 6px 8px;
@@ -183,9 +230,11 @@ div.pinlist li {
 }
 
 #downvote {
+	cursor: pointer;
 	border: none;
 	border-radius: 10px;
 	padding: 6px 8px;
+	margin-left: 15px;
 	margin-bottom: 10px;
 	background: #ba2121;
 	font-family: inherit;
@@ -196,9 +245,17 @@ div.pinlist li {
 	color: #ffffff
 }
 
+#downvote:hover{
+	background-color: #a41515;
+}
+
+#upvote:hover{
+	background-color: #29a329;
+}
+
 /* DELETE PAGE */
 
-#delete-text {
+#sub-text {
 	margin: 15px 0px 20px;
     font-weight: 300;
     font-size: 15px;
@@ -207,15 +264,17 @@ div.pinlist li {
 }
 
 div.delete-button #deletelink{
-	padding: 9px 15px;
+	padding: 0px;
 	display: inline-block;
     float: left;
-	margin: 12px 18px 0px 0px;
+	margin: 0px 18px 0px 0px;
 	background: #ba2121;
 	font-size: 11px;
 }
 
 div.delete-button button{
+	cursor: pointer;
+	padding: 9px 15px;
 	background:none;
 	border:none;
 	font-family: inherit;
@@ -226,6 +285,10 @@ div.delete-button button{
 	color: #ffffff
 }
 
+.delete-button #deletelink:hover {
+	background-color: #a41515;
+}
+
 #deleteroom {
 	margin: 0 0 20px;
     font-weight: 300;
@@ -233,11 +296,6 @@ div.delete-button button{
     color: #666;
 	display: inline-block;
 }
-=======
-	margin: 15px 15px;
-}
-
->>>>>>> 55ac39ffa81aa85a76ba8f54c72f317edf84d401
 
 /* PAGE STRUCTURE */
 
@@ -390,32 +448,58 @@ a.deletelink:focus, a.deletelink:hover {
 	text-decoration: none;
 }
 
-.object-tools #changelink {
-	padding: 3px 14px;
+#changelink {
+	float: right;
 	display: inline-block;
-    float: right;
-	margin: 15px -180px 0px 0px;
-	font-size: 11px;
+	padding: 8px 10px;
+	margin-right: 15px;
+	border: none;
+	border-radius: 10px;
+	background: #999;
+	font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+	text-decoration: none;
 }
 
-.object-tools #deletelink {
-	padding: 3px 14px;
+#deletelink {
+	float: right;
 	display: inline-block;
-    float: right;
-	margin: 15px 100px 0px 0px;
+	padding: 8px 10px;
+	margin-right: 15px;
+	border: none;
+	border-radius: 10px;
 	background: #ba2121;
-	font-size: 11px;
+	font-weight: 400;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #fff;
+	text-decoration: none;
 }
 
-.object-tools a:focus, .object-tools a:hover {
+#linkdiv {
+	width: 44.6%;
+	float: right;
+}
+
+@media only screen and (max-width: 432px) {
+	#changelink {
+		margin-top: 10px;
+	}
+}
+
+.object-tools a:focus, .object-tools a:hover, #accountbutton:hover {
     background-color: #8600b3;
 }
 
-.object-tools #changelink:hover {
+#changelink:hover {
 	background-color: #666666;
 }
 
-.object-tools #deletelink:hover {
+#deletelink:hover {
 	background-color: #a41515;
 }
 
@@ -635,7 +719,3 @@ hr {
     font-size: 1px;
     line-height: 1px;
 }
-
-
-
-

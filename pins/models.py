@@ -4,6 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
+<<<<<<< HEAD
 # def validate_room (pin_room):
 #    print ("THE PIN ROOM IS: " + pin_room)
 #    if not (int(pin_room)>100 and int(pin_room)<140):
@@ -11,6 +12,15 @@ from django.utils.translation import gettext_lazy as _
 #          _('%(pin_room)s is not an valid room number'),
 #             params={'pin_room': pin_room},
 #         )
+=======
+def validate_room (pin_room):
+   print ("THE PIN ROOM IS: " + pin_room)
+   if not (int(pin_room)>100 and int(pin_room)<140 or (int(pin_room)>=200 and int(pin_room)<240) or (int(pin_room)>=300 and int(pin_room)<340)):
+      raise ValidationError(
+         _('%(pin_room)s is not a valid room number'),
+            params={'pin_room': pin_room},
+        )
+>>>>>>> 067a5d5e98941c74003452b20df6228b46094c61
 
 TYPE_CHOICES = (
     ('Club', 'Club'),

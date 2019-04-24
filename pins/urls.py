@@ -20,4 +20,3 @@ urlpatterns = [
    url('recentlypublishedfilter/', views.recentlypublishedfilter, name='recentlypublishedfilter'),
    url('oldestpublishedfilter/', views.oldestpublishedfilter, name='oldestpublishedfilter'),
 ]   
-
