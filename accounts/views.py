@@ -12,6 +12,8 @@ from .forms import SignUpForm
 from django.shortcuts import render, redirect
 
 from pins.models import Pin
+from django.contrib.auth import logout
+
 
 def signup(request):
     if request.method == 'POST':
@@ -28,11 +30,12 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-def delete (request):
+def deleteAccount (request):
     if request.method == 'POST':
-        #Pin.objects.filter(username=request.user.username).delete()
-        request.user.delete()
-        return HttpResponse("Your Account Has Been Deleted.")
+       user = request.user
+       logout(request)
+       user.delete()
+       return HttpResponse("Your Account Has Been Deleted.")
     else:
         user = request.user
         template = loader.get_template('deleteAccount.html')
@@ -40,3 +43,6 @@ def delete (request):
            'user':user,
         }
         return HttpResponse(template.render(context, request))
+
+def delete_done (request):
+    return HttpResponse ("The account ")
