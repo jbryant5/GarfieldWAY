@@ -74,7 +74,31 @@
 			
 				<form action="" method="post" id="pin_form" novalidate="">
 					{% csrf_token %}
-					{{pin_form.as_p}}
+						{% for field in pin_form %}
+						
+						  <p>
+						  
+							<!-- Field labels and input boxes-->
+							{{ field.label_tag }}<br>
+							{{ field }}
+							
+							<!-- Help texts-->
+							<div class="helptexts">
+							{% if field.help_text %}
+							  <small>{{ field.help_text | safe}}</small>
+							{% endif %}
+							</div>
+							
+							<!-- Error messages -->
+							<div class="errormessages"
+							{% for error in field.errors %}
+							  <p style="color: red">{{ error | safe }}</p>
+							{% endfor %}
+							</div>
+							
+						  </p>
+						  
+						{% endfor %}
 					
 					
 					<div class="submit-row">
