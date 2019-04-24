@@ -12,6 +12,11 @@ from .forms import SignUpForm
 from django.shortcuts import render, redirect
 
 
+def profile(request):
+   current_user = request.user
+   form = SignUpForm(instance=current_user)
+   return render(request, 'profile.html', {'form': form})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
