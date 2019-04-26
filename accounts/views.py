@@ -14,7 +14,10 @@ from django.shortcuts import render, redirect
 
 def profile(request):
    current_user = request.user
-   form = SignUpForm(instance=current_user)
+   if current_user.is_authenticated():
+      form = SignUpForm(instance=current_user)
+   else:
+      return redirect('/accounts/login')
    return render(request, 'profile.html', {'form': form})
 
 def signup(request):
