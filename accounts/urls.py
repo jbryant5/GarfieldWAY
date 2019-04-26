@@ -21,9 +21,7 @@ from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     url(r'^signup/$', views.signup, name='signup'),
-    url('^remove$', views.remove_user, name="remove"),
+    url('^remove$', views.delete_user, name="remove"),
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-
-
 ]

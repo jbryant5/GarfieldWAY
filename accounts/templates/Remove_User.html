@@ -47,39 +47,55 @@
                 
             <div class="breadcrumbs">
                 
-				<a href="/pins/">Home ›</a> Accounts › <a href="/accounts/login">Login</a>
+				<a href="/pins/">Home ›</a> Accounts › <a href="/accounts/remove">Delete User</a>
                     
             </div>
 			
 			<div id="content" class="flex">
-		
-				<h1 id="title">Login</h1>
+				
 		
 				<div id="content-main">
 	
-					<form method="post"> 
+					<form action="" method="post" id="pin_form" novalidate="">
+						{% csrf_token %}
 						
-						{% csrf_token %} 
-						{{ form.as_p }}
-						
-					<button type="submit" id="accountbutton">Login</button>
-						
-					</form> 
-						
-					<label>
 					
-						<input type="checkbox" checked="checked" name="remember"> Remember me
+					<h1 id="title">We're Sorry to See You Go</h1>
 					
-					</label>
 					
+					<ul class="object-tools">
+				
+						<li>
+					
+							<a href="/pins/" class="addlink">Cancel</a>
+					
+						</li>
+					
+					</ul>
+					
+				<div>
+					<div>
+					
+					<h2 id="delete-text">Are you sure that you want to delete your account? This action cannot be undone.</h2>
+						<div class="delete-button">
+				
+							<ul class="object-tools">
+					
+								<a href="/pins" id="deletelink"><button type="submit">Yes</button></a>
+						
+							</ul>	
+					
+						</div>
+					</div>
+						
+					</form> 					
 				
 				</div>	
 		
-			</div>
+				</div>
 		
 		</div>
 				
 	</body>
 				
 </html>
-	

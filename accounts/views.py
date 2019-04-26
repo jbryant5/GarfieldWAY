@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
+from .forms import RemoveUser
+from django.contrib.auth.models import User
 
 
 def signup(request):
@@ -27,15 +29,15 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
      
-def remove_user(request):
+def delete_user(request):
+    user = get_object_or_404(User, pk=User_id)
     if request.method == 'POST':
         form = RemoveUser(request.POST)
-        username = request.POST.get('username')
         if form.is_valid():
-            rem = User.objects.get(username=username)
-            rem.delete()
-            return redirect('main')
+            user.delete()
+            return redirect('/pins')
+        else:
+           message = "The account doesn't exist"
     else:
         form = RemoveUser()
-    context = {'form': form}
-    return render(request, 'remove_user.html', context)
+    return render(request, 'Remove_User.html', {'form': form})

@@ -1,18 +1,18 @@
 from django import forms
-from django.forms import Textarea
+from django.forms import Textarea, DateTimeField, DateField
 from .models import Pin
-from django import forms
-from django.forms import Textarea
-from .models import Pin
+from .widgets import DateTimeLocalWidget, DateTimeLocalField
 from django.db import models
 from django.contrib.admin import widgets
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.forms.extras.widgets import SelectDateWidget
+
 import json
 
-
-
 class PinForm(forms.ModelForm):
+    date = DateTimeLocalField()
+    
     class Meta:
         model = Pin
         exclude = ('pub_date',)
@@ -22,11 +22,9 @@ class PinForm(forms.ModelForm):
             'other_pin_room': 'Other Room ',
             'pin_description': 'Description',
             'pin_type': 'Type',
-            'date': 'Date',
             'votes':'Up Votes'
         }
         help_texts = {
-            'date': 'YYYY-MM-DD HH:MM:SS',
             'pin_room': '100-124 or 200-240 or 300-340 (Optional)',
             'other_pin_room': 'e.g. Gym, Commons, Field (Optional)',
         }
@@ -57,3 +55,14 @@ class PinForm(forms.ModelForm):
         #         _('%(pin_room)s is not an valid room number'),
         #         params={'pin_room': pin_room},
         #     )
+
+
+
+class DateForm(forms.Form):
+    date = forms.DateTimeField(
+        input_formats=['%d/%m/%Y %H:%M'],
+        widget=forms.DateTimeInput(attrs={
+            'class': 'form-control datetimepicker-input',
+            'data-target': '#datetimepicker1'
+        })
+    )
