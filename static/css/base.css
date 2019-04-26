@@ -18,13 +18,14 @@ body {
     overflow: hidden;
 }
 
-#site {
+#site a {
     float: left;
 	padding: 0;
     margin: 0 20px 0 0;
 	font-weight: 300;
     font-size: 24px;
     color: white;
+	text-decoration: none;
 }
 
 #user-tools {
@@ -78,6 +79,12 @@ div.breadcrumbs a {
 .errormessages{
 	margin-top: 12px;
 	font-size: 12px;
+}
+
+#forgotlink{
+	font-size: 12px;
+	list-style: none;
+	cursor: pointer;
 }
 
 #accountbutton {
@@ -248,7 +255,7 @@ div.pinlist li {
 
 /* DELETE PAGE */
 
-#delete-text {
+#sub-text {
 	margin: 15px 0px 20px;
     font-weight: 300;
     font-size: 15px;
@@ -712,7 +719,3 @@ hr {
     font-size: 1px;
     line-height: 1px;
 }
-
-
-
-

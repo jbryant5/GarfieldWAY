@@ -9,9 +9,9 @@ from django import forms
 
 def validate_room (pin_room):
    print ("THE PIN ROOM IS: " + pin_room)
-   if not (int(pin_room)>100 and int(pin_room)<140):
+   if not (int(pin_room)>100 and int(pin_room)<140 or (int(pin_room)>=200 and int(pin_room)<240) or (int(pin_room)>=300 and int(pin_room)<340)):
       raise ValidationError(
-         _('%(pin_room)s is not an valid room number'),
+         _('%(pin_room)s is not a valid room number'),
             params={'pin_room': pin_room},
         )
 

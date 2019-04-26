@@ -7,25 +7,32 @@ from django.contrib import auth
 from django.template import loader
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from .forms import SignUpForm
 from django.shortcuts import render, redirect
 from .forms import RemoveUser
 from django.contrib.auth.models import User
 
 
+def profile(request):
+   current_user = request.user
+   if current_user.is_authenticated():
+      form = SignUpForm(instance=current_user)
+   else:
+      return redirect('/accounts/login')
+   return render(request, 'profile.html', {'form': form})
+
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
+#             user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
             raw_password = form.cleaned_data.get('password')
-            # user = authenticate(username=user.username, password=raw_password)
-            # login(request, user)
-            return redirect('/pins')
+            return redirect('/accounts/login')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
      

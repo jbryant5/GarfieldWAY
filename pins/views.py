@@ -83,36 +83,32 @@ def typefilter(request):
    return HttpResponse(template.render(context, request))
 
 def create(request):
-    if request.method == 'GET':
-       latest_pin_list = Pin.objects.order_by('-date')
-       template = loader.get_template('pins/create.html')
-       context = {
-           'pin_list': latest_pin_list, 'pin_form': PinForm,
-       }
-       return HttpResponse(template.render(context, request))
-       
-    elif request.method == 'POST':
-       pin = Pin ()  
-       pin.pin_name = request.POST.get('pin_name')
-       pin.pin_room = request.POST.get('pin_room')
-       pin.other_pin_room = request.POST.get('other_pin_room')
-       pin.pin_description = request.POST.get('pin_description')
-       pin.date = request.POST.get('date')
-       pin.pin_type = request.POST.get('pin_type')
-       pin.save()
-       form = PinForm(request.POST, instance=pin)
-       if form.is_valid():
-         pin = form.save(commit=False)
-         pin.save()
-       else:
-         # form = PinForm()
-         return render(request, 'pins/create.html', {'pin_form': form})
-
-
-       if request.POST.get('_save') is not None:
-         return redirect('/pins')
-       else:
-         return redirect('/pins/create')
+   current_user = request.user
+   if current_user.is_authenticated():
+       if request.method == 'GET':
+          latest_pin_list = Pin.objects.order_by('-date')
+          template = loader.get_template('pins/create.html')
+          context = {
+              'pin_list': latest_pin_list, 'pin_form': PinForm,
+          }
+          return HttpResponse(template.render(context, request))
+          
+       elif request.method == 'POST':
+          pin = Pin ()  
+          pin.pin_name = request.POST.get('pin_name')
+          pin.pin_room = request.POST.get('pin_room')
+          pin.other_pin_room = request.POST.get('other_pin_room')
+          pin.pin_description = request.POST.get('pin_description')
+          pin.date = request.POST.get('date')
+          pin.pin_type = request.POST.get('pin_type')
+          pin.save()
+          form = PinForm(request.POST, instance=pin)
+          if request.POST.get('_save') is not None:
+            return redirect('/pins')
+          else:
+            return redirect('/pins/create')
+   else:
+      return redirect('/accounts/login')
 
 def edit(request, pin_id):
     pin = get_object_or_404(Pin, pk=pin_id)

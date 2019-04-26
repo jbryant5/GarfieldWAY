@@ -18,7 +18,7 @@
 
         <div id="header">
             <h1 id="site">
-                GarfieldWAY
+                <a href="/pins">GarfieldWAY</a>
             </h1>
                 <div id="user-tools">
 				
@@ -30,11 +30,13 @@
 				{% else %}
 				
 				Welcome,
-                <strong>user</strong>.
+                <strong>guest</strong>.
 				
 				{% endif %}
 				
 				<a href="/pins" id="userlink">Home</a> /
+				
+				<a href="/accounts/profile" id="userlink">Profile</a> /
 				
 				<a href="/accounts/signup" id="userlink">Sign up</a> /
 
@@ -60,7 +62,6 @@
 		
 			<div id="content-main">
 				
-				<!-- <form method="get" action="/pins/typefilter/" /> -->
 					<div class="dropdown">
 						<button onclick="openDropdown()" class="dropbtn">Filter pin list</button>
 							<div id="myDropdown" class="dropdown-content">	
@@ -72,7 +73,6 @@
 								<a href="/pins/oldestpublishedfilter">Oldest Published</a>	
 							</div>
 					</div>	
-				<!-- </form> -->
 				
 				<script>
 				/* When the user clicks on the button, 
@@ -114,22 +114,6 @@
 								{{ pin.pin_name }}			
 						
 							</h1>
-							
-							<!-- <div> -->
-							<!-- <ul class="object-tools"> -->
-								<!-- <li> -->
-							
-								<!-- </li> -->
-							<!-- </ul>	 -->
-							<!-- </div> -->
-							
-							<!-- <div> -->
-							<!-- <ul class="object-tools"> -->
-								<!-- <li> -->
-								
-								<!-- </li> -->
-							<!-- </ul> -->
-							<!-- </div> -->
 							
 						</div>	
 						
