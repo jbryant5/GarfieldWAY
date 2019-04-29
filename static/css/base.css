@@ -53,6 +53,14 @@ body {
     color: #39004d;
 }
 
+#profile-text {
+	margin: 10px 0px 0px;
+    font-weight: 300;
+    font-size: 15px;
+    color: #666;
+	display: inline-block;
+}
+
 /* BREADCRUMBS */
 
 div.breadcrumbs {
@@ -260,7 +268,7 @@ div.pinlist li {
 /* DELETE PAGE */
 
 #sub-text {
-	margin: 15px 0px 20px;
+	margin: 15px 0px 0px;
     font-weight: 300;
     font-size: 15px;
     color: #666;

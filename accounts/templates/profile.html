@@ -57,7 +57,20 @@
 		
 			<div id="content-main">
 				
-				<h1 id="sub-text">@{{ user.get_username }}</h1>			
+				<h1 id="profile-text">@{{ user.get_username }}</h1>
+				
+				<ul>
+				<h1 id="profile-text">{{ user.email }}</h1>
+				</ul>
+			
+				<div>
+				A user's pins will go in this space once we have implemented relationships between pins and users.
+				</div>
+			
+				<div class="submit-row">
+							<input type="submit" value="Change password" href="/accounts/password_change">
+							<input type="submit" value="Reset password" href="/accounts/password_reset">
+				</div>
 			
 			</div>	
 		
