@@ -22,7 +22,7 @@ class PinForm(forms.ModelForm):
     
     class Meta:
         model = Pin
-        exclude = ('pub_date',)
+        exclude = ('pub_date', 'user')
         labels = {
             'pin_name': 'Name ',
             'pin_room': 'Room ',
