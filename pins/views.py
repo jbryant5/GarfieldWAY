@@ -11,11 +11,12 @@ from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
 from django.contrib.auth import login, authenticate
-
-
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+
+from django.forms.extras.widgets import SelectDateWidget
 
 def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
@@ -30,6 +31,15 @@ def vote(request):
    pin.votes += int(request.GET.get('vote'))
    pin.save()
    return redirect('/pins')    
+
+def mypinsfilter(request):
+    my_pin_list = Pin.objects.filter(User=request.user)
+    ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+    context = {
+        'pin_list': ordered_my_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
 
 def recentlypublishedfilter(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
@@ -165,4 +175,4 @@ def test(request):
 def getAllRoomPins (request):
     return HttpResponse("Number of Pins: " + str(numberOfPins))
 
-    
+

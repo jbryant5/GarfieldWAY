@@ -10,6 +10,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
+from .forms import RemoveUser
+from django.contrib.auth.models import User
 
 
 def profile(request):
@@ -57,3 +59,4 @@ def delete_complete (request):
            'user': user,
         }
         return HttpResponse (template.render(context, request))
+

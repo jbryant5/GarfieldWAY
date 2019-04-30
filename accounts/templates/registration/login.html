@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="{% static 'css/widgets.css' %}" type="text/css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
 </head>
-<body>
+	<body>
         <div id="main">
             <div id="header">
                 <h1 id="site">
@@ -40,7 +40,9 @@
 
 					<a href="/accounts/login" id="userlink">Log in</a> /
 
-					<a href="/accounts/logout" id="userlink">Log out</a>
+					<a href="/accounts/logout" id="userlink">Log out</a> /
+					
+					<a href="/accounts/remove" id="userlink">Delete User</a> 
         
                     </div>
             </div>
@@ -51,11 +53,11 @@
                     
             </div>
 			
-		<div id="content" class="flex">
-		
+			<div id="content" class="flex">
+			
             <h1>Login</h1>
 		
-			<div id="content-main">
+				<div id="content-main">
 	
 					<form method="post"> 
 						
@@ -68,10 +70,11 @@
 					
 					<a href="/accounts/password_reset" id="forgotlink"> Forgot password? </a>
 				
-			</div>	
+				</div>	
+		
+			</div>
 		
 		</div>
-		
 				
 	</body>
 				
