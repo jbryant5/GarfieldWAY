@@ -13,7 +13,6 @@ from .forms import PinForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from django.forms.extras.widgets import SelectDateWidget
@@ -33,7 +32,7 @@ def vote(request):
    return redirect('/pins')    
 
 def mypinsfilter(request):
-    my_pin_list = Pin.objects.filter(User=request.user)
+    my_pin_list = Pin.objects.filter(user=request.user)
     ordered_my_pin_list = my_pin_list.order_by('-pub_date')
     context = {
         'pin_list': ordered_my_pin_list

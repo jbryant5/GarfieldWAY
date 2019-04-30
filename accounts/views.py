@@ -8,6 +8,7 @@ from django.template import loader
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from pins.models import Pin, Vote
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
 from .forms import RemoveUser
@@ -18,6 +19,12 @@ def profile(request):
    current_user = request.user
    if current_user.is_authenticated():
       form = SignUpForm(instance=current_user)
+      my_pin_list = Pin.objects.filter(user=current_user)
+      ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+      context = {
+         'pin_list': ordered_my_pin_list
+      }
+      template = loader.get_template('accounts/profile.html')
    else:
       return redirect('/accounts/login')
    return render(request, 'profile.html', {'form': form})
