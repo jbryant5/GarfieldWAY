@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Delete Pin</title>
+    <title>Delete Account Complete</title>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css">
 	<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css">
@@ -34,60 +34,43 @@
                 
                 {% endif %}
     
-                <a href="/pins" id="userlink">Home</a> /
-                
-                <a href="/accounts/signup" id="userlink">Sign up</a> /
+					<a href="/pins" id="userlink">Home</a> /
+				
+					<a href="/accounts/profile" id="userlink">Profile</a> /
+					
+					<a href="/accounts/signup" id="userlink">Sign up</a> /
 
-                <a href="/accounts/login" id="userlink">Log in</a> /
+					<a href="/accounts/login" id="userlink">Log in</a> /
 
-                <a href="/accounts/logout" id="userlink">Log out</a>
-    
+					<a href="/accounts/logout" id="userlink">Log out</a>
+					
                 </div>
         </div>
 		
 		<div class="breadcrumbs">
 		
-            <a href="/pins/">Home ›</a> <b>Pins</b> 
+            <a href="/pins/">Home ›</a> Accounts › <a href="/accounts/delete_complete">Delete Account Complete</a>
 			
         </div>
 		
 		<div id="content" class="flex">
-			
-			<form action="" method="post" id="pin_form" novalidate="">
-				{% csrf_token %}
-			
-            <h1>Delete account</h1>
-			
-			<ul class="object-tools">
-				
-				<li>
-					
-					<a href="/pins/" class="addlink">Cancel</a>
-					
-				</li>
-					
-            </ul>
-			
-				<div id="content" class="flex">
 		
-                    <h1 id="title">Your account has been deleted.</h1>
-                
-                    <div id="content-main">
-                    
-                        <h1>Click below to return to the home page.</h1>
-                        
-                        <a href="/pins/">
-                        <button id="accountbutton"> Home </button>
-                        </a>
-                    
-                    </div>	
-                
-                </div>
-			</div>
-			
-			</form>
-			
+            <h1>Your account has been deleted.</h1>
+		
+			<div id="content-main">
+				
+				<h1>Click below to return to the home page.</h1>
+				
+				<a href="/pins/">
+				<button id="accountbutton"> Home </button>
+				</a>				
+				
+			</div>	
+		
 		</div>
+			
+			
+	</div>
 	
 	<footer id="footer"> </footer>
 	
