@@ -11,6 +11,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, Pass
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
 
+from pins.models import Pin
+from accounts.models import User
+from django.contrib.auth import logout
+from django.contrib import messages
+
 
 def profile(request):
    current_user = request.user
@@ -28,9 +33,34 @@ def signup(request):
 #             user.refresh_from_db()  # load the profile instance created by the signal
             user.save()
             raw_password = form.cleaned_data.get('password')
-            return redirect('/accounts/login')
+            # user = authenticate(username=user.username, password=raw_password)
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('/pins')
     else:
-        form = SignUpForm()
+        form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
-      
-     
+
+def deleteAccount (request):
+    if request.method == 'POST':
+       user = request.user
+       user.is_active = False
+       user.save()
+       return redirect ('/accounts/delete_complete')
+    else:
+        user = request.user
+        template = loader.get_template('deleteAccount.html')
+        context = {
+           'user':user,
+        }
+        return HttpResponse(template.render(context, request))
+
+def delete_complete (request):
+    if request.method == 'POST':
+        return redirect ('/pins')
+    else:
+        user = request.user
+        template = loader.get_template('delete_complete.html')
+        context = {
+           'user': user,
+        }
+        return HttpResponse (template.render(context, request))

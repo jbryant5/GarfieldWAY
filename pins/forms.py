@@ -37,7 +37,7 @@ class PinForm(forms.ModelForm):
         # print("pin room: " + self.cleaned_data["pin_room"])
         pin_room = self.cleaned_data["pin_room"]
         print("pin room: " + pin_room)
-        if not (int(pin_room)>100 and int(pin_room)<140):
+        if not((pin_room>=100 and pin_room<124) or (pin_room>=200 and pin_room<240) or (pin_room>=300 and pin_room<340)): 
             print("not valid room")
             raise forms.ValidationError(
                 ('%(pin_room)s is not a valid room number'),
