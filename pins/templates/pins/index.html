@@ -142,10 +142,14 @@
 						</li>
 						
 						<div id="linkdiv">
+						
+						{% if user == pin.user %}
 				
 							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
 						
 							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+							
+						{% endif %}
 						
 						</div>
 								

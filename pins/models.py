@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
 
 from django import forms
 
@@ -49,10 +50,13 @@ class Pin(models.Model):
    pin_type = models.CharField(choices = TYPE_CHOICES, max_length=10, default='Other', null=True) #pull down for the types of activities
    votes=models.IntegerField(default=0)
    date = models.DateTimeField(auto_now_add = False, blank=True)
+   
+   user = models.ForeignKey(User, on_delete=models.CASCADE)
+   
    def __str__(self):
       return self.pin_name      
    
 class Vote(models.Model):
-   pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
-   
+   user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
    

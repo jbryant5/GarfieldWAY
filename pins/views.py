@@ -17,7 +17,7 @@ from django.shortcuts import render, redirect
 
 from django.forms.extras.widgets import SelectDateWidget
 
-def index(request):
+def index(request): 
     latest_pin_list = Pin.objects.order_by('-pub_date')
     context = {
         'pin_list': latest_pin_list
@@ -95,6 +95,7 @@ def create(request):
           
        elif request.method == 'POST':
           pin = Pin ()  
+          pin.user = current_user
           pin.pin_name = request.POST.get('pin_name')
           pin.pin_room = request.POST.get('pin_room')
           pin.other_pin_room = request.POST.get('other_pin_room')
@@ -112,6 +113,8 @@ def create(request):
 
 def edit(request, pin_id):
     pin = get_object_or_404(Pin, pk=pin_id)
+    if request.user != pin.user:
+      return redirect('/pins')
     if request.method == 'POST':
       form = PinForm(request.POST, instance=pin)
       if form.is_valid():
@@ -136,6 +139,8 @@ def edit(request, pin_id):
 
 def delete(request, pin_id):
    pin = get_object_or_404(Pin, pk=pin_id)
+   if request.user != pin.user:
+      return redirect('/pins')
    if request.method == 'POST':
       form = PinForm(request.POST, instance=pin)
       pin.delete()
