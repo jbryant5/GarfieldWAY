@@ -14,7 +14,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
-from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import SelectDateWidget
 from django.core.management.base import BaseCommand, CommandError 
 from datetime import datetime, timedelta
 # import schedule
