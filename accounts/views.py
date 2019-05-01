@@ -22,12 +22,14 @@ def profile(request):
       my_pin_list = Pin.objects.filter(user=current_user)
       ordered_my_pin_list = my_pin_list.order_by('-pub_date')
       context = {
-         'pin_list': ordered_my_pin_list
+         'pin_list': ordered_my_pin_list,
+         'form': form,
       }
-      template = loader.get_template('accounts/profile.html')
+      template = loader.get_template('profile.html')
    else:
       return redirect('/accounts/login')
-   return render(request, 'profile.html', {'form': form})
+   return HttpResponse(template.render(context, request))
+#    return render(request, 'profile.html', {'form': form})
 
 def signup(request):
     if request.method == 'POST':

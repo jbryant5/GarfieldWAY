@@ -93,13 +93,13 @@
 					}
 				</script>
 				
-				
+
 				<ul class="object-tools">
 					<li>
 						<a href="/pins/create/" class="addlink">Add pin</a>
 					</li>
                 </ul>
-				
+
 				
 				{% for pin in pin_list %}
 					
@@ -137,6 +137,10 @@
 				
 						<li>
 							<b>Up Votes:</b> {{pin.votes}}
+						</li>
+						
+						<li>
+							<b>Posted by:</b> @{{user.get_username}}
 						</li>
 						
 						<div id="linkdiv">

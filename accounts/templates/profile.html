@@ -61,86 +61,92 @@
 				
 				<ul>
 				<h1 id="profile-text">{{ user.email }}</h1>
-				</ul>
-				
-					{% for pin in pin_list %}
-					
-					<div class="pinlist">
-						
-						<div>
-						
-							<h1>
-								
-								{{ pin.pin_name }}			
-						
-							</h1>
-							
-						</div>	
-						
-						<li>
-							<b>Description:</b> {{ pin.pin_description }}
-						</li>
-						
-						<li>
-							<b>Room:</b> {{ pin.pin_room }}
-						</li>
-						
-						<li>
-							<b>Other Room:</b> {{ pin.other_pin_room }}
-						</li>
-						
-						<li>
-							<b>Type:</b> {{ pin.pin_type }}
-						</li>
-						
-						<li>
-							<b>Date:</b> {{ pin.date }}
-						</li>
-				
-						<li>
-							<b>Up Votes:</b> {{pin.votes}}
-						</li>
-						
-						<div id="linkdiv">
-						
-						{% if user == pin.user %}
-				
-							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
-						
-							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
-							
-						{% endif %}
-						
-						</div>
-								
-						<form method="get" action="/pins/vote/" />
-							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
-							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
-						</form>
-						
-						<script> 
-						function buttonClick(button, button2) { 
-								button.style.visibility = "hidden";
-								button2.style.visibility = "visible";
-								if (button.type='upvote')
-									pin.votes+=1;
-								else
-									pin.votes-=1;
-						}
-						</script>
-				
-					</div>
-					
-				{% endfor %}
+				</ul>				
 			
-				<div class="submit-row">
+				<!-- <div class="submit-row"> -->
+					<a>
+					<button onclick="openDropdown()" id="accountbutton">Show My Pins</button>
+							<div id="myDropdown" class="dropdown-profile-content">
+								{% for pin in pin_list %}
+							
+									<div class="pinlist">
+										
+										<div>
+										
+											<h1>
+												
+												{{ pin.pin_name }}			
+										
+											</h1>
+											
+										</div>	
+										
+										<li>
+											<b>Description:</b> {{ pin.pin_description }}
+										</li>
+										
+										<li>
+											<b>Room:</b> {{ pin.pin_room }}
+										</li>
+										
+										<li>
+											<b>Other Room:</b> {{ pin.other_pin_room }}
+										</li>
+										
+										<li>
+											<b>Type:</b> {{ pin.pin_type }}
+										</li>
+										
+										<li>
+											<b>Date:</b> {{ pin.date }}
+										</li>
+								
+										<li>
+											<b>Up Votes:</b> {{pin.votes}}
+										</li>
+										
+										<div id="linkdiv">
+										
+										{% if user == pin.user %}
+								
+											<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+										
+											<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+											
+										{% endif %}
+										
+										</div>
+												
+										<form method="get" action="/pins/vote/" />
+											<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+											<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
+											<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+										</form>
+										
+										<script> 
+										function buttonClick(button, button2) { 
+												button.style.visibility = "hidden";
+												button2.style.visibility = "visible";
+												if (button.type='upvote')
+													pin.votes+=1;
+												else
+													pin.votes-=1;
+										}
+										</script>
+								
+									</div>
+									
+								{% endfor %}
+							</div>
+					</a>
+					<br />
+					<a href="/accounts/password_change" id="a_no_style"> <button type="submit" id="accountbutton"> Change Password </button> </a>
+					<br />
+					<a href="/accounts/password_reset" id="a_no_style"> <button type="submit" id="accountbutton"> Reset Password </button> </a>
+					<br />
+					<a href="/accounts/delete_account"> <button type="submit" id="accountbutton"> Delete Account </button> </a>
 					
-					<a href="/accounts/password_change"> <input type="submit" value="Change password"> </a>
-					<a href="/accounts/password_reset"> <input type="submit" value="Reset password"> </a>
-					<a href="/accounts/delete_account"> <input type="submit" value="Delete account"> </a>
-					
-				</div>
+				<!-- </div> -->
 			
 			</div>	
 		
@@ -151,6 +157,27 @@
 	<footer id="footer"> </footer>
 	
 </body>
+
+				<script>
+				/* When the user clicks on the button, 
+				toggle between hiding and showing the dropdown content */
+					function openDropdown() {
+						document.getElementById("myDropdown").classList.toggle("show");
+					}
+				// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+						if (!event.target.matches('.dropbtn')) {
+							var dropdowns = document.getElementsByClassName("dropdown-content");
+							var i;
+							for (i = 0; i < dropdowns.length; i++) {
+								var openDropdown = dropdowns[i];
+								if (openDropdown.classList.contains('show')) {
+									openDropdown.classList.remove('show');
+								}
+							}
+						}
+					}
+				</script>
 
 <script>
 	if ( window.history.replaceState ) {

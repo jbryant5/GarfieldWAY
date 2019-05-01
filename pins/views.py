@@ -11,7 +11,6 @@ from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
@@ -161,7 +160,6 @@ def delete(request, pin_id):
       'pin_form': form,
    }
    return HttpResponse(template.render(context, request))
-
 
 def clear(request):
     Pin.objects.all().delete()
