@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Profile Page</title>
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/responsive.css' %}" type="text/css">
+	<link rel="stylesheet" href="{% static 'css/widgets.css' %}" type="text/css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+</head>
+<body>
+        <div id="main">
+            <div id="header">
+                <h1 id="site">
+                    <a href="/pins">GarfieldWAY</a>
+                </h1>
+                    <div id="user-tools">
+        
+                    {% if user.is_authenticated %}
+				
+					Welcome,
+					<strong>{{ user.get_username }}</strong>.
+					
+					{% else %}
+					
+					Welcome,
+					<strong>guest</strong>.
+					
+					{% endif %}
+        
+					<a href="/pins" id="userlink">Home</a> /
+				
+					<a href="/accounts/profile" id="userlink">Profile</a> /
+					
+					<a href="/accounts/signup" id="userlink">Sign up</a> /
+
+					<a href="/accounts/login" id="userlink">Log in</a> /
+
+					<a href="/accounts/logout" id="userlink">Log out</a>
+        
+                    </div>
+            </div>
+                
+            <div class="breadcrumbs">
+                
+				<a href="/pins/">Home ›</a> Accounts › <a href="/accounts/profile">Profile</a>
+                    
+            </div>
+		
+		<div id="content" class="flex">
+		
+            <h1 id="title">{{ user.get_full_name }}</h1>
+		
+			<div id="content-main">
+				
+				<h1 id="profile-text">@{{ user.get_username }}</h1>
+				
+				<ul>
+				<h1 id="profile-text">{{ user.email }}</h1>
+				</ul>				
+			
+				<!-- <div class="submit-row"> -->
+					<a>
+					<button onclick="openDropdown()" id="accountbutton">Show My Pins</button>
+							<div id="myDropdown" class="dropdown-profile-content">
+								{% for pin in pin_list %}
+							
+									<div class="pinlist">
+										
+										<div>
+										
+											<h1>
+												
+												{{ pin.pin_name }}			
+										
+											</h1>
+											
+										</div>	
+										
+										<li>
+											<b>Description:</b> {{ pin.pin_description }}
+										</li>
+										
+										<li>
+											<b>Room:</b> {{ pin.pin_room }}
+										</li>
+										
+										<li>
+											<b>Other Room:</b> {{ pin.other_pin_room }}
+										</li>
+										
+										<li>
+											<b>Type:</b> {{ pin.pin_type }}
+										</li>
+										
+										<li>
+											<b>Date:</b> {{ pin.date }}
+										</li>
+								
+										<li>
+											<b>Up Votes:</b> {{pin.votes}}
+										</li>
+										
+										<div id="linkdiv">
+										
+										{% if user == pin.user %}
+								
+											<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+										
+											<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+											
+										{% endif %}
+										
+										</div>
+												
+										<form method="get" action="/pins/vote/" />
+											<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+											<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
+											<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+										</form>
+										
+										<script> 
+										function buttonClick(button, button2) { 
+												button.style.visibility = "hidden";
+												button2.style.visibility = "visible";
+												if (button.type='upvote')
+													pin.votes+=1;
+												else
+													pin.votes-=1;
+										}
+										</script>
+								
+									</div>
+									
+								{% endfor %}
+							</div>
+					</a>
+					<br />
+					<a href="/accounts/password_change" id="a_no_style"> <button type="submit" id="accountbutton"> Change Password </button> </a>
+					<br />
+					<a href="/accounts/password_reset" id="a_no_style"> <button type="submit" id="accountbutton"> Reset Password </button> </a>
+					<br />
+					<a href="/accounts/delete_account"> <button type="submit" id="accountbutton"> Delete Account </button> </a>
+					
+				<!-- </div> -->
+			
+			</div>	
+		
+		</div>
+	
+	</div>
+	
+	<footer id="footer"> </footer>
+	
+</body>
+
+				<script>
+				/* When the user clicks on the button, 
+				toggle between hiding and showing the dropdown content */
+					function openDropdown() {
+						document.getElementById("myDropdown").classList.toggle("show");
+					}
+				// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+						if (!event.target.matches('.dropbtn')) {
+							var dropdowns = document.getElementsByClassName("dropdown-content");
+							var i;
+							for (i = 0; i < dropdowns.length; i++) {
+								var openDropdown = dropdowns[i];
+								if (openDropdown.classList.contains('show')) {
+									openDropdown.classList.remove('show');
+								}
+							}
+						}
+					}
+				</script>
+
+<script>
+	if ( window.history.replaceState ) {
+	window.history.replaceState( null, null, window.location.href );
+}
+</script>
+
+
+</html>

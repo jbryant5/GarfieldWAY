@@ -18,63 +18,101 @@
 
         <div id="header">
             <h1 id="site">
-                GarfieldWAY
+                <a href="/pins">GarfieldWAY</a>
             </h1>
                 <div id="user-tools">
-
+				
+				{% if user.is_authenticated %}
+				
                 Welcome,
-                <strong>user</strong>.
+                <strong>{{ user.get_username }}</strong>.
+				
+				{% else %}
+				
+				Welcome,
+                <strong>guest</strong>.
+				
+				{% endif %}
+				
+				<a href="/pins" id="userlink">Home</a> /
+				
+				<a href="/accounts/profile" id="userlink">Profile</a> /
+				
+				<a href="/accounts/signup" id="userlink">Sign up</a> /
 
-                <a>View site</a> /
+				<a href="/accounts/login" id="userlink">Log in</a> /
 
-                <a>Change password</a> /
-
-                <a>Log out</a>
+				<a href="/accounts/logout" id="userlink">Log out</a> 				
 
                 </div>
         </div>
 		
 		<div class="breadcrumbs">
 		
-            <a href="/pins/">Home ›</a> <b>Pins</b> 
+            <a href="/pins/">Home ›</a> <a href="/pins/">Pins</a>
 			
         </div>
 		
 		<div id="content" class="flex">
 		
-            <h1 id="title">Pin List</h1>
+            <h1>Pin List</h1>
 		
 			<div id="content-main">
 				
+					<div class="dropdown">
+						<button onclick="openDropdown()" class="dropbtn">Filter pin list</button>
+							<div id="myDropdown" class="dropdown-content">	
+								<a href="/pins/mypinsfilter/">My Pins</a>
+								<a href="/pins/upcomingfilter/">Upcoming</a>
+								<a href="/pins/typefilter/">Type</a>
+								<a href="/pins/lowestroomfilter/">Lowest Room Number</a>
+								<a href="/pins/highestroomfilter/">Highest Room Number</a>
+								<a href="/pins/recentlypublishedfilter">Recently Published</a>
+								<a href="/pins/oldestpublishedfilter">Oldest Published</a>	
+								<a href="/pins/purge_old_pins">Purge Old Pins</a>
+							</div>
+					</div>	
+				
+				<script>
+				/* When the user clicks on the button, 
+				toggle between hiding and showing the dropdown content */
+					function openDropdown() {
+						document.getElementById("myDropdown").classList.toggle("show");
+					}
+				// Close the dropdown if the user clicks outside of it
+					window.onclick = function(event) {
+						if (!event.target.matches('.dropbtn')) {
+							var dropdowns = document.getElementsByClassName("dropdown-content");
+							var i;
+							for (i = 0; i < dropdowns.length; i++) {
+								var openDropdown = dropdowns[i];
+								if (openDropdown.classList.contains('show')) {
+									openDropdown.classList.remove('show');
+								}
+							}
+						}
+					}
+				</script>
+				
+
 				<ul class="object-tools">
 					<li>
 						<a href="/pins/create/" class="addlink">Add pin</a>
 					</li>
                 </ul>
+
 				
-				{% for pin in latest_pin_list %}
+				{% for pin in pin_list %}
 					
 					<div class="pinlist">
 						
 						<div>
 						
 							<h1>
-						
+								
 								{{ pin.pin_name }}			
 						
 							</h1>
-							
-							<div>
-							<ul class="object-tools">
-								<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
-							</ul>	
-							</div>
-							
-							<div>
-							<ul class="object-tools">
-								<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
-							</ul>
-							</div>
 							
 						</div>	
 						
@@ -84,6 +122,10 @@
 						
 						<li>
 							<b>Room:</b> {{ pin.pin_room }}
+						</li>
+						
+						<li>
+							<b>Other Room:</b> {{ pin.other_pin_room }}
 						</li>
 						
 						<li>
@@ -97,11 +139,27 @@
 						<li>
 							<b>Up Votes:</b> {{pin.votes}}
 						</li>
+						
+						<li>
+							<b>Posted by:</b> @{{user.get_username}}
+						</li>
+						
+						<div id="linkdiv">
+						
+						{% if user == pin.user %}
 				
+							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+						
+							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+							
+						{% endif %}
+						
+						</div>
+								
 						<form method="get" action="/pins/vote/" />
 							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
 							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Sorry, can't make it!</button>
+							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
 						</form>
 						
 						<script> 

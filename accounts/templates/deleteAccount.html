@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>Delete Pin</title>
+    <title>Delete Account</title>
 	{% load static %}
 	<link rel="stylesheet" href="{% static 'css/reset.css' %}" type="text/css">
 	<link rel="stylesheet" href="{% static 'css/forms.css' %}" type="text/css">
@@ -21,35 +21,35 @@
                 <a href="/pins">GarfieldWAY</a>
             </h1>
                 <div id="user-tools">
-
+    
                 {% if user.is_authenticated %}
-				
+            
                 Welcome,
                 <strong>{{ user.get_username }}</strong>.
+                
+                {% else %}
+                
+                Welcome,
+                <strong>user</strong>.
+                
+                {% endif %}
+    
+					<a href="/pins" id="userlink">Home</a> /
 				
-				{% else %}
-				
-				Welcome,
-                <strong>guest</strong>.
-				
-				{% endif %}
+					<a href="/accounts/profile" id="userlink">Profile</a> /
+					
+					<a href="/accounts/signup" id="userlink">Sign up</a> /
 
-				<a href="/pins" id="userlink">Home</a> /
-				
-				<a href="/accounts/profile" id="userlink">Profile</a> /
-				
-				<a href="/accounts/signup" id="userlink">Sign up</a> /
+					<a href="/accounts/login" id="userlink">Log in</a> /
 
-				<a href="/accounts/login" id="userlink">Log in</a> /
-
-				<a href="/accounts/logout" id="userlink">Log out</a>
-				
+					<a href="/accounts/logout" id="userlink">Log out</a>
+					
                 </div>
         </div>
 		
 		<div class="breadcrumbs">
 		
-            <a href="/pins/">Home ›</a> <a href="/pins/">Pins ›</a> <b>Delete pin</b>
+            <a href="/pins/">Home ›</a> Accounts › <a href="/accounts/delete_account">Delete Account</a>
 			
         </div>
 		
@@ -58,7 +58,7 @@
 			<form action="" method="post" id="pin_form" novalidate="">
 				{% csrf_token %}
 			
-            <h1>Delete Pin</h1>
+            <h1>Delete account</h1>
 			
 			<ul class="object-tools">
 				
@@ -72,18 +72,18 @@
 			
 			<div>
 				
-				<h1 id="sub-text">Are you sure that you want to delete this pin?</h1>
+				<h1 id="delete-text">Are you sure that you want to delete the account:    <strong>{{ user.get_username }}</strong>    ? </h1>
 				
 				<div class="delete-button">
 				
 					<ul class="object-tools">
 					
-						<a href="/pins" id="deletelink"><button type="submit">Delete pin</button></a>
+						<a href="/pins" id="deletelink"><button type="submit">Delete account</button></a>
 						
 					</ul>	
 					
 				</div>
-				
+
 			</div>
 			
 			</form>

@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from django.conf.global_settings import DATETIME_INPUT_FORMATS
+
+DATETIME_INPUT_FORMATS += ('%Y-%m-%dT%H:%M',)
+DATETIME_INPUT_FORMATS += ('%Y-%M-%DT%H:%M',)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET'] if 'SECRET' in os.environ else '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
@@ -111,7 +115,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -124,3 +128,13 @@ STATICFILES_DIRS = [
     os.path.join(os.path.dirname(BASE_DIR), "static"),
     "C:/Users/Trev1400/Desktop/Projects in CS/GarfieldWAY/pins/templates/pins/css/static",
 ]
+
+LOGIN_REDIRECT_URL = '/pins'
+
+# Email file storing and setup for password reset
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'garfieldway19@gmail.com' 
+EMAIL_HOST_PASSWORD = 'Bulld0gs!'
+EMAIL_USE_TLS = True
