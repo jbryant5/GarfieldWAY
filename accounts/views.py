@@ -17,7 +17,7 @@ from django.contrib.auth.models import User
 
 def profile(request):
    current_user = request.user
-   if current_user.is_authenticated():
+   if current_user.is_authenticated:
       form = SignUpForm(instance=current_user)
       my_pin_list = Pin.objects.filter(user=current_user)
       ordered_my_pin_list = my_pin_list.order_by('-pub_date')

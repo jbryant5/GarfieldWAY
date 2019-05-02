@@ -97,7 +97,7 @@ def typefilter(request):
 
 def create(request):
    current_user = request.user
-   if current_user.is_authenticated():
+   if current_user.is_authenticated:
        if request.method == 'GET':
           latest_pin_list = Pin.objects.order_by('-date')
           template = loader.get_template('pins/create.html')
