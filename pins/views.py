@@ -11,13 +11,17 @@ from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 from django.forms.extras.widgets import SelectDateWidget
+from django.core.management.base import BaseCommand, CommandError 
+from datetime import datetime, timedelta
+# import schedule
+# import time
 
-def index(request): 
+
+def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
     context = {
         'pin_list': latest_pin_list
@@ -36,6 +40,15 @@ def vote(request, pin_id):
       vote.upvote=False
    pin.save()
    return redirect('/pins')    
+
+def mypinsfilter(request):
+    my_pin_list = Pin.objects.filter(user=request.user)
+    ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+    context = {
+        'pin_list': ordered_my_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
 
 def recentlypublishedfilter(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
@@ -159,6 +172,23 @@ def delete(request, pin_id):
    }
    return HttpResponse(template.render(context, request))
 
+def purge_old_pins (request):
+   #  schedule.every().day.at("10:18").do(purge_old_pins(request))
+   #  while True:
+   #     schedule.run_pending()
+   #     #time.sleep(1) 
+       now = timezone.now()
+       upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+       passed = Pin.objects.filter(date__lt=now).order_by('-date')
+       if (passed):
+          #passed.exclude() hides pins that have passed just while on the purge old pins url
+          passed.delete()
+       upcoming_pin_list = list(upcoming)
+       context = {
+          'pin_list': upcoming_pin_list
+       }
+       template = loader.get_template('pins/index.html')
+       return HttpResponse(template.render(context, request))
 
 def clear(request):
     Pin.objects.all().delete()

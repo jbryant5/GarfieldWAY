@@ -8,6 +8,7 @@ from django.template import loader
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from pins.models import Pin, Vote
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
 from .forms import RemoveUser
@@ -18,9 +19,17 @@ def profile(request):
    current_user = request.user
    if current_user.is_authenticated():
       form = SignUpForm(instance=current_user)
+      my_pin_list = Pin.objects.filter(user=current_user)
+      ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+      context = {
+         'pin_list': ordered_my_pin_list,
+         'form': form,
+      }
+      template = loader.get_template('profile.html')
    else:
       return redirect('/accounts/login')
-   return render(request, 'profile.html', {'form': form})
+   return HttpResponse(template.render(context, request))
+#    return render(request, 'profile.html', {'form': form})
 
 def signup(request):
     if request.method == 'POST':
@@ -35,16 +44,28 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-     
-def delete_user(request):
-    user = get_object_or_404(User, pk=User_id)
+def deleteAccount (request):
     if request.method == 'POST':
-        form = RemoveUser(request.POST)
-        if form.is_valid():
-            user.delete()
-            return redirect('/pins')
-        else:
-           message = "The account doesn't exist"
+       user = request.user
+       user.is_active = False
+       user.save()
+       return redirect ('/accounts/delete_complete')
     else:
-        form = RemoveUser()
-    return render(request, 'Remove_User.html', {'form': form})
+        user = request.user
+        template = loader.get_template('deleteAccount.html')
+        context = {
+           'user':user,
+        }
+        return HttpResponse(template.render(context, request))
+
+def delete_complete (request):
+    if request.method == 'POST':
+        return redirect ('/pins')
+    else:
+        user = request.user
+        template = loader.get_template('delete_complete.html')
+        context = {
+           'user': user,
+        }
+        return HttpResponse (template.render(context, request))
+
