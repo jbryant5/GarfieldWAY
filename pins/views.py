@@ -15,7 +15,12 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
-from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import SelectDateWidget
+from django.core.management.base import BaseCommand, CommandError 
+from datetime import datetime, timedelta
+# import schedule
+# import time
+
 
 def index(request): 
     latest_pin_list = Pin.objects.order_by('-pub_date')
@@ -89,7 +94,7 @@ def typefilter(request):
 
 def create(request):
    current_user = request.user
-   if current_user.is_authenticated():
+   if current_user.is_authenticated:
        if request.method == 'GET':
           latest_pin_list = Pin.objects.order_by('-date')
           template = loader.get_template('pins/create.html')
