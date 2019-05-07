@@ -152,23 +152,20 @@
 						{% endif %}
 						
 						</div>
-								
+							
+						{% if user.is_authenticated %}
 						<form method="get" action="/pins/vote/" />
-							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
-							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+							<input type="hidden" name="pin_id" value="{{ pin.id }}" voter=user />
+							{% if vote.upvote == false and vote.user == voter %}
+							<button type="upvote" id="upvote" name="vote" value="1" vote=vote>I'm coming!</button>
+							{% endif %}
+							{% if vote.upvote == true and vote.user == voter %}
+							<button type="downvote" id="downvote" name="vote" value="-1" vote=vote>Can't make it!</button>
+							{% endif %}
+						{% endif %}
 						</form>
 						
-						<script> 
-						function buttonClick(button, button2) { 
-								button.style.visibility = "hidden";
-								button2.style.visibility = "visible";
-								if (button.type='upvote')
-									pin.votes+=1;
-								else
-									pin.votes-=1;
-						}
-						</script>
+						
 				
 					</div>
 					

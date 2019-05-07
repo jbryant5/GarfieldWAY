@@ -25,9 +25,15 @@ def index(request):
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
  
-def vote(request):
+def vote(request, pin_id):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
-   pin.votes += int(request.GET.get('vote'))
+   value=int(request.GET.get('vote'))
+   pin.votes +=value
+   
+   if value==1:
+      vote.upvote=True
+   else:
+      vote.upvote=False
    pin.save()
    return redirect('/pins')    
 
