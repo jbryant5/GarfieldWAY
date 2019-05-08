@@ -97,7 +97,7 @@
 						<a href="/pins/create/" class="addlink">Add pin</a>
 					</li>
                 </ul>
-				
+				<h1 id="title">v	Upcoming Pins   v</h1>
 				{% for pin in pin_list %}
 					
 					<div class="pinlist">
@@ -164,7 +164,76 @@
 					</div>
 					
 				{% endfor %}	
-			
+			{% if old_pin_list %}
+				<h1 id="title">v 	Old Pins   v</h1>
+				
+			{% endif %}
+				{% for pin in old_pin_list %}
+					
+					<div class="pinlist">
+						
+						<div>
+						
+							<h1>
+								
+								{{ pin.pin_name }}			
+						
+							</h1>
+							
+						</div>	
+						
+						<li>
+							<b>Description:</b> {{ pin.pin_description }}
+						</li>
+						
+						<li>
+							<b>Room:</b> {{ pin.pin_room }}
+						</li>
+						
+						<li>
+							<b>Other Room:</b> {{ pin.other_pin_room }}
+						</li>
+						
+						<li>
+							<b>Type:</b> {{ pin.pin_type }}
+						</li>
+						
+						<li>
+							<b>Date:</b> {{ pin.date }}
+						</li>
+				
+						<li>
+							<b>Up Votes:</b> {{pin.votes}}
+						</li>
+						
+						<div id="linkdiv">
+				
+							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+						
+							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+						
+						</div>
+								
+						<form method="get" action="/pins/vote/" />
+							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
+							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+						</form>
+						
+						<script> 
+						function buttonClick(button, button2) { 
+								button.style.visibility = "hidden";
+								button2.style.visibility = "visible";
+								if (button.type='upvote')
+									pin.votes+=1;
+								else
+									pin.votes-=1;
+						}
+						</script>
+				
+					</div>
+					
+				{% endfor %}
 			</div>	
 		
 		</div>

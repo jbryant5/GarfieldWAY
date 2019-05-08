@@ -24,12 +24,16 @@ import time
 
 
 def index(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')
-    context = {
-        'pin_list': latest_pin_list
-    }
-    template = loader.get_template('pins/index.html')
-    return HttpResponse(template.render(context, request))
+   now = timezone.now()
+   # latest_pin_list = Pin.objects.order_by('-pub_date')
+   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   context = {
+       'pin_list': upcoming,
+       'old_pin_list': passed
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
  
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
