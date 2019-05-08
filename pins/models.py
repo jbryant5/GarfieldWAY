@@ -33,7 +33,6 @@ class Pin(models.Model):
    
    def save(self, **kwargs):
       self.clean()
-      print ('The form is saving')
       return super(Pin, self).save(**kwargs)
 
 

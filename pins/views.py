@@ -36,13 +36,17 @@ def vote(request):
    return redirect('/pins')    
 
 def mypinsfilter(request):
-    my_pin_list = Pin.objects.filter(user=request.user)
-    ordered_my_pin_list = my_pin_list.order_by('-pub_date')
-    context = {
-        'pin_list': ordered_my_pin_list
-    }
-    template = loader.get_template('pins/index.html')
-    return HttpResponse(template.render(context, request))
+   current_user = request.user
+   if current_user.is_authenticated:
+      my_pin_list = Pin.objects.filter(user=request.user)
+      ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+      context = {
+         'pin_list': ordered_my_pin_list
+      }
+      template = loader.get_template('pins/index.html')
+      return HttpResponse(template.render(context, request))
+   else:
+      return redirect('/accounts/login') 
 
 def recentlypublishedfilter(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
