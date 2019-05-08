@@ -19,7 +19,7 @@ from django.shortcuts import render, redirect
 
 from django.core.management.base import BaseCommand, CommandError 
 from datetime import datetime, timedelta
-import schedule
+#import schedule
 import time
 
 
@@ -42,17 +42,27 @@ def vote(request):
    return redirect('/pins')    
 
 def recentlypublishedfilter(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')
+    now = timezone.now()
+    upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+    passed = Pin.objects.filter(date__lt=now).order_by('-date')
+    upcoming = upcoming.order_by('-pub_date')
+    passed = passed.order_by('-pub_date')
     context = {
-        'pin_list': latest_pin_list
+        'pin_list': upcoming,
+        'old_pin_list': passed
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
     
 def oldestpublishedfilter(request):
-    latest_pin_list = Pin.objects.order_by('pub_date')  
+    now = timezone.now()
+    upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+    passed = Pin.objects.filter(date__lt=now).order_by('-date')
+    upcoming = upcoming.order_by('pub_date')  
+    passed = passed.order_by('pub_date')
     context = {
-        'pin_list': latest_pin_list
+        'pin_list': upcoming,
+        'old_pin_list': passed
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
@@ -61,33 +71,48 @@ def upcomingfilter(request):
    now = timezone.now()
    upcoming = Pin.objects.filter(date__gte=now).order_by('date')
    passed = Pin.objects.filter(date__lt=now).order_by('-date')
-   upcoming_pin_list = list(upcoming) + list(passed)
    context = {
-        'pin_list': upcoming_pin_list
+        'pin_list': upcoming,
+        'old_pin_list': passed
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def lowestroomfilter(request):
-   room_pin_list = Pin.objects.order_by('pin_room')
+   now = timezone.now()
+   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   upcoming = upcoming.order_by('pin_room')
+   passed = passed.order_by('pin_room')
    context = {
-        'pin_list': room_pin_list
+        'pin_list': upcoming,
+        'old_pin_list': passed
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
    
 def highestroomfilter(request):
-   room_pin_list = Pin.objects.order_by('-pin_room')
+   now = timezone.now()
+   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   upcoming = upcoming.order_by('-pin_room')
+   passed = passed.order_by('-pin_room')
    context = {
-        'pin_list': room_pin_list
+        'pin_list': upcoming,
+        'old_pin_list': passed
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def typefilter(request):
-   type_pin_list = Pin.objects.order_by('pin_type', '-date')
+   now = timezone.now()
+   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   upcoming = upcoming.order_by('pin_type', '-date')
+   passed = passed.order_by('pin_type', '-date')
    context = {
-        'pin_list': type_pin_list
+        'pin_list': upcoming,
+        'old_pin_list': passed
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
@@ -171,8 +196,8 @@ def purge_old_pins (request):
        upcoming = Pin.objects.filter(date__gte=now).order_by('date')
        passed = Pin.objects.filter(date__lt=now).order_by('-date')
        if (passed):
-          #passed.exclude() hides pins that have passed just while on the purge old pins url
-          passed.delete()
+          passed.exclude() #hides pins that have passed just while on the purge old pins url
+          #passed.delete()
        upcoming_pin_list = list(upcoming)
        context = {
           'pin_list': upcoming_pin_list
