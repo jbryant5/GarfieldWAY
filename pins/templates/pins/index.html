@@ -175,9 +175,79 @@
 					</div>
 					
 				{% endfor %}	
+				
+				<!-- Dropdown for old pins starts here -->
+				<a>
+				<button onclick="openDropdown()" id="accountbutton">Show Passed Pins</button>
+					<div id="myDropdown" class="dropdown-profile-content">
+					
+						{% for pin in old_pin_list %}
+							
+							<div class="pinlist">
+								
+								<div>
+								
+									<h1>
+										
+										{{ pin.pin_name }}			
+								
+									</h1>
+									
+								</div>	
+								
+								<li>
+									<b>Description:</b> {{ pin.pin_description }}
+								</li>
+								
+								<li>
+									<b>Room:</b> {{ pin.pin_room }}
+								</li>
+								
+								<li>
+									<b>Other Room:</b> {{ pin.other_pin_room }}
+								</li>
+								
+								<li>
+									<b>Type:</b> {{ pin.pin_type }}
+								</li>
+								
+								<li>
+									<b>Date:</b> {{ pin.date }}
+								</li>
+						
+								<li>
+									<b>Up Votes:</b> {{pin.votes}}
+								</li>
+								
+								<li>
+									<b>Posted by:</b> @{{pin.user.get_username}}
+								</li>
+								
+								<div id="linkdiv">
+								
+								{% if user == pin.user %}
+						
+									<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+								
+									<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+									
+								{% endif %}
+								
+								</div>
+										
+								<form method="get" action="/pins/vote/" />
+									<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+									<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
+									<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+								</form>
+						
+							</div>
+							
+						{% endfor %}	
 
-			</div>	
-		
+					</div>	
+				</a>
+				
 		</div>
 	
 	</div>

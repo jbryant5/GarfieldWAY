@@ -26,8 +26,10 @@ def index(request):
    upcoming = Pin.objects.filter(date__gte=buffertime).order_by('date')
    passed = Pin.objects.filter(date__lt=buffertime).order_by('-date')
    upcoming_pin_list = list(upcoming)
+   passed_pin_list = list(passed)
    context = {
-        'pin_list': upcoming_pin_list
+        'pin_list': upcoming_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
