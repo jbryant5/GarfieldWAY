@@ -71,29 +71,7 @@
 								<a href="/pins/oldestpublishedfilter">Oldest Published</a>	
 								<a href="/pins/purge_old_pins">Purge Old Pins</a>
 							</div>
-					</div>	
-				
-				<script>
-				/* When the user clicks on the button, 
-				toggle between hiding and showing the dropdown content */
-					function openDropdown() {
-						document.getElementById("myDropdown").classList.toggle("show");
-					}
-				// Close the dropdown if the user clicks outside of it
-					window.onclick = function(event) {
-						if (!event.target.matches('.dropbtn')) {
-							var dropdowns = document.getElementsByClassName("dropdown-content");
-							var i;
-							for (i = 0; i < dropdowns.length; i++) {
-								var openDropdown = dropdowns[i];
-								if (openDropdown.classList.contains('show')) {
-									openDropdown.classList.remove('show');
-								}
-							}
-						}
-					}
-				</script>
-				
+					</div>					
 
 				<ul class="object-tools">
 					<li>
@@ -176,10 +154,12 @@
 					
 				{% endfor %}	
 				
+				<br />
+				
 				<!-- Dropdown for old pins starts here -->
 				<a>
-				<button onclick="openDropdown()" id="accountbutton">Show Passed Pins</button>
-					<div id="myDropdown" class="dropdown-profile-content">
+				<button onclick="openDropdown2()" id="accountbutton">Show Passed Pins</button>
+					<div id="myDropdown2" class="dropdown-profile-content">
 					
 						{% for pin in old_pin_list %}
 							
@@ -255,6 +235,32 @@
 	<footer id="footer"> </footer>
 	
 </body>
+
+				
+						
+<script>
+	/* When the user clicks on the button, 
+	toggle between hiding and showing the dropdown content */
+	function openDropdown() {
+		document.getElementById("myDropdown").classList.toggle("show");
+		}
+	// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+			if (!event.target.matches('.dropbtn')) {
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
+	function openDropdown2() {
+		document.getElementById("myDropdown2").classList.toggle("show");
+		}
+</script>
 
 <script>
 	if ( window.history.replaceState ) {
