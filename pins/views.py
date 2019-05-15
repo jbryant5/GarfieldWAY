@@ -11,7 +11,6 @@ from django.shortcuts import render, redirect
 from .models import Pin, Vote
 from .forms import PinForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
@@ -22,7 +21,7 @@ from datetime import datetime, timedelta
 # import time
 
 
-def index(request): 
+def index(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
     context = {
         'pin_list': latest_pin_list
@@ -30,16 +29,49 @@ def index(request):
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
  
+# def vote(request):
+#    pin = Pin.objects.get(id=request.GET.get('pin_id'))
+#    pin.votes += int(request.GET.get('vote'))
+#    pin.save()
+#    return redirect('/pins')    
+
 def vote(request):
-   value=int(request.GET.get('vote'))
-   pin.votes +=value
-   
-   if value==1:
-      vote.upvote=True
+   pin = Pin.objects.get(id=request.GET.get('pin_id'))
+   vote = Vote.objects.filter(user=request.user, pin=pin) 
+   if request.GET.get('vote') == 'upvote':
+     if vote is None:
+        vote = Vote()
+        vote.upvote = True
+        vote.user = request.user
+        vote.pin = pin
+        vote.save()
+        pin.votes += 1
+        pin.save()
+     else:
+        vote.upvote = True
+        #vote.save()
+        pin.votes += 1
+        pin.save()
    else:
-      vote.upvote=False
-   pin.save()
-   return redirect('/pins')    
+     if pin.votes <= 0:
+        pin.votes == pin.votes
+        vote.upvote = False
+        vote.save()
+     else:
+        pin.votes -= 1
+        pin.save()
+        vote.upvote = False
+        vote.save()
+   return redirect('/pins')
+
+def mypinsfilter(request):
+    my_pin_list = Pin.objects.filter(user=request.user)
+    ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+    context = {
+        'pin_list': ordered_my_pin_list
+    }
+    template = loader.get_template('pins/index.html')
+    return HttpResponse(template.render(context, request))
 
 def recentlypublishedfilter(request):
     latest_pin_list = Pin.objects.order_by('-pub_date')
@@ -163,6 +195,23 @@ def delete(request, pin_id):
    }
    return HttpResponse(template.render(context, request))
 
+def purge_old_pins (request):
+   #  schedule.every().day.at("10:18").do(purge_old_pins(request))
+   #  while True:
+   #     schedule.run_pending()
+   #     #time.sleep(1) 
+       now = timezone.now()
+       upcoming = Pin.objects.filter(date__gte=now).order_by('date')
+       passed = Pin.objects.filter(date__lt=now).order_by('-date')
+       if (passed):
+          #passed.exclude() hides pins that have passed just while on the purge old pins url
+          passed.delete()
+       upcoming_pin_list = list(upcoming)
+       context = {
+          'pin_list': upcoming_pin_list
+       }
+       template = loader.get_template('pins/index.html')
+       return HttpResponse(template.render(context, request))
 
 def clear(request):
     Pin.objects.all().delete()
@@ -179,5 +228,3 @@ def test(request):
     
 def getAllRoomPins (request):
     return HttpResponse("Number of Pins: " + str(numberOfPins))
-
-

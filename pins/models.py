@@ -41,10 +41,6 @@ class Pin(models.Model):
    pin_type = models.CharField(choices = TYPE_CHOICES, max_length=10, default='Other', null=True) #pull down for the types of activities
    votes=models.IntegerField(default=0)
    date = models.DateTimeField(auto_now_add = False, blank=True)
-   
-   user = models.ForeignKey(User, related_name='user_pin_set', on_delete=models.CASCADE)
-   voters=models.ManyToManyField(User, related_name='voter_pin_set',)
-   
    def __str__(self):
       return self.pin_name      
    
@@ -52,6 +48,11 @@ class Vote(models.Model):
    upvote = models.BooleanField(default=False)
    user = models.ForeignKey(User, on_delete=models.CASCADE)
    pin = models.ForeignKey(Pin, on_delete=models.CASCADE)
+   
+   def save(self, **kwargs):
+      self.clean()
+      print ('The form is saving')
+      return super(Vote, self).save(**kwargs)
    
 
    
