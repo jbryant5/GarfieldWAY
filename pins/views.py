@@ -21,12 +21,10 @@ from datetime import datetime, timedelta
 
 
 def index(request):
-#    now = timezone.now()
    buffertime = (timezone.now() - timedelta(days=1))
-   upcoming = Pin.objects.filter(date__gte=buffertime).order_by('date')
-   passed = Pin.objects.filter(date__lt=buffertime).order_by('-date')
-   upcoming_pin_list = list(upcoming)
-   passed_pin_list = list(passed)
+   passedtime = (timezone.now() - timedelta(days=7))
+   upcoming_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('date')
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
    context = {
         'pin_list': upcoming_pin_list,
         'old_pin_list': passed_pin_list,
@@ -41,12 +39,15 @@ def vote(request):
    return redirect('/pins')    
 
 def mypinsfilter(request):
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
    current_user = request.user
    if current_user.is_authenticated:
-      my_pin_list = Pin.objects.filter(user=request.user)
-      ordered_my_pin_list = my_pin_list.order_by('-pub_date')
+      my_pin_list = Pin.objects.filter(user=request.user, date__gte=buffertime).order_by('-pub_date')
       context = {
-         'pin_list': ordered_my_pin_list
+        'pin_list': my_pin_list,
+        'old_pin_list': passed_pin_list,
       }
       template = loader.get_template('pins/index.html')
       return HttpResponse(template.render(context, request))
@@ -54,53 +55,61 @@ def mypinsfilter(request):
       return redirect('/accounts/login') 
 
 def recentlypublishedfilter(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')
+    buffertime = (timezone.now() - timedelta(days=1))
+    passedtime = (timezone.now() - timedelta(days=7))
+    passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+    latest_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('-pub_date')
     context = {
-        'pin_list': latest_pin_list
+        'pin_list': latest_pin_list,
+        'old_pin_list': passed_pin_list,
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
     
 def oldestpublishedfilter(request):
-    latest_pin_list = Pin.objects.order_by('pub_date')  
+    buffertime = (timezone.now() - timedelta(days=1))
+    passedtime = (timezone.now() - timedelta(days=7))
+    passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+    latest_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pub_date')
     context = {
-        'pin_list': latest_pin_list
+        'pin_list': latest_pin_list,
+        'old_pin_list': passed_pin_list,
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
 
-def upcomingfilter(request):
-   now = timezone.now()
-   buffertime = (timezone.now() + timedelta(days=1))
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=buffertime).order_by('-date')
-   upcoming_pin_list = list(upcoming)
-   context = {
-        'pin_list': upcoming_pin_list
-   }
-   template = loader.get_template('pins/index.html')
-   return HttpResponse(template.render(context, request))
-
 def lowestroomfilter(request):
-   room_pin_list = Pin.objects.order_by('pin_room')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   room_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pin_room', 'date')
    context = {
-        'pin_list': room_pin_list
+        'pin_list': room_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
    
 def highestroomfilter(request):
-   room_pin_list = Pin.objects.order_by('-pin_room')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   room_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('-pin_room', 'date')
    context = {
-        'pin_list': room_pin_list
+        'pin_list': room_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def typefilter(request):
-   type_pin_list = Pin.objects.order_by('pin_type', '-date')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   type_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pin_type', 'date')
    context = {
-        'pin_list': type_pin_list
+        'pin_list': type_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))

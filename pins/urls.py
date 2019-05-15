@@ -14,7 +14,6 @@ urlpatterns = [
    url('vote/', views.vote, name='vote'),
    url('mypinsfilter/', views.mypinsfilter, name='mypinsfilter'),
    url('typefilter/', views.typefilter, name='typefilter'),
-   url('upcomingfilter/', views.upcomingfilter, name='upcomingfilter'),
    url('lowestroomfilter/', views.lowestroomfilter, name='lowestroomfilter'),
    url('highestroomfilter/', views.highestroomfilter, name='highestroomfilter'),
    url('recentlypublishedfilter/', views.recentlypublishedfilter, name='recentlypublishedfilter'),
