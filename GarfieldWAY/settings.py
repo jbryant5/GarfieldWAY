@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ['SECRET'] if 'SECRET' in os.environ else '0@@!tw)+0j_#nl!o372759p0x@oh-dwl+w_rl^7jiexgusqz@2'
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com', 'localhost' ]
+ALLOWED_HOSTS = [ 'garfield-way.herokuapp.com', 'localhost', 'www2.garfieldway.com', 'www.garfieldway.com' ]
 
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
