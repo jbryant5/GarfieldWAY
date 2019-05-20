@@ -18,5 +18,4 @@ urlpatterns = [
    url('highestroomfilter/', views.highestroomfilter, name='highestroomfilter'),
    url('recentlypublishedfilter/', views.recentlypublishedfilter, name='recentlypublishedfilter'),
    url('oldestpublishedfilter/', views.oldestpublishedfilter, name='oldestpublishedfilter'),
-   url('purge_old_pins/', views.purge_old_pins, name='purge_old_pins')
 ]   
