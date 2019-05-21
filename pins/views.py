@@ -8,7 +8,7 @@ from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, redirect
-from .models import Pin, Vote
+from .models import Pin
 from .forms import PinForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
@@ -37,31 +37,16 @@ def index(request):
 
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
-   vote = Vote.objects.filter(user=request.user, pin=pin) 
-   if request.GET.get('vote') == 'upvote':
-     if vote is None:
-        vote = Vote()
-        vote.upvote = True
-        vote.user = request.user
-        vote.pin = pin
-        vote.save()
-        pin.votes += 1
-        pin.save()
-     else:
-        vote.upvote = True
-        #vote.save()
-        pin.votes += 1
-        pin.save()
+   user=request.user
+   if request.GET.get('vote') =='upvote' :
+      if not pin.voters.filter(id=user.id).exists():
+         pin.voters.add(request.user)
    else:
-     if pin.votes <= 0:
-        pin.votes == pin.votes
-        vote.upvote = False
-        vote.save()
-     else:
-        pin.votes -= 1
-        pin.save()
-        vote.upvote = False
-        vote.save()
+      if pin.voters.filter(id=user.id).exists():
+         pin.voters.remove(request.user)
+         
+   pin.votes=pin.voters.count()
+   pin.save()
    return redirect('/pins')
 
 def mypinsfilter(request):

@@ -159,12 +159,11 @@
 						{% if user.is_authenticated %}
 						<form method="get" action="/pins/vote/" />
 							<input type="hidden" name="pin_id" value="{{ pin.id }}" voter=user />
-							<!-- {% if vote.upvote == false and vote.user == voter %} -->
+			
 							<button type="upvote" id="upvote" name="vote" value="upvote" >I'm coming!</button>
-							<!-- {% endif %} -->
-							<!-- {% if vote.upvote == true and vote.user == voter %} -->
+							
 							<button type="downvote" id="downvote" name="vote" value="downvote" >Can't make it!</button>
-							<!-- {% endif %} -->
+							
 						</form>
 						{% endif %}
 						

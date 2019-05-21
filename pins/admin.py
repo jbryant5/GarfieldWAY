@@ -7,7 +7,6 @@ from django.contrib import admin
 from django.contrib import admin
 
 from .models import Pin
-from .models import Vote
 
 def make_club(modeladmin, request, queryset):
    queryset.update(status='c')
@@ -22,5 +21,4 @@ class PinAdmin(admin.ModelAdmin):
     ordering = ['pub_date']
     actions = [make_club, make_public]
 
-admin.site.register(Vote)
 admin.site.register(Pin, PinAdmin)

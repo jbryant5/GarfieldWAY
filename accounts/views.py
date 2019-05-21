@@ -8,7 +8,7 @@ from django.template import loader
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
-from pins.models import Pin, Vote
+from pins.models import Pin
 from .forms import SignUpForm
 from django.shortcuts import render, redirect
 from .forms import RemoveUser
