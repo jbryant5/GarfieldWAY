@@ -3,7 +3,6 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, get_object_or_404
 
 from django.utils import timezone
-from datetime import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -15,19 +14,23 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 from django.forms.widgets import SelectDateWidget
-from django.core.management.base import BaseCommand, CommandError 
+from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime, timedelta
 # import schedule
 # import time
 
 
 def index(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')
-    context = {
-        'pin_list': latest_pin_list
-    }
-    template = loader.get_template('pins/index.html')
-    return HttpResponse(template.render(context, request))
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   upcoming_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('date')
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   context = {
+        'pin_list': upcoming_pin_list,
+        'old_pin_list': passed_pin_list,
+   }
+   template = loader.get_template('pins/index.html')
+   return HttpResponse(template.render(context, request))
  
 # def vote(request):
 #    pin = Pin.objects.get(id=request.GET.get('pin_id'))
@@ -50,61 +53,77 @@ def vote(request):
    return redirect('/pins')
 
 def mypinsfilter(request):
-    my_pin_list = Pin.objects.filter(user=request.user)
-    ordered_my_pin_list = my_pin_list.order_by('-pub_date')
-    context = {
-        'pin_list': ordered_my_pin_list
-    }
-    template = loader.get_template('pins/index.html')
-    return HttpResponse(template.render(context, request))
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   current_user = request.user
+   if current_user.is_authenticated:
+      my_pin_list = Pin.objects.filter(user=request.user, date__gte=buffertime).order_by('-pub_date')
+      context = {
+        'pin_list': my_pin_list,
+        'old_pin_list': passed_pin_list,
+      }
+      template = loader.get_template('pins/index.html')
+      return HttpResponse(template.render(context, request))
+   else:
+      return redirect('/accounts/login') 
 
 def recentlypublishedfilter(request):
-    latest_pin_list = Pin.objects.order_by('-pub_date')
+    buffertime = (timezone.now() - timedelta(days=1))
+    passedtime = (timezone.now() - timedelta(days=7))
+    passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+    latest_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('-pub_date')
     context = {
-        'pin_list': latest_pin_list
+        'pin_list': latest_pin_list,
+        'old_pin_list': passed_pin_list,
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
     
 def oldestpublishedfilter(request):
-    latest_pin_list = Pin.objects.order_by('pub_date')  
+    buffertime = (timezone.now() - timedelta(days=1))
+    passedtime = (timezone.now() - timedelta(days=7))
+    passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+    latest_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pub_date')
     context = {
-        'pin_list': latest_pin_list
+        'pin_list': latest_pin_list,
+        'old_pin_list': passed_pin_list,
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
 
-def upcomingfilter(request):
-   now = timezone.now()
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=now).order_by('-date')
-   upcoming_pin_list = list(upcoming) + list(passed)
-   context = {
-        'pin_list': upcoming_pin_list
-   }
-   template = loader.get_template('pins/index.html')
-   return HttpResponse(template.render(context, request))
-
 def lowestroomfilter(request):
-   room_pin_list = Pin.objects.order_by('pin_room')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   room_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pin_room', 'date')
    context = {
-        'pin_list': room_pin_list
+        'pin_list': room_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
    
 def highestroomfilter(request):
-   room_pin_list = Pin.objects.order_by('-pin_room')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   room_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('-pin_room', 'date')
    context = {
-        'pin_list': room_pin_list
+        'pin_list': room_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def typefilter(request):
-   type_pin_list = Pin.objects.order_by('pin_type', '-date')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   type_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pin_type', 'date')
    context = {
-        'pin_list': type_pin_list
+        'pin_list': type_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
