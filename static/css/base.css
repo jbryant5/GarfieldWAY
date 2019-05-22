@@ -342,9 +342,24 @@ div.delete-button button{
     margin-right: -300px;
 }
 
-#footer {
+.footer {
+	padding-top: 6px;
+	margin-left: 16px;
+	width: auto;
+    height: 20px;
+    background: white;
     clear: both;
-    padding: 10px;
+}
+
+#footerlink {
+	margin-top: 10px;
+	font-size: 12px;
+	color: #666;
+	cursor: pointer;
+}
+
+#footerlink:hover {
+    color: #39004d;
 }
 
 /* FORM BUTTONS */
