@@ -40,9 +40,11 @@ class Pin(models.Model):
 
    pub_date = models.DateTimeField(auto_now_add = True)
    pin_type = models.CharField(choices = TYPE_CHOICES, max_length=10, default='Other', null=True) #pull down for the types of activities
-   voters=models.ManyToManyField(User)
+   voters=models.ManyToManyField(User, related_name = 'voters')
    votes=models.IntegerField(default=0)
    date = models.DateTimeField(auto_now_add = False, blank=True)
+   user = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
+   
    def __str__(self):
       return self.pin_name      
    
