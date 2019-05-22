@@ -16,8 +16,7 @@ from django.shortcuts import render, redirect
 from django.forms.widgets import SelectDateWidget
 from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime, timedelta
-# import schedule
-# import time
+
 
 
 def index(request):
@@ -30,13 +29,7 @@ def index(request):
         'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
-   return HttpResponse(template.render(context, request))
- 
-# def vote(request):
-#    pin = Pin.objects.get(id=request.GET.get('pin_id'))
-#    pin.votes += int(request.GET.get('vote'))
-#    pin.save()
-#    return redirect('/pins')    
+   return HttpResponse(template.render(context, request))   
 
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
@@ -208,8 +201,8 @@ def purge_old_pins (request):
        upcoming = Pin.objects.filter(date__gte=now).order_by('date')
        passed = Pin.objects.filter(date__lt=now).order_by('-date')
        if (passed):
-          #passed.exclude() hides pins that have passed just while on the purge old pins url
-          passed.delete()
+          passed.exclude() #hides pins that have passed just while on the purge old pins url
+          #passed.delete()
        upcoming_pin_list = list(upcoming)
        context = {
           'pin_list': upcoming_pin_list
