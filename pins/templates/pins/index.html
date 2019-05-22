@@ -30,18 +30,19 @@
 				{% else %}
 				
 				Welcome,
-                <strong>user</strong>.
+                <strong>guest</strong>.
 				
 				{% endif %}
 				
 				<a href="/pins" id="userlink">Home</a> /
 				
+				<a href="/accounts/profile" id="userlink">Profile</a> /
+				
 				<a href="/accounts/signup" id="userlink">Sign up</a> /
 
 				<a href="/accounts/login" id="userlink">Log in</a> /
 
-				<a href="/accounts/logout" id="userlink">Log out</a>
-				
+				<a href="/accounts/logout" id="userlink">Log out</a> 				
 
                 </div>
         </div>
@@ -54,50 +55,29 @@
 		
 		<div id="content" class="flex">
 		
-            <h1 id="title">Pin List</h1>
+            <h1>Pin List</h1>
 		
 			<div id="content-main">
 				
 					<div class="dropdown">
 						<button onclick="openDropdown()" class="dropbtn">Filter pin list</button>
 							<div id="myDropdown" class="dropdown-content">	
-								<a href="/pins/upcomingfilter/">Upcoming</a>
+								<a href="/pins">Upcoming</a>
+								<a href="/pins/mypinsfilter/">My Pins</a>
 								<a href="/pins/typefilter/">Type</a>
 								<a href="/pins/lowestroomfilter/">Lowest Room Number</a>
 								<a href="/pins/highestroomfilter/">Highest Room Number</a>
 								<a href="/pins/recentlypublishedfilter">Recently Published</a>
 								<a href="/pins/oldestpublishedfilter">Oldest Published</a>	
-								<a href="/pins/purge_old_pins">Purge Old Pins</a>
 							</div>
-					</div>	
-				
-				<script>
-				/* When the user clicks on the button, 
-				toggle between hiding and showing the dropdown content */
-					function openDropdown() {
-						document.getElementById("myDropdown").classList.toggle("show");
-					}
-				// Close the dropdown if the user clicks outside of it
-					window.onclick = function(event) {
-						if (!event.target.matches('.dropbtn')) {
-							var dropdowns = document.getElementsByClassName("dropdown-content");
-							var i;
-							for (i = 0; i < dropdowns.length; i++) {
-								var openDropdown = dropdowns[i];
-								if (openDropdown.classList.contains('show')) {
-									openDropdown.classList.remove('show');
-								}
-							}
-						}
-					}
-				</script>
-				
+					</div>					
+
 				<ul class="object-tools">
 					<li>
 						<a href="/pins/create/" class="addlink">Add pin</a>
 					</li>
                 </ul>
-				<h1 id="title">v	Upcoming Pins   v</h1>
+
 				{% for pin in pin_list %}
 					
 					<div class="pinlist">
@@ -136,106 +116,114 @@
 							<b>Up Votes:</b> {{pin.votes}}
 						</li>
 						
+						<li>
+							<b>Posted by:</b> @{{pin.user.get_username}}
+						</li>
+						
 						<div id="linkdiv">
+						
+						{% if user == pin.user %}
 				
 							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
 						
 							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+							
+						{% endif %}
 						
 						</div>
-								
+							
+						{% if user.is_authenticated %}
 						<form method="get" action="/pins/vote/" />
-							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
-							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+							<input type="hidden" name="pin_id" value="{{ pin.id }}" voter=user />
+			
+							<button type="upvote" id="upvote" name="vote" value="upvote" >I'm coming!</button>
+							
+							<button type="downvote" id="downvote" name="vote" value="downvote" >Can't make it!</button>
+							
 						</form>
+						{% endif %}
 						
-						<script> 
-						function buttonClick(button, button2) { 
-								button.style.visibility = "hidden";
-								button2.style.visibility = "visible";
-								if (button.type='upvote')
-									pin.votes+=1;
-								else
-									pin.votes-=1;
-						}
-						</script>
+						
+						
 				
 					</div>
 					
 				{% endfor %}	
-			{% if old_pin_list %}
-				<h1 id="title">v 	Old Pins   v</h1>
 				
-			{% endif %}
-				{% for pin in old_pin_list %}
+				<br />
+				
+				<!-- Dropdown for old pins starts here -->
+				<a>
+				<button onclick="openDropdown2()" id="accountbutton">Show Passed Pins</button>
+					<div id="myDropdown2" class="dropdown-profile-content">
 					
-					<div class="pinlist">
-						
-						<div>
-						
-							<h1>
-								
-								{{ pin.pin_name }}			
-						
-							</h1>
+						{% for pin in old_pin_list %}
 							
-						</div>	
-						
-						<li>
-							<b>Description:</b> {{ pin.pin_description }}
-						</li>
-						
-						<li>
-							<b>Room:</b> {{ pin.pin_room }}
-						</li>
-						
-						<li>
-							<b>Other Room:</b> {{ pin.other_pin_room }}
-						</li>
-						
-						<li>
-							<b>Type:</b> {{ pin.pin_type }}
-						</li>
-						
-						<li>
-							<b>Date:</b> {{ pin.date }}
-						</li>
-				
-						<li>
-							<b>Up Votes:</b> {{pin.votes}}
-						</li>
-						
-						<div id="linkdiv">
-				
-							<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
-						
-							<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
-						
-						</div>
+							<div class="pinlist">
 								
-						<form method="get" action="/pins/vote/" />
-							<input type="hidden" name="pin_id" value="{{ pin.id }}" />
-							<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
-							<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
-						</form>
+								<div>
+								
+									<h1>
+										
+										{{ pin.pin_name }}			
+								
+									</h1>
+									
+								</div>	
+								
+								<li>
+									<b>Description:</b> {{ pin.pin_description }}
+								</li>
+								
+								<li>
+									<b>Room:</b> {{ pin.pin_room }}
+								</li>
+								
+								<li>
+									<b>Other Room:</b> {{ pin.other_pin_room }}
+								</li>
+								
+								<li>
+									<b>Type:</b> {{ pin.pin_type }}
+								</li>
+								
+								<li>
+									<b>Date:</b> {{ pin.date }}
+								</li>
 						
-						<script> 
-						function buttonClick(button, button2) { 
-								button.style.visibility = "hidden";
-								button2.style.visibility = "visible";
-								if (button.type='upvote')
-									pin.votes+=1;
-								else
-									pin.votes-=1;
-						}
-						</script>
+								<li>
+									<b>Up Votes:</b> {{pin.votes}}
+								</li>
+								
+								<li>
+									<b>Posted by:</b> @{{pin.user.get_username}}
+								</li>
+								
+								<div id="linkdiv">
+								
+								{% if user == pin.user %}
+						
+									<a href="{% url 'pins:delete' pin.id %}" id="deletelink">Delete pin</a>
+								
+									<a href="{% url 'pins:edit' pin.id %}" id="changelink">Edit pin</a>
+									
+								{% endif %}
+								
+								</div>
+										
+								<form method="get" action="/pins/vote/" />
+									<input type="hidden" name="pin_id" value="{{ pin.id }}" />
+									<button type="upvote" id="upvote" name="vote" value="1">I'm coming!</button>
+									<button type="downvote" id="downvote" name="vote" value="-1">Can't make it!</button>
+								</form>
+						
+							</div>
+							
+						{% endfor %}	
+
+					</div>	
+				</a>
 				
-					</div>
-					
-				{% endfor %}
-			</div>	
-		
 		</div>
 	
 	</div>
@@ -243,6 +231,32 @@
 	<footer id="footer"> </footer>
 	
 </body>
+
+				
+						
+<script>
+	/* When the user clicks on the button, 
+	toggle between hiding and showing the dropdown content */
+	function openDropdown() {
+		document.getElementById("myDropdown").classList.toggle("show");
+		}
+	// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+			if (!event.target.matches('.dropbtn')) {
+				var dropdowns = document.getElementsByClassName("dropdown-content");
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+					}
+				}
+			}
+		}
+	function openDropdown2() {
+		document.getElementById("myDropdown2").classList.toggle("show");
+		}
+</script>
 
 <script>
 	if ( window.history.replaceState ) {

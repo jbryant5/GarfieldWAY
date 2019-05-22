@@ -16,7 +16,7 @@
         <div id="main">
             <div id="header">
                 <h1 id="site">
-                    <a href="/pins">GarfieldWAY</a>
+                    GarfieldWAY
                 </h1>
                     <div id="user-tools">
         
@@ -28,53 +28,74 @@
 					{% else %}
 					
 					Welcome,
-					<strong>guest</strong>.
+					<strong>user</strong>.
 					
 					{% endif %}
         
 					<a href="/pins" id="userlink">Home</a> /
-				
-					<a href="/accounts/profile" id="userlink">Profile</a> /
 					
 					<a href="/accounts/signup" id="userlink">Sign up</a> /
 
 					<a href="/accounts/login" id="userlink">Log in</a> /
 
-					<a href="/accounts/logout" id="userlink">Log out</a> 
+					<a href="/accounts/logout" id="userlink">Log out</a> /
+					
+					<a href="/accounts/remove" id="userlink">Delete User</a> 
         
                     </div>
             </div>
                 
             <div class="breadcrumbs">
                 
-				<a href="/pins/">Home ›</a> Accounts › <a href="/accounts/login">Login</a>
+				<a href="/pins/">Home ›</a> Accounts › <a href="/accounts/remove">Delete User</a>
                     
             </div>
 			
 			<div id="content" class="flex">
-			
-            <h1>Login</h1>
+				
 		
 				<div id="content-main">
 	
-					<form method="post"> 
+					<form action="" method="post" id="pin_form" novalidate="">
+						{% csrf_token %}
 						
-						{% csrf_token %} 
-						{{ form.as_p }}
-						
-					<button type="submit" id="accountbutton">Login</button>
-						
-					</form> 
 					
-					<a href="/accounts/password_reset" id="forgotlink"> Forgot password? </a>
+					<h1 id="title">We're Sorry to See You Go</h1>
+					
+					
+					<ul class="object-tools">
+				
+						<li>
+					
+							<a href="/pins/" class="addlink">Cancel</a>
+					
+						</li>
+					
+					</ul>
+					
+				<div>
+					<div>
+					
+					<h2 id="delete-text">Are you sure that you want to delete your account? This action cannot be undone.</h2>
+						<div class="delete-button">
+				
+							<ul class="object-tools">
+					
+								<a href="/pins" id="deletelink"><button type="submit">Yes</button></a>
+						
+							</ul>	
+					
+						</div>
+					</div>
+						
+					</form> 					
 				
 				</div>	
 		
-			</div>
+				</div>
 		
 		</div>
 				
 	</body>
 				
 </html>
-	

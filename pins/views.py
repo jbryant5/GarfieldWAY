@@ -3,154 +3,164 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, get_object_or_404
 
 from django.utils import timezone
-from datetime import datetime
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.shortcuts import render, redirect
-from .models import Pin, Vote
+from .models import Pin
 from .forms import PinForm
-from django.contrib.auth import login, authenticate
-
-
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
-from django.core.management.base import BaseCommand, CommandError 
+from django.forms.widgets import SelectDateWidget
+from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime, timedelta
-#import schedule
-import time
+# import schedule
+# import time
 
 
 def index(request):
-   now = timezone.now()
-   # latest_pin_list = Pin.objects.order_by('-pub_date')
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=now).order_by('-date')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   upcoming_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('date')
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
    context = {
-       'pin_list': upcoming,
-       'old_pin_list': passed
+        'pin_list': upcoming_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
  
+# def vote(request):
+#    pin = Pin.objects.get(id=request.GET.get('pin_id'))
+#    pin.votes += int(request.GET.get('vote'))
+#    pin.save()
+#    return redirect('/pins')    
+
 def vote(request):
    pin = Pin.objects.get(id=request.GET.get('pin_id'))
-   pin.votes += int(request.GET.get('vote'))
+   user=request.user
+   if request.GET.get('vote') =='upvote' :
+      if not pin.voters.filter(id=user.id).exists():
+         pin.voters.add(request.user)
+   else:
+      if pin.voters.filter(id=user.id).exists():
+         pin.voters.remove(request.user)
+         
+   pin.votes=pin.voters.count()
    pin.save()
-   return redirect('/pins')    
+   return redirect('/pins')
+
+def mypinsfilter(request):
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   current_user = request.user
+   if current_user.is_authenticated:
+      my_pin_list = Pin.objects.filter(user=request.user, date__gte=buffertime).order_by('-pub_date')
+      context = {
+        'pin_list': my_pin_list,
+        'old_pin_list': passed_pin_list,
+      }
+      template = loader.get_template('pins/index.html')
+      return HttpResponse(template.render(context, request))
+   else:
+      return redirect('/accounts/login') 
 
 def recentlypublishedfilter(request):
-    now = timezone.now()
-    upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-    passed = Pin.objects.filter(date__lt=now).order_by('-date')
-    upcoming = upcoming.order_by('-pub_date')
-    passed = passed.order_by('-pub_date')
+    buffertime = (timezone.now() - timedelta(days=1))
+    passedtime = (timezone.now() - timedelta(days=7))
+    passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+    latest_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('-pub_date')
     context = {
-        'pin_list': upcoming,
-        'old_pin_list': passed
+        'pin_list': latest_pin_list,
+        'old_pin_list': passed_pin_list,
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
     
 def oldestpublishedfilter(request):
-    now = timezone.now()
-    upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-    passed = Pin.objects.filter(date__lt=now).order_by('-date')
-    upcoming = upcoming.order_by('pub_date')  
-    passed = passed.order_by('pub_date')
+    buffertime = (timezone.now() - timedelta(days=1))
+    passedtime = (timezone.now() - timedelta(days=7))
+    passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+    latest_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pub_date')
     context = {
-        'pin_list': upcoming,
-        'old_pin_list': passed
+        'pin_list': latest_pin_list,
+        'old_pin_list': passed_pin_list,
     }
     template = loader.get_template('pins/index.html')
     return HttpResponse(template.render(context, request))
 
-def upcomingfilter(request):
-   now = timezone.now()
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=now).order_by('-date')
-   context = {
-        'pin_list': upcoming,
-        'old_pin_list': passed
-   }
-   template = loader.get_template('pins/index.html')
-   return HttpResponse(template.render(context, request))
-
 def lowestroomfilter(request):
-   now = timezone.now()
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=now).order_by('-date')
-   upcoming = upcoming.order_by('pin_room')
-   passed = passed.order_by('pin_room')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   room_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pin_room', 'date')
    context = {
-        'pin_list': upcoming,
-        'old_pin_list': passed
+        'pin_list': room_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
    
 def highestroomfilter(request):
-   now = timezone.now()
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=now).order_by('-date')
-   upcoming = upcoming.order_by('-pin_room')
-   passed = passed.order_by('-pin_room')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   room_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('-pin_room', 'date')
    context = {
-        'pin_list': upcoming,
-        'old_pin_list': passed
+        'pin_list': room_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def typefilter(request):
-   now = timezone.now()
-   upcoming = Pin.objects.filter(date__gte=now).order_by('date')
-   passed = Pin.objects.filter(date__lt=now).order_by('-date')
-   upcoming = upcoming.order_by('pin_type', '-date')
-   passed = passed.order_by('pin_type', '-date')
+   buffertime = (timezone.now() - timedelta(days=1))
+   passedtime = (timezone.now() - timedelta(days=7))
+   passed_pin_list = Pin.objects.filter(date__lt=buffertime, date__gte=passedtime).order_by('-date')
+   type_pin_list = Pin.objects.filter(date__gte=buffertime).order_by('pin_type', 'date')
    context = {
-        'pin_list': upcoming,
-        'old_pin_list': passed
+        'pin_list': type_pin_list,
+        'old_pin_list': passed_pin_list,
    }
    template = loader.get_template('pins/index.html')
    return HttpResponse(template.render(context, request))
 
 def create(request):
-    if request.method == 'GET':
-       latest_pin_list = Pin.objects.order_by('-date')
-       template = loader.get_template('pins/create.html')
-       context = {
-           'pin_list': latest_pin_list, 'pin_form': PinForm,
-       }
-       return HttpResponse(template.render(context, request))
-       
-    elif request.method == 'POST':
-       pin = Pin ()  
-       pin.pin_name = request.POST.get('pin_name')
-       pin.pin_room = request.POST.get('pin_room')
-       pin.other_pin_room = request.POST.get('other_pin_room')
-       pin.pin_description = request.POST.get('pin_description')
-       pin.date = request.POST.get('date')
-       pin.pin_type = request.POST.get('pin_type')
-       pin.save()
-       form = PinForm(request.POST, instance=pin)
-#        if form.is_valid():
-#          pin = form.save(commit=False)
-#          pin.save()
-#        else:
-#          # form = PinForm()
-#          return render(request, 'pins/create.html', {'pin_form': form})
-
-
-       if request.POST.get('_save') is not None:
-         return redirect('/pins')
-       else:
-         return redirect('/pins/create')
+   current_user = request.user
+   if current_user.is_authenticated:
+       if request.method == 'GET':
+          latest_pin_list = Pin.objects.order_by('-date')
+          template = loader.get_template('pins/create.html')
+          context = {
+              'pin_list': latest_pin_list, 'pin_form': PinForm,
+          }
+          return HttpResponse(template.render(context, request))
+          
+       elif request.method == 'POST':
+          pin = Pin ()  
+          pin.user = current_user
+          pin.pin_name = request.POST.get('pin_name')
+          pin.pin_room = request.POST.get('pin_room')
+          pin.other_pin_room = request.POST.get('other_pin_room')
+          pin.pin_description = request.POST.get('pin_description')
+          pin.date = request.POST.get('date')
+          pin.pin_type = request.POST.get('pin_type')
+          pin.save()
+          form = PinForm(request.POST, instance=pin)
+          if request.POST.get('_save') is not None:
+            return redirect('/pins')
+          else:
+            return redirect('/pins/create')
+   else:
+      return redirect('/accounts/login')
 
 def edit(request, pin_id):
     pin = get_object_or_404(Pin, pk=pin_id)
+    if request.user != pin.user:
+      return redirect('/pins')
     if request.method == 'POST':
       form = PinForm(request.POST, instance=pin)
       if form.is_valid():
@@ -175,6 +185,8 @@ def edit(request, pin_id):
 
 def delete(request, pin_id):
    pin = get_object_or_404(Pin, pk=pin_id)
+   if request.user != pin.user:
+      return redirect('/pins')
    if request.method == 'POST':
       form = PinForm(request.POST, instance=pin)
       pin.delete()
@@ -220,5 +232,3 @@ def test(request):
     
 def getAllRoomPins (request):
     return HttpResponse("Number of Pins: " + str(numberOfPins))
-
-    
