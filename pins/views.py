@@ -191,6 +191,9 @@ def delete(request, pin_id):
       'pin_form': form,
    }
    return HttpResponse(template.render(context, request))
+   
+def home_redirect(request):
+   return HttpResponseRedirect("/pins")   
 
 def purge_old_pins (request):
    #  schedule.every().day.at("10:18").do(purge_old_pins(request))

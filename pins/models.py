@@ -28,7 +28,7 @@ TYPE_CHOICES = (
 class Pin(models.Model):
    pin_name = models.CharField(max_length=100)
    pin_description = models.CharField(max_length=300, null = True, blank=True)
-   pin_room = models.CharField(max_length=20, null=True, blank=True)
+   pin_room = models.CharField(max_length=4, null=True, blank=True)
    other_pin_room = models.CharField(max_length=100, null=True, blank=True)
    created_at = models.DateTimeField(auto_now_add=True)
    updated_at = models.DateTimeField(auto_now=True)
