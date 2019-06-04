@@ -18,7 +18,6 @@ from django.core.management.base import BaseCommand, CommandError
 from datetime import datetime, timedelta
 
 
-
 def index(request):
    buffertime = (timezone.now() - timedelta(days=1))
    passedtime = (timezone.now() - timedelta(days=7))
@@ -191,9 +190,7 @@ def delete(request, pin_id):
       'pin_form': form,
    }
    return HttpResponse(template.render(context, request))
-   
-def home_redirect(request):
-   return HttpResponseRedirect("/pins")   
+
 
 def purge_old_pins (request):
    #  schedule.every().day.at("10:18").do(purge_old_pins(request))
