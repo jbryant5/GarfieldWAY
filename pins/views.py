@@ -210,9 +210,9 @@ def purge_old_pins (request):
        template = loader.get_template('pins/index.html')
        return HttpResponse(template.render(context, request))
 
-def clear(request):
-    Pin.objects.all().delete()
-    return HttpResponse ('Cleared pins')
+# def clear(request):
+#     Pin.objects.all().delete()
+#     return HttpResponse ('Cleared pins')
 
 def test(request):
     test_pin = Pin ()
